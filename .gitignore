@@ -1,5 +1,9 @@
 # Other
 README.md
+HOWTO.md
 
 # Environment Variables
 .env
+
+# modules
+./collector/.venv
