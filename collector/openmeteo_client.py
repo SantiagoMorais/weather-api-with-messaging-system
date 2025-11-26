@@ -19,9 +19,9 @@ def fetch_weather():
     openmeteo = openmeteo_requests.Client(session=retry_session)
 
     # env
-    url = settings.OPEN_METEO_BASE
-    latitude = settings.OPEN_METEO_LAT
-    longitude = settings.OPEN_METEO_LON
+    url = settings.OPENMETEO_BASE
+    latitude = settings.OPENMETEO_LAT
+    longitude = settings.OPENMETEO_LON
     timezone = settings.TIMEZONE_API
 
     params = {
@@ -78,9 +78,5 @@ def fetch_weather():
         "longitude": longitude,
         "timezone": timezone
     }
-
-    print("Current data:", current_data)
-    print("Forecast 24h:", forecast_24h)
-    print("meta:", meta)
-
+    
     return current_data, forecast_24h, meta

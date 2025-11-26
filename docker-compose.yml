@@ -9,7 +9,7 @@ services:
       - mongo-data:/data/db
     ports:
       - "27017:27017"
-  
+
   rabbitmq:
     image: rabbitmq:3-management
     restart: unless-stopped
@@ -19,7 +19,7 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-  
+
   nestapi:
     build:
       context: ./backend
@@ -30,7 +30,7 @@ services:
     depends_on:
       - mongo
     ports:
-      "3000:3000"
+      - "3000:3000"
 
   frontend:
     build:
@@ -38,10 +38,10 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      "5173:5173"
+      - "5173:5173"
     env_file:
       - .env
-    
+
   python-collector:
     build:
       context: ./collector
@@ -51,7 +51,7 @@ services:
       - .env
     depends_on:
       - rabbitmq
-    
+
   go-worker:
     build:
       context: ./worker
