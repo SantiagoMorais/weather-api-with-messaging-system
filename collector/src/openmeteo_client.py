@@ -5,7 +5,7 @@ from retry_requests import retry
 from datetime import datetime
 import pytz
 
-from settings import settings
+from collector.src.settings import settings
 
 def fetch_weather():
     # Time handling
