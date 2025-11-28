@@ -6,4 +6,5 @@ HOWTO.md
 .env
 
 # modules
-./collector/.venv
+collector/.venv
+
