@@ -27,14 +27,12 @@ def fetch_weather():
     params = {
         "latitude": latitude,
         "longitude": longitude,
-        "hourly": [
-            "temperature_2m", "rain", "apparent_temperature",
-            "relative_humidity_2m", "cloud_cover", "cloud_cover_low",
-            "cloud_cover_mid", "cloud_cover_high", "visibility",
-            "wind_speed_10m", "soil_temperature_0cm",
-            "soil_moisture_0_to_1cm", "precipitation_probability",
-            "precipitation", "weather_code"
-        ],
+	    "hourly": ["temperature_2m", "is_day", "uv_index", 
+                   "relative_humidity_2m", "apparent_temperature", 
+                   "precipitation_probability", "precipitation", 
+                   "rain", "cloud_cover", "visibility", 
+                   "wind_speed_10m", "soil_temperature_0cm", 
+                   "soil_moisture_0_to_1cm"],
         "timezone": timezone,
     }
 
@@ -49,20 +47,18 @@ def fetch_weather():
             inclusive="left",
         ),
         "temperature": hourly.Variables(0).ValuesAsNumpy(),
-        "rain": hourly.Variables(1).ValuesAsNumpy(),
-        "apparent_temperature": hourly.Variables(2).ValuesAsNumpy(),
+        "is_day": hourly.Variables(1).ValuesAsNumpy(),
+        "uv_index": hourly.Variables(2).ValuesAsNumpy(),
         "relative_humidity": hourly.Variables(3).ValuesAsNumpy(),
-        "cloud_cover": hourly.Variables(4).ValuesAsNumpy(),
-        "cloud_cover_low": hourly.Variables(5).ValuesAsNumpy(),
-        "cloud_cover_mid": hourly.Variables(6).ValuesAsNumpy(),
-        "cloud_cover_high": hourly.Variables(7).ValuesAsNumpy(),
-        "visibility": hourly.Variables(8).ValuesAsNumpy(),
-        "wind_speed": hourly.Variables(9).ValuesAsNumpy(),
-        "soil_temperature": hourly.Variables(10).ValuesAsNumpy(),
-        "soil_moisture": hourly.Variables(11).ValuesAsNumpy(),
-        "precipitation_probability": hourly.Variables(12).ValuesAsNumpy(),
-        "precipitation": hourly.Variables(13).ValuesAsNumpy(),
-        "weather_code": hourly.Variables(14).ValuesAsNumpy(),
+        "apparent_temperature": hourly.Variables(4).ValuesAsNumpy(),
+        "precipitation_probability": hourly.Variables(5).ValuesAsNumpy(),
+        "precipitation": hourly.Variables(6).ValuesAsNumpy(),
+        "rain": hourly.Variables(7).ValuesAsNumpy(),
+        "cloud_cover": hourly.Variables(8).ValuesAsNumpy(),
+        "visibility": hourly.Variables(9).ValuesAsNumpy(),
+        "wind_speed": hourly.Variables(10).ValuesAsNumpy(),
+        "soil_temperature": hourly.Variables(11).ValuesAsNumpy(),
+        "soil_moisture": hourly.Variables(12).ValuesAsNumpy(),
     })
 
     mask = dataFrame["date"] == now_rounded
