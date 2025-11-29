@@ -6,5 +6,7 @@ HOWTO.md
 .env
 
 # modules
-collector/.venv
+.venv/
+
+__pycache__/
 
