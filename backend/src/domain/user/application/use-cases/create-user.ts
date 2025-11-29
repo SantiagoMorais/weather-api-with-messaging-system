@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { UsersRepository } from "../repositores/users-repository";
+import { UsersRepository } from "../repositories/users-repository";
 import {
   ICreateUserUseCaseRequest,
   ICreateUserUseCaseResponse,
@@ -8,10 +8,14 @@ import { UserAlreadyExistsError } from "src/core/errors/user-already-exists-erro
 import { failure, success } from "src/core/result";
 import { PasswordMismatchError } from "src/core/errors/password-mismatch-error";
 import { User } from "../../enterprise/entities/user";
+import { HashGenerator } from "../../cryptography/hash-generator";
 
 @Injectable()
 export class CreateUserUseCase {
-  constructor(private usersRepository: UsersRepository) {}
+  constructor(
+    private usersRepository: UsersRepository,
+    private hashGenerator: HashGenerator
+  ) {}
 
   async execute({
     email,
@@ -25,10 +29,12 @@ export class CreateUserUseCase {
     if (password !== repeatPassword)
       return failure(new PasswordMismatchError());
 
+    const hashPassword = await this.hashGenerator.hash(password);
+
     const user = User.create({
       email,
       name,
-      password,
+      password: hashPassword,
     });
 
     await this.usersRepository.create(user);
