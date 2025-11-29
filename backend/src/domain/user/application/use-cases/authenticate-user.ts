@@ -7,7 +7,9 @@ import { HashComparer } from "../../cryptography/hash-comparer";
 import { UsersRepository } from "../repositories/users-repository";
 import { WrongCredentialsError } from "src/core/errors/wrong-credentials-error";
 import { failure, success } from "src/core/result";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class AuthenticateUser {
   constructor(
     private usersRepository: UsersRepository,
