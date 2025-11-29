@@ -22,7 +22,7 @@ export class DomainEvents {
    * @param aggregate The Aggregate Root instance to mark.
    */
   public static markAggregateForDispatch(aggregate: AggregateRoot<unknown>) {
-    const aggregateFound = !!this.findMarkedAggregateByID(aggregate.id);
+    const aggregateFound = Boolean(this.findMarkedAggregateByID(aggregate.id));
 
     if (!aggregateFound) {
       this.markedAggregates.push(aggregate);
