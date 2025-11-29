@@ -20,6 +20,10 @@ export class User extends AggregateRoot<IUsersProps> {
     return this.props.updatedAt;
   }
 
+  get password() {
+    return this.props.password;
+  }
+
   static create(
     props: Omit<IUsersProps, "createdAt" | "updatedAt">,
     id?: UniqueEntityId
