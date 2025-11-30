@@ -1,11 +1,11 @@
 import { Result } from "src/core/result";
 import { HourlyObservation } from "src/domain/weatherLog/enterprise/entities/hourly-observation";
 
-export interface IFindManyHourlyObservationRecentRequest {
+export interface IFindManyRecentHourlyObservationRequest {
   count: number;
 }
 
-export type TFindManyHourlyObservationRecentUseCase = Result<
-  void,
+export type TFindManyRecentHourlyObservationUseCase = Result<
+  { recentHourlyObservation: HourlyObservation[] },
   { recentHourlyObservation: HourlyObservation[] }
 >;
