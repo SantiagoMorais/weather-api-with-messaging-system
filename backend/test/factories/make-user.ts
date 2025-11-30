@@ -4,7 +4,7 @@ import { IUsersProps } from "src/core/interfaces/entities/users-props";
 import { User } from "src/domain/user/enterprise/entities/user";
 
 export const makeUser = (
-  override: Partial<IUsersProps>,
+  override: Partial<IUsersProps> = {},
   id?: UniqueEntityId
 ) => {
   const user = User.create(

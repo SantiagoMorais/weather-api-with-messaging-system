@@ -3,7 +3,8 @@ import { IHourlyObservationProps } from "src/core/interfaces/entities/hourly-obs
 import { HourlyObservation } from "src/domain/weatherLog/enterprise/entities/hourly-observation";
 
 export const makeHourlyObservation = (
-  override: Partial<IHourlyObservationProps>,
+  override: Partial<IHourlyObservationProps> = {},
+  timestamp?: Date,
   id?: UniqueEntityId
 ) => {
   const observation = HourlyObservation.create(
@@ -14,7 +15,7 @@ export const makeHourlyObservation = (
         timezone: "America/Sao_Paulo",
       },
       stats: {
-        timestamp: new Date("2025-11-29T21:00:00.000-03:00"),
+        timestamp: timestamp ?? new Date("2025-11-29T21:00:00.000-03:00"),
         temperature: 20.8,
         isDay: false,
         uvIndex: 0.0,
