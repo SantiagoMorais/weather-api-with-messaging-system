@@ -6,7 +6,7 @@ export interface IAuthenticateUserRequest {
   password: string;
 }
 
-export type IAuthenticateUserResponse = Result<
+export type TAuthenticateUserResponse = Result<
   WrongCredentialsError,
   { accessToken: string }
 >;

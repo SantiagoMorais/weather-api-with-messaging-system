@@ -1,6 +1,6 @@
 import {
   IAuthenticateUserRequest,
-  IAuthenticateUserResponse,
+  TAuthenticateUserResponse,
 } from "src/core/interfaces/use-cases/user/authenticate-user-use-case";
 import { Cryptographer } from "../../cryptography/cryptographer";
 import { HashComparer } from "../../cryptography/hash-comparer";
@@ -20,7 +20,7 @@ export class AuthenticateUser {
   async execute({
     email,
     password,
-  }: IAuthenticateUserRequest): Promise<IAuthenticateUserResponse> {
+  }: IAuthenticateUserRequest): Promise<TAuthenticateUserResponse> {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) return failure(new WrongCredentialsError());

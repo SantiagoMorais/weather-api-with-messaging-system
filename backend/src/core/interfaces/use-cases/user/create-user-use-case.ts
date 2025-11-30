@@ -10,7 +10,7 @@ export interface ICreateUserUseCaseRequest {
   repeatPassword: string;
 }
 
-export type ICreateUserUseCaseResponse = Result<
+export type TCreateUserUseCaseResponse = Result<
   UserAlreadyExistsError | PasswordMismatchError,
   {
     user: User;

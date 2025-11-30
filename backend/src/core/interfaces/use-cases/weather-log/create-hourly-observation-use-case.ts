@@ -9,7 +9,7 @@ export interface ICreateHourlyObservationUseCaseRequest {
   location: ILocation;
 }
 
-export type ICreateHourlyObservationUseCaseResponse = Result<
+export type TCreateHourlyObservationUseCaseResponse = Result<
   DataAlreadyExistsError,
   {
     hourlyObservation: HourlyObservation;

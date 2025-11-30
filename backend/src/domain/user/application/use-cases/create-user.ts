@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { UsersRepository } from "../repositories/users-repository";
 import {
   ICreateUserUseCaseRequest,
-  ICreateUserUseCaseResponse,
+  TCreateUserUseCaseResponse,
 } from "src/core/interfaces/use-cases/user/create-user-use-case";
 import { UserAlreadyExistsError } from "src/core/errors/user-already-exists-error";
 import { failure, success } from "src/core/result";
@@ -22,7 +22,7 @@ export class CreateUserUseCase {
     name,
     password,
     repeatPassword,
-  }: ICreateUserUseCaseRequest): Promise<ICreateUserUseCaseResponse> {
+  }: ICreateUserUseCaseRequest): Promise<TCreateUserUseCaseResponse> {
     const userAlreadyExists = await this.usersRepository.findByEmail(email);
 
     if (userAlreadyExists) return failure(new UserAlreadyExistsError(email));

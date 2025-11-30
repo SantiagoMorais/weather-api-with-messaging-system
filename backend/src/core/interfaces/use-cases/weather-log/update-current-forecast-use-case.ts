@@ -8,7 +8,7 @@ export interface IUpdateCurrentForecastRequest {
   location: ILocation;
 }
 
-export type IUpdateCurrentForecastResponse = Result<
+export type TUpdateCurrentForecastResponse = Result<
   void,
   {
     currentForecast: CurrentForecast;
