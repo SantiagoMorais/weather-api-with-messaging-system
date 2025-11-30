@@ -10,7 +10,7 @@ import { formatDateToString } from "src/utils/formatDateToString";
 import { HourlyObservationRepository } from "../../repositories/hourly-observation-repository";
 
 @Injectable()
-export class CreateHourlyObservation {
+export class CreateHourlyObservationUseCase {
   constructor(
     private hourlyObservationRepository: HourlyObservationRepository
   ) {}

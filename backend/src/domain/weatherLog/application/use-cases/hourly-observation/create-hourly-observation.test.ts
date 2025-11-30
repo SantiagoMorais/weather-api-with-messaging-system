@@ -1,11 +1,11 @@
 import { InMemoryHourlyObservationRepository } from "test/repositories/in-memory-hourly-observation-repository";
-import { CreateHourlyObservation } from "./create-hourly-observation";
+import { CreateHourlyObservationUseCase } from "./create-hourly-observation";
 import { ICreateHourlyObservationUseCaseRequest } from "src/core/interfaces/use-cases/weather-log/create-hourly-observation-use-case";
 import { makeHourlyObservation } from "test/factories/make-hourly-observation";
 import { DataAlreadyExistsError } from "src/core/errors/data-already-exists-error";
 
 let inMemoryHourlyObservationRepository: InMemoryHourlyObservationRepository;
-let sut: CreateHourlyObservation;
+let sut: CreateHourlyObservationUseCase;
 
 const mockedObservation: ICreateHourlyObservationUseCaseRequest = {
   location: {
@@ -35,7 +35,9 @@ describe("CreateHourlyObservation use case", () => {
   beforeEach(() => {
     inMemoryHourlyObservationRepository =
       new InMemoryHourlyObservationRepository();
-    sut = new CreateHourlyObservation(inMemoryHourlyObservationRepository);
+    sut = new CreateHourlyObservationUseCase(
+      inMemoryHourlyObservationRepository
+    );
   });
 
   it("should be able to create an hourly observation", async () => {
