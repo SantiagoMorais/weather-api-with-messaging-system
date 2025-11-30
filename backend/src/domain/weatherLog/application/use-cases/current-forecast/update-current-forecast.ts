@@ -5,7 +5,9 @@ import {
   TUpdateCurrentForecastResponse,
 } from "src/core/interfaces/use-cases/weather-log/update-current-forecast-use-case";
 import { success } from "src/core/result";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class UpdateCurrentForecastUseCase {
   constructor(private currentForecastRepository: CurrentForecastRepository) {}
 

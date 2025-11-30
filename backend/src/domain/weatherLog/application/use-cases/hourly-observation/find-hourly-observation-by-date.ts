@@ -5,7 +5,9 @@ import {
 import { HourlyObservationRepository } from "../../repositories/hourly-observation-repository";
 import { failure, success } from "src/core/result";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class FindHourlyObservationByDateUseCase {
   constructor(
     private hourlyObservationRepository: HourlyObservationRepository

@@ -1,5 +1,5 @@
 import { InMemoryHourlyObservationRepository } from "test/repositories/in-memory-hourly-observation-repository";
-import { FindManyRecentHourlyObservationUseCase } from "./find-many-hourly-observation-recent";
+import { FindManyRecentHourlyObservationUseCase } from "./find-many-recent-hourly-observation";
 import { makeHourlyObservation } from "test/factories/make-hourly-observation";
 
 let inMemoryHourlyObservationRepository: InMemoryHourlyObservationRepository;
