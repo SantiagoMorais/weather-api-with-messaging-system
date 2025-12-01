@@ -17,7 +17,9 @@ describe("FindHourlyObservationByDate use case", () => {
 
   it("should be able to find a observation by date", async () => {
     const baseDate = new Date("2025-11-29T21:00:00.000-03:00");
-    const hourlyObservation = makeHourlyObservation({}, baseDate);
+    const hourlyObservation = makeHourlyObservation({
+      stats: { timestamp: baseDate },
+    });
     await inMemoryHourlyObservationRepository.create(hourlyObservation);
 
     const result = await sut.execute({ timeStamp: baseDate });
@@ -33,7 +35,9 @@ describe("FindHourlyObservationByDate use case", () => {
   it("should not be able to find a observation with a different date", async () => {
     const baseDate = new Date("2025-11-29T21:00:00.000-03:00");
     const differentDate = new Date("2025-11-30T21:00:00.000-03:00");
-    const hourlyObservation = makeHourlyObservation({}, baseDate);
+    const hourlyObservation = makeHourlyObservation({
+      stats: { timestamp: baseDate },
+    });
     await inMemoryHourlyObservationRepository.create(hourlyObservation);
 
     const result = await sut.execute({ timeStamp: differentDate });
