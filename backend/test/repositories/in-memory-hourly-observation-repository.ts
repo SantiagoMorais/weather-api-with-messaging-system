@@ -16,7 +16,7 @@ export class InMemoryHourlyObservationRepository implements HourlyObservationRep
 
   async findByDate(timestamp: Date): Promise<HourlyObservation | null> {
     const observation = this.observations.find(
-      (obs) => obs.currentStats.timestamp === timestamp
+      (obs) => obs.currentStats.timestamp.getTime() === timestamp.getTime()
     );
 
     if (!observation) return null;
