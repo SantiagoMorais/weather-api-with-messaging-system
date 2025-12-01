@@ -1,10 +1,10 @@
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { IHourlyObservationProps } from "src/core/interfaces/entities/hourly-observation";
+import { DeepPartial } from "src/core/types/deep-partial";
 import { HourlyObservation } from "src/domain/weatherLog/enterprise/entities/hourly-observation";
 
 export const makeHourlyObservation = (
-  override: Partial<IHourlyObservationProps> = {},
-  timestamp?: Date,
+  override: DeepPartial<IHourlyObservationProps> = {},
   id?: UniqueEntityId
 ) => {
   const observation = HourlyObservation.create(
@@ -13,9 +13,10 @@ export const makeHourlyObservation = (
         latitude: -23.5505,
         longitude: -46.6333,
         timezone: "America/Sao_Paulo",
+        ...override.location,
       },
       stats: {
-        timestamp: timestamp ?? new Date("2025-11-29T21:00:00.000-03:00"),
+        timestamp: new Date("2025-11-29T21:00:00.000-03:00"),
         temperature: 20.8,
         isDay: false,
         uvIndex: 0.0,
@@ -29,8 +30,8 @@ export const makeHourlyObservation = (
         windSpeed: 8.5,
         soilTemperature: 18.2,
         soilMoisture: 58.0,
+        ...override.stats,
       },
-      ...override,
     },
     id
   );

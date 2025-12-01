@@ -16,10 +16,9 @@ describe("FindHourlyObservationByDate use case", () => {
 
   it("should be able to find many recent hourly", async () => {
     for (let i = 10; i < 20; i++) {
-      const observation = makeHourlyObservation(
-        {},
-        new Date(`2025-11-${i}T10:00:00.000-03:00`)
-      );
+      const observation = makeHourlyObservation({
+        stats: { timestamp: new Date(`2025-11-${i}T10:00:00.000-03:00`) },
+      });
       await inMemoryHourlyObservationRepository.create(observation);
     }
 

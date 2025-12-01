@@ -56,7 +56,9 @@ describe("CreateHourlyObservation use case", () => {
   });
 
   it("should not be able to create two observations at once", async () => {
-    const firstCreation = makeHourlyObservation(mockedObservation);
+    const firstCreation = makeHourlyObservation({
+      stats: { timestamp: new Date("2025-11-29T21:00:00.000-03:00") },
+    });
     await inMemoryHourlyObservationRepository.create(firstCreation);
 
     const secondCreation = await sut.execute(mockedObservation);
