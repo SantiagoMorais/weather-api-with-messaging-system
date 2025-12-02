@@ -2,7 +2,9 @@ import { TFindCurrentForecastResponse } from "src/core/interfaces/use-cases/weat
 import { CurrentForecastRepository } from "../../repositories/current-forecasts-repository";
 import { failure, success } from "src/core/result";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class FindCurrentForecastUseCase {
   constructor(private currentForecastRepository: CurrentForecastRepository) {}
 

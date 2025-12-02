@@ -9,7 +9,9 @@ import { CurrentForecast } from "../../enterprise/entities/current-forecast";
 import { failure, success } from "src/core/result";
 import { DataAlreadyExistsError } from "src/core/errors/data-already-exists-error";
 import { formatDateToString } from "src/utils/formatDateToString";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class ReceiveWeatherLogUseCase {
   constructor(
     private hourlyObservationRepository: HourlyObservationRepository,
