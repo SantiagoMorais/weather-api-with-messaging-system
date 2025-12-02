@@ -3,6 +3,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { envSchema } from "./env/env";
 import { CryptographyModule } from "./cryptography/cryptography.module";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { CryptographyModule } from "./cryptography/cryptography.module";
       isGlobal: true,
     }),
     CryptographyModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
