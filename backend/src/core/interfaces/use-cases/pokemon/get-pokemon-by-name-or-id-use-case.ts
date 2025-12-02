@@ -3,7 +3,7 @@ import { Result } from "src/core/result";
 import { IPokemonProps } from "../../entities/pokemon-props";
 
 export interface IGetPokemonByNameOrIdUseCaseRequest {
-  nameOrId: string;
+  nameOrId: string | number;
 }
 
 export type TGetPokemonByNameOrIdUseCaseResponse = Result<

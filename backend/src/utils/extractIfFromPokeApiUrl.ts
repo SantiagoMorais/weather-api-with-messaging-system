@@ -1,4 +1,4 @@
-export const extractIdFromPokeApiUrl = (url: string): string | null => {
+export const extractIdFromPokeApiUrl = (url: string): number | null => {
   const match = url.match(/\/(\d+)\/?$/);
-  return match ? match[1] : null;
+  return match ? Number(match[1]) : null;
 };

@@ -4,7 +4,9 @@ import { IFetchPokemonsByType } from "src/core/interfaces/services/fetch-pokemon
 import { TPokemonType } from "src/core/types/pokemon/pokemon-types";
 
 export abstract class PokemonGateway {
-  abstract getByNameOrId(nameOrId: string | number): Promise<IPokemonProps>;
+  abstract getByNameOrId(
+    nameOrId: string | number
+  ): Promise<IPokemonProps | null>;
   abstract findAll(
     limit: number,
     offset: number

@@ -1,7 +1,7 @@
 export interface IFetchPokemonsByType {
   pokemons: {
     name: string;
-    id: string | null;
+    id: number | null;
     url: string;
   }[];
 }

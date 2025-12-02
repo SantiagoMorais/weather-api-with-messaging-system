@@ -1,10 +1,10 @@
 import { HttpModule } from "@nestjs/axios";
 import { Module } from "@nestjs/common";
-import { PokemonApiGateway } from "./gateways/pokemon-api-gateway-implement.service";
+import { PokemonApiGatewayImplement } from "./gateways/pokemon-api-gateway-implement.service";
 
 @Module({
   imports: [HttpModule],
-  controllers: [PokemonApiGateway],
-  providers: [PokemonApiGateway],
+  controllers: [PokemonApiGatewayImplement],
+  providers: [PokemonApiGatewayImplement],
 })
 export class AppModule {}

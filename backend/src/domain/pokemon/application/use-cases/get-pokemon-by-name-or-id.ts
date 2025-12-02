@@ -9,7 +9,7 @@ import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 export class GetPokemonByNameOrIdUseCase {
   constructor(private pokemonGateway: PokemonGateway) {}
 
-  async executeSchedule({
+  async execute({
     nameOrId,
   }: IGetPokemonByNameOrIdUseCaseRequest): Promise<TGetPokemonByNameOrIdUseCaseResponse> {
     const pokemon = await this.pokemonGateway.getByNameOrId(nameOrId);
