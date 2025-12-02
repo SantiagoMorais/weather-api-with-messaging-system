@@ -1,6 +1,8 @@
 import { AggregateRoot } from "src/core/entities/aggregate-root";
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { IWeatherLogProps } from "src/core/interfaces/entities/weather-log-props";
+import { ILocation } from "src/core/interfaces/location";
+import { IObservationStats } from "src/core/interfaces/observation-stats";
 import { WeatherLogCreatedEvent } from "../events/weather-log-created.event";
 
 export class WeatherLog extends AggregateRoot<IWeatherLogProps> {
@@ -18,6 +20,30 @@ export class WeatherLog extends AggregateRoot<IWeatherLogProps> {
 
   get location() {
     return this.props.location;
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date();
+  }
+
+  set currentForecastStats(currentForecast: IObservationStats[]) {
+    this.props.currentForecastStats = currentForecast;
+    this.touch();
+  }
+
+  set insight(insight: string | null | undefined) {
+    this.props.insight = insight;
+    this.touch();
+  }
+
+  set location(location: ILocation) {
+    this.props.location = location;
+    this.touch();
+  }
+
+  set hourlyObservationStats(hourlyObservation: IObservationStats) {
+    this.props.hourlyObservationStats = hourlyObservation;
+    this.touch();
   }
 
   static create(
