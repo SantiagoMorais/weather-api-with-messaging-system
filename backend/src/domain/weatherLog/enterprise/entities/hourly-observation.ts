@@ -1,9 +1,8 @@
-import { AggregateRoot } from "src/core/entities/aggregate-root";
+import { Entity } from "src/core/entities/entity";
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { IHourlyObservationProps } from "src/core/interfaces/entities/hourly-observation";
-import { HourlyObservationCreatedEvent } from "../events/hourly-observation-created-event";
 
-export class HourlyObservation extends AggregateRoot<IHourlyObservationProps> {
+export class HourlyObservation extends Entity<IHourlyObservationProps> {
   get currentStats() {
     return this.props.stats;
   }
@@ -31,12 +30,6 @@ export class HourlyObservation extends AggregateRoot<IHourlyObservationProps> {
       },
       id
     );
-
-    const itsNewForecast = !id;
-    if (itsNewForecast)
-      hourlyObservation.addDomainEvent(
-        new HourlyObservationCreatedEvent(hourlyObservation)
-      );
 
     return hourlyObservation;
   }

@@ -1,9 +1,8 @@
-import { AggregateRoot } from "src/core/entities/aggregate-root";
+import { Entity } from "src/core/entities/entity";
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { ICurrentForecastProps } from "src/core/interfaces/entities/current-forecast-props";
-import { CurrentForecastCreatedEvent } from "../events/current-forecast-created-event";
 
-export class CurrentForecast extends AggregateRoot<ICurrentForecastProps> {
+export class CurrentForecast extends Entity<ICurrentForecastProps> {
   get forecast24h() {
     return this.props.stats;
   }
@@ -31,12 +30,6 @@ export class CurrentForecast extends AggregateRoot<ICurrentForecastProps> {
       },
       id
     );
-
-    const itsNewForecast = !id;
-    if (itsNewForecast)
-      currentForecast.addDomainEvent(
-        new CurrentForecastCreatedEvent(currentForecast)
-      );
 
     return currentForecast;
   }
