@@ -1,10 +1,15 @@
 import { HttpModule } from "@nestjs/axios";
 import { Module } from "@nestjs/common";
-import { PokemonApiGatewayImplement } from "./gateways/pokemon-api-gateway-implement.service";
+import { ConfigModule } from "@nestjs/config";
+import { envSchema } from "./env/env";
 
 @Module({
-  imports: [HttpModule],
-  controllers: [PokemonApiGatewayImplement],
-  providers: [PokemonApiGatewayImplement],
+  imports: [
+    HttpModule,
+    ConfigModule.forRoot({
+      validate: (env) => envSchema.parse(env),
+      isGlobal: true,
+    }),
+  ],
 })
 export class AppModule {}
