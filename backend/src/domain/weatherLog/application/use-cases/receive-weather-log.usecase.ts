@@ -2,10 +2,10 @@ import {
   IReceiveWeatherLogRequest,
   TReceiveWeatherLogResponse,
 } from "src/core/interfaces/use-cases/weather-log/receive-weather-log-use-case";
-import { CurrentForecastRepository } from "../repositories/current-forecasts-repository";
-import { HourlyObservationRepository } from "../repositories/hourly-observation-repository";
-import { HourlyObservation } from "../../enterprise/entities/hourly-observation";
-import { CurrentForecast } from "../../enterprise/entities/current-forecast";
+import { CurrentForecastRepository } from "../repositories/current-forecasts.repository";
+import { HourlyObservationRepository } from "../repositories/hourly-observation.repository";
+import { HourlyObservation } from "../../enterprise/entities/hourly-observation.entity";
+import { CurrentForecast } from "../../enterprise/entities/current-forecast.entity";
 import { failure, success } from "src/core/result";
 import { DataAlreadyExistsError } from "src/core/errors/data-already-exists-error";
 import { formatDateToString } from "src/utils/formatDateToString";

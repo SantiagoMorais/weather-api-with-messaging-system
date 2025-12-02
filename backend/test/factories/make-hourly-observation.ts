@@ -1,7 +1,7 @@
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { IHourlyObservationProps } from "src/core/interfaces/entities/hourly-observation";
 import { DeepPartial } from "src/core/types/deep-partial";
-import { HourlyObservation } from "src/domain/weatherLog/enterprise/entities/hourly-observation";
+import { HourlyObservation } from "src/domain/weatherLog/enterprise/entities/hourly-observation.entity";
 
 export const makeHourlyObservation = (
   override: DeepPartial<IHourlyObservationProps> = {},

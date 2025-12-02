@@ -1,5 +1,5 @@
-import { CurrentForecast } from "src/domain/weatherLog/enterprise/entities/current-forecast";
-import { CurrentForecastRepository } from "../../repositories/current-forecasts-repository";
+import { CurrentForecast } from "src/domain/weatherLog/enterprise/entities/current-forecast.entity";
+import { CurrentForecastRepository } from "../../repositories/current-forecasts.repository";
 import {
   IUpdateCurrentForecastRequest,
   TUpdateCurrentForecastResponse,

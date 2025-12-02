@@ -1,5 +1,5 @@
 import { InMemoryCurrentForecastRepository } from "test/repositories/in-memory-current-forecast-repository";
-import { FindCurrentForecastUseCase } from "./find-current-forecast";
+import { FindCurrentForecastUseCase } from "./find-current-forecast.usecase";
 import { makeCurrentForecast } from "test/factories/make-current-forecast";
 
 let inMemoryCurrentForecastRepository: InMemoryCurrentForecastRepository;

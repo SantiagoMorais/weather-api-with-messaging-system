@@ -1,8 +1,8 @@
 import { InMemoryCurrentForecastRepository } from "test/repositories/in-memory-current-forecast-repository";
-import { UpdateCurrentForecastUseCase } from "./update-current-forecast";
+import { UpdateCurrentForecastUseCase } from "./update-current-forecast.usecase";
 import { IObservationStats } from "src/core/interfaces/observation-stats";
 import { IUpdateCurrentForecastRequest } from "src/core/interfaces/use-cases/weather-log/update-current-forecast-use-case";
-import { CurrentForecast } from "src/domain/weatherLog/enterprise/entities/current-forecast";
+import { CurrentForecast } from "src/domain/weatherLog/enterprise/entities/current-forecast.entity";
 
 let inMemoryCurrentForecastRepository: InMemoryCurrentForecastRepository;
 let sut: UpdateCurrentForecastUseCase;

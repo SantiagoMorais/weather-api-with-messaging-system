@@ -2,7 +2,7 @@ import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { ICurrentForecastProps } from "src/core/interfaces/entities/current-forecast-props";
 import { IObservationStats } from "src/core/interfaces/observation-stats";
 import { DeepPartial } from "src/core/types/deep-partial";
-import { CurrentForecast } from "src/domain/weatherLog/enterprise/entities/current-forecast";
+import { CurrentForecast } from "src/domain/weatherLog/enterprise/entities/current-forecast.entity";
 
 export const makeCurrentForecast = (
   override: DeepPartial<ICurrentForecastProps> = {},

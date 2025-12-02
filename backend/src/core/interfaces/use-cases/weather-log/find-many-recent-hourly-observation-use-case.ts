@@ -1,5 +1,5 @@
 import { Result } from "src/core/result";
-import { HourlyObservation } from "src/domain/weatherLog/enterprise/entities/hourly-observation";
+import { HourlyObservation } from "src/domain/weatherLog/enterprise/entities/hourly-observation.entity";
 
 export interface IFindManyRecentHourlyObservationRequest {
   count: number;

@@ -2,7 +2,7 @@ import {
   IFindHourlyObservationByDateRequest,
   TFindHourlyObservationByDateUseCase,
 } from "src/core/interfaces/use-cases/weather-log/find-hourly-observation-by-date-use-case";
-import { HourlyObservationRepository } from "../../repositories/hourly-observation-repository";
+import { HourlyObservationRepository } from "../../repositories/hourly-observation.repository";
 import { failure, success } from "src/core/result";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 import { Injectable } from "@nestjs/common";

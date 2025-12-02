@@ -3,7 +3,7 @@ import {
   TFindManyRecentHourlyObservationUseCase,
 } from "src/core/interfaces/use-cases/weather-log/find-many-recent-hourly-observation-use-case";
 import { success } from "src/core/result";
-import { HourlyObservationRepository } from "../../repositories/hourly-observation-repository";
+import { HourlyObservationRepository } from "../../repositories/hourly-observation.repository";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()

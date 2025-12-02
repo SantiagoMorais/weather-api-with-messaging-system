@@ -1,5 +1,5 @@
 import { InMemoryHourlyObservationRepository } from "test/repositories/in-memory-hourly-observation-repository";
-import { FindHourlyObservationByDateUseCase } from "./find-hourly-observation-by-date";
+import { FindHourlyObservationByDateUseCase } from "./find-hourly-observation-by-date.usecase";
 import { makeHourlyObservation } from "test/factories/make-hourly-observation";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 

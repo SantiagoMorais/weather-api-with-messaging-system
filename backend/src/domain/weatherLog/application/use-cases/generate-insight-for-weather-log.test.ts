@@ -1,5 +1,5 @@
 import { InMemoryWeatherLogRepository } from "test/repositories/in-memory-weather-log-repository";
-import { GenerateInsightForWeatherLogUseCase } from "./generate-insight-for-weather-log";
+import { GenerateInsightForWeatherLogUseCase } from "./generate-insight-for-weather-log.usecase";
 import { InMemoryAIInsightGeneratorService } from "test/services/in-memory-ai-insight-generator-service";
 import { makeWeatherLog } from "test/factories/make-weather-log";
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";

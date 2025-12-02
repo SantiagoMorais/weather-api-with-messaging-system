@@ -1,6 +1,6 @@
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { DomainEvent } from "src/core/events/domain-event";
-import { WeatherLog } from "../entities/weather-log";
+import { WeatherLog } from "../entities/weather-log.entity";
 
 export class WeatherLogCreatedEvent implements DomainEvent {
   public occurredAt: Date;

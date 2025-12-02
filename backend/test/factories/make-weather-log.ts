@@ -1,7 +1,7 @@
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { IWeatherLogProps } from "src/core/interfaces/entities/weather-log-props";
 import { IObservationStats } from "src/core/interfaces/observation-stats";
-import { WeatherLog } from "src/domain/weatherLog/enterprise/entities/weather-log";
+import { WeatherLog } from "src/domain/weatherLog/enterprise/entities/weather-log.entity";
 
 export const makeWeatherLog = (
   override: Partial<IWeatherLogProps> = {},

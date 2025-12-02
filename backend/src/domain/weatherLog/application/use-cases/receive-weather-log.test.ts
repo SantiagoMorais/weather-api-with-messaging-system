@@ -1,5 +1,5 @@
 import { InMemoryCurrentForecastRepository } from "test/repositories/in-memory-current-forecast-repository";
-import { ReceiveWeatherLogUseCase } from "./receive-weather-log";
+import { ReceiveWeatherLogUseCase } from "./receive-weather-log.usecase";
 import { InMemoryHourlyObservationRepository } from "test/repositories/in-memory-hourly-observation-repository";
 import { makeHourlyObservation } from "test/factories/make-hourly-observation";
 import { makeCurrentForecast } from "test/factories/make-current-forecast";

@@ -1,5 +1,5 @@
 import { TFindCurrentForecastResponse } from "src/core/interfaces/use-cases/weather-log/find-current-forecast-use-case";
-import { CurrentForecastRepository } from "../../repositories/current-forecasts-repository";
+import { CurrentForecastRepository } from "../../repositories/current-forecasts.repository";
 import { failure, success } from "src/core/result";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 import { Injectable } from "@nestjs/common";

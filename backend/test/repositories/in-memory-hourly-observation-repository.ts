@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/require-await */
-import { HourlyObservationRepository } from "src/domain/weatherLog/application/repositories/hourly-observation-repository";
-import { HourlyObservation } from "src/domain/weatherLog/enterprise/entities/hourly-observation";
+import { HourlyObservationRepository } from "src/domain/weatherLog/application/repositories/hourly-observation.repository";
+import { HourlyObservation } from "src/domain/weatherLog/enterprise/entities/hourly-observation.entity";
 
 export class InMemoryHourlyObservationRepository implements HourlyObservationRepository {
   public observations: HourlyObservation[] = [];
