@@ -22,6 +22,14 @@ export class WeatherLog extends AggregateRoot<IWeatherLogProps> {
     return this.props.location;
   }
 
+  get createdAt() {
+    return this.props.createdAt;
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
+
   private touch() {
     this.props.updatedAt = new Date();
   }
@@ -47,12 +55,12 @@ export class WeatherLog extends AggregateRoot<IWeatherLogProps> {
   }
 
   static create(
-    props: Omit<IWeatherLogProps, "createdAt" | "updatedAt">,
+    props: Omit<IWeatherLogProps, "updatedAt">,
     id?: UniqueEntityId
   ) {
     const weatherLog = new WeatherLog(
       {
-        createdAt: new Date(),
+        createdAt: props.createdAt ?? new Date(),
         ...props,
       },
       id

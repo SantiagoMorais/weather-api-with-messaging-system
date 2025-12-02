@@ -4,7 +4,7 @@ import { UsersRepository } from "src/domain/user/application/repositories/users.
 import { User as UserDomain } from "src/domain/user/enterprise/entities/user.entity";
 import { UserDocument, User as UserSchemaClass } from "../schemas/user.schema";
 import { Model } from "mongoose";
-import { MongooseUserMapper } from "../mappers/mongoose-user-mapper";
+import { MongooseUserMapper } from "../mappers/mongoose-user.mapper";
 
 @Injectable()
 export class MongooseUsersRepository implements UsersRepository {
