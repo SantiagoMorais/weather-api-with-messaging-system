@@ -1,7 +1,7 @@
 import { AIGenerationFailedError } from "src/core/errors/ai-generation-failed-error";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 import { Result } from "src/core/result";
-import { IPersistedWeatherLog } from "../../persisted-weather-log";
+import { WeatherLog } from "src/domain/weatherLog/enterprise/entities/weather-log";
 
 export interface IGenerateInsightForWeatherLogRequest {
   weatherLogId: string | number;
@@ -9,5 +9,5 @@ export interface IGenerateInsightForWeatherLogRequest {
 
 export type TGenerateInsightForWeatherLogResponse = Result<
   DataNotFoundError | AIGenerationFailedError,
-  { weatherLog: IPersistedWeatherLog }
+  { weatherLog: WeatherLog }
 >;
