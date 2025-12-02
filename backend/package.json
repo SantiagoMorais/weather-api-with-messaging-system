@@ -21,6 +21,7 @@
     "@faker-js/faker": "^10.1.0",
     "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "axios": "^1.13.2",
@@ -55,7 +56,8 @@
     "typescript-eslint": "^8.20.0",
     "unplugin-swc": "^1.5.9",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^4.0.14"
+    "vitest": "^4.0.14",
+    "zod": "^4.1.13"
   },
   "jest": {
     "moduleFileExtensions": [
