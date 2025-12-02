@@ -6,9 +6,9 @@ import { Result } from "src/core/result";
 import { DataAlreadyExistsError } from "src/core/errors/data-already-exists-error";
 
 export interface IReceiveWeatherLogRequest {
-  location: ILocation;
   hourlyObservationStats: IObservationStats;
   currentForecastStats: IObservationStats[];
+  location: ILocation;
 }
 
 export type TReceiveWeatherLogResponse = Result<
