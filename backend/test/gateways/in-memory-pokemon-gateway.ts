@@ -25,15 +25,21 @@ export class InMemoryPokemonGateway implements PokemonGateway {
     limit: number,
     offset: number
   ): Promise<IFetchAllPokemonsDataResponse> {
-    const pokemons = this.pokemons.slice(limit, offset);
+    const start = offset;
+    const end = offset + limit;
+
+    const pokemons = this.pokemons.slice(start, end);
+
+    const nextItem = this.pokemons[offset + limit];
+    const prevItem = this.pokemons[offset - 1];
 
     const data: IFetchAllPokemonsDataResponse = {
       results: pokemons.map((pokemon) => ({
         name: pokemon.name,
         url: pokemon.url,
       })),
-      next: pokemons.slice(offset + limit, offset + limit + 1)[0].url,
-      previous: pokemons.slice(offset - 1, offset)[0].url,
+      next: nextItem ? nextItem.url : null,
+      previous: prevItem ? prevItem.url : null,
     };
 
     return data;

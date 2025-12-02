@@ -7,6 +7,6 @@ export interface IFindAllPokemonsUseCaseRequest {
 }
 
 export type TFindAllPokemonsUseCaseResponse = Result<
-  void,
+  null,
   { pokemons: IFetchAllPokemonsDataResponse }
 >;
