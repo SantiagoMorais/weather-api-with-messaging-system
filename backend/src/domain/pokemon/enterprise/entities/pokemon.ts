@@ -38,6 +38,10 @@ export class Pokemon extends Entity<IPokemonProps> {
     return this.props.types;
   }
 
+  get url() {
+    return this.props.url;
+  }
+
   static create(props: IPokemonProps, id?: UniqueEntityId) {
     const pokemon = new Pokemon(
       {

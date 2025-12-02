@@ -1,13 +1,13 @@
 import { HttpService } from "@nestjs/axios";
 import { Injectable } from "@nestjs/common";
-import { IPokemonProps } from "src/core/interfaces/entities/pokemon-props";
-import { IGetBasePokemonDataResponse } from "src/core/interfaces/services/get-base-pokemon-data-response";
-import { IGetPokemonSpeciesDataResponse } from "src/core/interfaces/services/get-pokemon-species-data-response";
 import { forkJoin, Observable, throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
+import { IPokemonProps } from "src/core/interfaces/entities/pokemon-props";
 import { IFetchAllPokemonsDataResponse } from "src/core/interfaces/services/fetch-all-pokemons-data-response";
-import { TPokemonType } from "src/core/types/pokemon/pokemon-types";
 import { IFetchPokemonsByType } from "src/core/interfaces/services/fetch-pokemons-by-type";
+import { IGetBasePokemonDataResponse } from "src/core/interfaces/services/get-base-pokemon-data-response";
+import { IGetPokemonSpeciesDataResponse } from "src/core/interfaces/services/get-pokemon-species-data-response";
+import { TPokemonType } from "src/core/types/pokemon/pokemon-types";
 import { extractIdFromPokeApiUrl } from "src/utils/extractIfFromPokeApiUrl";
 
 @Injectable()
@@ -66,6 +66,7 @@ export class PokemonApiGateway {
           description: englishDescription,
           habitat,
           types: baseData.types.map((t) => t.type.name),
+          url: `${this.baseUrl}/pokemon/${nameOrId}`,
         };
 
         return pokemon;

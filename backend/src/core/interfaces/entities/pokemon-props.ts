@@ -15,4 +15,5 @@ export interface IPokemonProps {
   types: TPokemonType[];
   habitat: string;
   description: string;
+  url: string;
 }
