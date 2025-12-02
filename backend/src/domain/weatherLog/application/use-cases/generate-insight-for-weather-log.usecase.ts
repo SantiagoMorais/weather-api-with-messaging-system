@@ -6,7 +6,7 @@ import {
   TGenerateInsightForWeatherLogResponse,
 } from "src/core/interfaces/use-cases/weather-log/generate-insight-for-weather-log";
 import { failure, success } from "src/core/result";
-import { WeatherLogRepository } from "../../gateways/weather-log.repository";
+import { WeatherLogRepository } from "../repositories/weather-log.repository";
 import {
   AIInsightGenerator,
   IAIInsightGeneratorPayload,

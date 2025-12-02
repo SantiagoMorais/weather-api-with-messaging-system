@@ -1,4 +1,4 @@
-import { WeatherLog } from "../enterprise/entities/weather-log.entity";
+import { WeatherLog } from "../../enterprise/entities/weather-log.entity";
 
 export abstract class WeatherLogRepository {
   abstract findById(id: string | number): Promise<WeatherLog | null>;

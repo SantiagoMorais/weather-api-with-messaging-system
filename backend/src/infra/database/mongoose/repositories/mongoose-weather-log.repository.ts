@@ -1,5 +1,5 @@
 import { WeatherLog } from "src/domain/weatherLog/enterprise/entities/weather-log.entity";
-import { WeatherLogRepository } from "src/domain/weatherLog/gateways/weather-log.repository";
+import { WeatherLogRepository } from "src/domain/weatherLog/application/repositories/weather-log.repository";
 import {
   WeatherLogDocument,
   WeatherLog as WeatherLogSchemaClass,
