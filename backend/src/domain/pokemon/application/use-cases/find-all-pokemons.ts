@@ -4,7 +4,9 @@ import {
 } from "src/core/interfaces/use-cases/pokemon/find-all-pokemons-use-case";
 import { PokemonGateway } from "../gateways/pokemons-repository";
 import { success } from "src/core/result";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class FindAllPokemonsUseCase {
   constructor(private pokemonGateway: PokemonGateway) {}
 

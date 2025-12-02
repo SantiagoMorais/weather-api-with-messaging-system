@@ -5,7 +5,9 @@ import {
 import { PokemonGateway } from "../gateways/pokemons-repository";
 import { failure, success } from "src/core/result";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class GetPokemonByNameOrIdUseCase {
   constructor(private pokemonGateway: PokemonGateway) {}
 
