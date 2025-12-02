@@ -30,20 +30,9 @@ export class GenerateInsightForWeatherLogUseCase {
       );
 
     const payload: IAIInsightGeneratorPayload = {
-      stats: {
-        temperature: weatherLog.hourlyObservationStats.temperature,
-        relativeHumidity: weatherLog.hourlyObservationStats.relativeHumidity,
-        windSpeed: weatherLog.hourlyObservationStats.windSpeed,
-        rain: weatherLog.hourlyObservationStats.rain,
-        apparentTemperature:
-          weatherLog.hourlyObservationStats.apparentTemperature,
-        cloudCover: weatherLog.hourlyObservationStats.cloudCover,
-      },
+      stats: weatherLog.hourlyObservationStats,
       weatherLogId,
-      metadata: {
-        location: weatherLog.location,
-        timestamp: weatherLog.hourlyObservationStats.timestamp,
-      },
+      location: weatherLog.location,
     };
 
     let insight: string;

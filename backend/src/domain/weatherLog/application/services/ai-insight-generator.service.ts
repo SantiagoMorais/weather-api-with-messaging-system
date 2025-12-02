@@ -1,9 +1,10 @@
+import { ILocation } from "src/core/interfaces/location";
 import { IObservationStats } from "src/core/interfaces/observation-stats";
 
 export interface IAIInsightGeneratorPayload {
   weatherLogId: string | number;
-  stats: Partial<IObservationStats>;
-  metadata?: unknown;
+  stats: IObservationStats;
+  location: ILocation;
 }
 
 export abstract class AIInsightGenerator {

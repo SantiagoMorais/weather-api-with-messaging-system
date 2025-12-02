@@ -13,6 +13,7 @@ export const makeUser = (
       email: faker.internet.email(),
       name: faker.person.fullName(),
       password: faker.internet.password(),
+      createdAt: new Date(2025, 0, 10),
       ...override,
     },
     id
