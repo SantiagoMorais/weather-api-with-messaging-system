@@ -1,12 +1,7 @@
 import { faker } from "@faker-js/faker";
-import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { IPokemonProps } from "src/core/interfaces/entities/pokemon-props";
-import { Pokemon } from "src/domain/pokemon/enterprise/entities/pokemon";
 
-export const makePokemon = (
-  override: Partial<IPokemonProps> = {},
-  id?: UniqueEntityId
-) => {
+export const makePokemon = (override: Partial<IPokemonProps> = {}) => {
   const pokemon: IPokemonProps = {
     _id: 1,
     description: "lorem ipsum",
@@ -38,7 +33,5 @@ export const makePokemon = (
     },
   };
 
-  const pokemonEntity = Pokemon.create(pokemon, id);
-
-  return { pokemonEntity, pokemon };
+  return { pokemon };
 };
