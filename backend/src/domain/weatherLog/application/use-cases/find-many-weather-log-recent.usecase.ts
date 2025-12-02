@@ -4,7 +4,9 @@ import {
 } from "src/core/interfaces/use-cases/weather-log/find-many-weather-log-recent-use-case";
 import { WeatherLogRepository } from "../repositories/weather-log.repository";
 import { success } from "src/core/result";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class FindManyWeatherLogRecent {
   constructor(private weatherLogRepository: WeatherLogRepository) {}
 
