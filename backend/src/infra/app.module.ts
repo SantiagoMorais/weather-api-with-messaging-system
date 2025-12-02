@@ -1,6 +1,6 @@
 import { HttpModule } from "@nestjs/axios";
 import { Module } from "@nestjs/common";
-import { PokemonApiGateway } from "./gateways/pokemon-api-gateway.service";
+import { PokemonApiGateway } from "./gateways/pokemon-api-gateway-implement.service";
 
 @Module({
   imports: [HttpModule],
