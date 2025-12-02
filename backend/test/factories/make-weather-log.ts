@@ -35,6 +35,7 @@ export const makeWeatherLog = (
       timezone: "America/Sao_Paulo",
       ...override.location,
     },
+    ...override,
   };
 
   const weatherLog = WeatherLog.create(weatherNotPersisted, id);
