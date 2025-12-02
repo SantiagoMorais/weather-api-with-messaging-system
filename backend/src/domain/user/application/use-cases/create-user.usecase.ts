@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { UsersRepository } from "../repositories/users-repository";
+import { UsersRepository } from "../repositories/users.repository";
 import {
   ICreateUserUseCaseRequest,
   TCreateUserUseCaseResponse,
@@ -7,7 +7,7 @@ import {
 import { UserAlreadyExistsError } from "src/core/errors/user-already-exists-error";
 import { failure, success } from "src/core/result";
 import { PasswordMismatchError } from "src/core/errors/password-mismatch-error";
-import { User } from "../../enterprise/entities/user";
+import { User } from "../../enterprise/entities/user.entity";
 import { HashGenerator } from "../../cryptography/hash-generator";
 
 @Injectable()

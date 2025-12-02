@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/require-await */
-import { UsersRepository } from "src/domain/user/application/repositories/users-repository";
-import { User } from "src/domain/user/enterprise/entities/user";
+import { UsersRepository } from "src/domain/user/application/repositories/users.repository";
+import { User } from "src/domain/user/enterprise/entities/user.entity";
 
 export class InMemoryUsersRepository implements UsersRepository {
   public users: User[] = [];

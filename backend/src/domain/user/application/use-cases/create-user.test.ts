@@ -1,6 +1,6 @@
 import { FakeHasher } from "test/cryptography/fake-hasher";
 import { InMemoryUsersRepository } from "test/repositories/in-memory-users-repository";
-import { CreateUserUseCase } from "./create-user";
+import { CreateUserUseCase } from "./create-user.usecase";
 import { PasswordMismatchError } from "src/core/errors/password-mismatch-error";
 import { UserAlreadyExistsError } from "src/core/errors/user-already-exists-error";
 

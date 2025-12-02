@@ -1,6 +1,6 @@
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { DomainEvent } from "src/core/events/domain-event";
-import { User } from "../entities/user";
+import { User } from "../entities/user.entity";
 
 export class UserCreatedEvent implements DomainEvent {
   public occurredAt: Date;

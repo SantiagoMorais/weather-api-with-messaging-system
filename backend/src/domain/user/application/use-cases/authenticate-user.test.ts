@@ -2,7 +2,7 @@ import { FakeCryptographer } from "test/cryptography/fake-cryptographer";
 import { FakeHasher } from "test/cryptography/fake-hasher";
 import { makeUser } from "test/factories/make-user";
 import { InMemoryUsersRepository } from "test/repositories/in-memory-users-repository";
-import { AuthenticateUser } from "./authenticate-user";
+import { AuthenticateUser } from "./authenticate-user.usecase";
 import { WrongCredentialsError } from "src/core/errors/wrong-credentials-error";
 
 let inMemoryUsersRepository: InMemoryUsersRepository;

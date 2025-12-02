@@ -4,7 +4,7 @@ import {
 } from "src/core/interfaces/use-cases/user/authenticate-user-use-case";
 import { Cryptographer } from "../../cryptography/cryptographer";
 import { HashComparer } from "../../cryptography/hash-comparer";
-import { UsersRepository } from "../repositories/users-repository";
+import { UsersRepository } from "../repositories/users.repository";
 import { WrongCredentialsError } from "src/core/errors/wrong-credentials-error";
 import { failure, success } from "src/core/result";
 import { Injectable } from "@nestjs/common";
