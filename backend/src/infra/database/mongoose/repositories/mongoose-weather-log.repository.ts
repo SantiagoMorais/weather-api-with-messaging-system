@@ -37,4 +37,31 @@ export class MongooseWeatherLogRepository implements WeatherLogRepository {
 
     DomainEvents.dispatchEventsForAggregate(weatherLog.id);
   }
+
+  async findManyRecent(amount: number): Promise<WeatherLog[]> {
+    const weatherLogDocuments = await this.weatherLogModal
+      .find({})
+      .sort({ createdAt: -1 })
+      .limit(amount)
+      .exec();
+
+    const domainWeatherLogs = weatherLogDocuments.map((document) =>
+      MongooseWeatherLogMapper.toDomain(document)
+    );
+
+    return domainWeatherLogs;
+  }
+
+  async findByDate(date: Date): Promise<WeatherLog | null> {
+    const weatherLogDocument = await this.weatherLogModal.findOne({
+      createdAt: { $eq: date },
+    });
+
+    if (!weatherLogDocument) return null;
+
+    const weatherLogEntity =
+      MongooseWeatherLogMapper.toDomain(weatherLogDocument);
+
+    return weatherLogEntity;
+  }
 }

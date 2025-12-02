@@ -22,8 +22,6 @@ describe("FindWeatherLogByDate use case", () => {
 
     const result = await sut.execute({ date: new Date(2025, 0, 5) });
 
-    console.log(inMemoryWeatherLogRepository.weatherLogs[5]);
-
     expect(result.isSuccess()).toBe(true);
     expect(result.value).toEqual({
       weatherLog: expect.any(Object),
