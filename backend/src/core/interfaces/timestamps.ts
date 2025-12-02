@@ -1,4 +1,4 @@
 export interface ITimestamps {
-  createdAt: Date;
+  createdAt?: Date;
   updatedAt?: Date | null;
 }

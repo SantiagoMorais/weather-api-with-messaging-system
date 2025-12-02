@@ -24,14 +24,11 @@ export class User extends AggregateRoot<IUsersProps> {
     return this.props.password;
   }
 
-  static create(
-    props: Omit<IUsersProps, "createdAt" | "updatedAt">,
-    id?: UniqueEntityId
-  ) {
+  static create(props: Omit<IUsersProps, "updatedAt">, id?: UniqueEntityId) {
     const user = new User(
       {
         ...props,
-        createdAt: new Date(),
+        createdAt: props.createdAt ?? new Date(),
       },
       id
     );
