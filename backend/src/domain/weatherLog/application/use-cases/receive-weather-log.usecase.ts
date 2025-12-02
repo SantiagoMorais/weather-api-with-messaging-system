@@ -1,68 +1,45 @@
+import { Injectable } from "@nestjs/common";
+import { DataAlreadyExistsError } from "src/core/errors/data-already-exists-error";
 import {
   IReceiveWeatherLogRequest,
   TReceiveWeatherLogResponse,
 } from "src/core/interfaces/use-cases/weather-log/receive-weather-log-use-case";
-import { CurrentForecastRepository } from "../repositories/current-forecasts.repository";
-import { HourlyObservationRepository } from "../repositories/hourly-observation.repository";
-import { HourlyObservation } from "../../enterprise/entities/hourly-observation.entity";
-import { CurrentForecast } from "../../enterprise/entities/current-forecast.entity";
 import { failure, success } from "src/core/result";
-import { DataAlreadyExistsError } from "src/core/errors/data-already-exists-error";
 import { formatDateToString } from "src/utils/formatDateToString";
-import { Injectable } from "@nestjs/common";
+import { WeatherLog } from "../../enterprise/entities/weather-log.entity";
+import { WeatherLogRepository } from "../repositories/weather-log.repository";
 
 @Injectable()
 export class ReceiveWeatherLogUseCase {
-  constructor(
-    private hourlyObservationRepository: HourlyObservationRepository,
-    private currentForecastRepository: CurrentForecastRepository
-  ) {}
+  constructor(private weatherLogRepository: WeatherLogRepository) {}
 
   async execute({
     currentForecastStats,
     hourlyObservationStats,
     location,
+    createdAt,
   }: IReceiveWeatherLogRequest): Promise<TReceiveWeatherLogResponse> {
-    const hourlyObservationTimestamp = hourlyObservationStats.timestamp;
-    const observationAlreadyExists =
-      await this.hourlyObservationRepository.findByDate(
-        hourlyObservationTimestamp
-      );
+    const weatherLogAlreadyExists =
+      await this.weatherLogRepository.findByDate(createdAt);
 
-    if (observationAlreadyExists)
+    if (weatherLogAlreadyExists)
       return failure(
         new DataAlreadyExistsError(
-          `Hourly Observation with timestamp ${formatDateToString(hourlyObservationTimestamp)} already registered.`
+          `Hourly Observation with timestamp ${formatDateToString(createdAt)} already registered.`
         )
       );
 
-    const hourlyObservation = HourlyObservation.create({
+    const weatherLog = WeatherLog.create({
       location,
-      stats: hourlyObservationStats,
+      currentForecastStats,
+      hourlyObservationStats,
     });
 
-    await this.hourlyObservationRepository.create(hourlyObservation);
-
-    const currentForecast = CurrentForecast.create({
-      location,
-      stats: currentForecastStats,
-    });
-
-    await this.currentForecastRepository.update(currentForecast);
+    await this.weatherLogRepository.save(weatherLog);
 
     return success({
-      hourlyObservation: {
-        createdAt: hourlyObservation.collectedAt,
-        location: hourlyObservation.location,
-        stats: hourlyObservation.currentStats,
-        updatedAt: hourlyObservation.processedAt,
-      },
-      currentForecast: {
-        createdAt: currentForecast.collectedAt,
-        updatedAt: currentForecast.processedAt,
-        location: currentForecast.location,
-        stats: currentForecast.forecast24h,
-      },
+      currentForecast: weatherLog.currentForecastStats,
+      hourlyObservation: weatherLog.hourlyObservationStats,
     });
   }
 }
