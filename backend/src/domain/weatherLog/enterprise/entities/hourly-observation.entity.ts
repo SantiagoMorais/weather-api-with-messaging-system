@@ -1,6 +1,7 @@
 import { Entity } from "src/core/entities/entity";
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { IHourlyObservationProps } from "src/core/interfaces/entities/hourly-observation";
+import { Optional } from "src/core/types/optional";
 
 export class HourlyObservation extends Entity<IHourlyObservationProps> {
   get currentStats() {
@@ -20,13 +21,14 @@ export class HourlyObservation extends Entity<IHourlyObservationProps> {
   }
 
   static create(
-    props: Omit<IHourlyObservationProps, "createdAt" | "updatedAt">,
+    props: Optional<IHourlyObservationProps, "createdAt" | "updatedAt">,
     id?: UniqueEntityId
   ) {
     const hourlyObservation = new HourlyObservation(
       {
         ...props,
-        createdAt: new Date(),
+        createdAt: props.createdAt ?? new Date(),
+        updatedAt: props.updatedAt ?? undefined,
       },
       id
     );

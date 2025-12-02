@@ -4,6 +4,7 @@ import { IWeatherLogProps } from "src/core/interfaces/entities/weather-log-props
 import { ILocation } from "src/core/interfaces/location";
 import { IObservationStats } from "src/core/interfaces/observation-stats";
 import { WeatherLogCreatedEvent } from "../events/weather-log-created.event";
+import { Optional } from "src/core/types/optional";
 
 export class WeatherLog extends AggregateRoot<IWeatherLogProps> {
   get currentForecastStats() {
@@ -55,13 +56,14 @@ export class WeatherLog extends AggregateRoot<IWeatherLogProps> {
   }
 
   static create(
-    props: Omit<IWeatherLogProps, "updatedAt">,
+    props: Optional<IWeatherLogProps, "updatedAt" | "createdAt">,
     id?: UniqueEntityId
   ) {
     const weatherLog = new WeatherLog(
       {
-        createdAt: props.createdAt ?? new Date(),
         ...props,
+        createdAt: props.createdAt ?? new Date(),
+        updatedAt: props.updatedAt ?? undefined,
       },
       id
     );
