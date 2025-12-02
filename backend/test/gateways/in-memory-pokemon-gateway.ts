@@ -3,7 +3,7 @@ import { IPokemonProps } from "src/core/interfaces/entities/pokemon-props";
 import { IFetchAllPokemonsDataResponse } from "src/core/interfaces/services/fetch-all-pokemons-data-response";
 import { IFetchPokemonsByType } from "src/core/interfaces/services/fetch-pokemons-by-type";
 import { TPokemonType } from "src/core/types/pokemon/pokemon-types";
-import { PokemonGateway } from "src/domain/pokemon/application/gateways/pokemons-repository";
+import { PokemonGateway } from "src/domain/pokemon/application/gateways/pokemons.gateway";
 
 export class InMemoryPokemonGateway implements PokemonGateway {
   public pokemons: IPokemonProps[] = [];

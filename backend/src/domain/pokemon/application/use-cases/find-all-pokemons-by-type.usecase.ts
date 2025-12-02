@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { PokemonGateway } from "../gateways/pokemons-repository";
+import { PokemonGateway } from "../gateways/pokemons.gateway";
 import {
   IFindAllPokemonsByTypeUseCaseRequest,
   TFindAllPokemonsByTypeUseCaseResponse,

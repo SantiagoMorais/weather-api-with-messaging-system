@@ -1,5 +1,5 @@
 import { InMemoryPokemonGateway } from "test/gateways/in-memory-pokemon-gateway";
-import { FindAllPokemonsUseCase } from "./find-all-pokemons";
+import { FindAllPokemonsUseCase } from "./find-all-pokemons.usecase";
 import { makePokemon } from "test/factories/make-pokemon";
 
 let inMemoryPokemonGateway: InMemoryPokemonGateway;

@@ -1,7 +1,7 @@
 import { HttpService } from "@nestjs/axios";
 import { Injectable } from "@nestjs/common";
 import { firstValueFrom } from "rxjs";
-import { PokemonGateway } from "src/domain/pokemon/application/gateways/pokemons-repository";
+import { PokemonGateway } from "src/domain/pokemon/application/gateways/pokemons.gateway";
 import { IPokemonProps } from "src/core/interfaces/entities/pokemon-props";
 import { IFetchAllPokemonsDataResponse } from "src/core/interfaces/services/fetch-all-pokemons-data-response";
 import { IFetchPokemonsByType } from "src/core/interfaces/services/fetch-pokemons-by-type";

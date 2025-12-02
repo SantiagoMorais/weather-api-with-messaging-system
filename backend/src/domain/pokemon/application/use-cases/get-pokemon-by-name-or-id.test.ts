@@ -1,5 +1,5 @@
 import { InMemoryPokemonGateway } from "test/gateways/in-memory-pokemon-gateway";
-import { GetPokemonByNameOrIdUseCase } from "./get-pokemon-by-name-or-id";
+import { GetPokemonByNameOrIdUseCase } from "./get-pokemon-by-name-or-id.usecase";
 import { makePokemon } from "test/factories/make-pokemon";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 

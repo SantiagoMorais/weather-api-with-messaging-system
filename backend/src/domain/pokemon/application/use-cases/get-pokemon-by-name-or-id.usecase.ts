@@ -2,7 +2,7 @@ import {
   IGetPokemonByNameOrIdUseCaseRequest,
   TGetPokemonByNameOrIdUseCaseResponse,
 } from "src/core/interfaces/use-cases/pokemon/get-pokemon-by-name-or-id-use-case";
-import { PokemonGateway } from "../gateways/pokemons-repository";
+import { PokemonGateway } from "../gateways/pokemons.gateway";
 import { failure, success } from "src/core/result";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 import { Injectable } from "@nestjs/common";
