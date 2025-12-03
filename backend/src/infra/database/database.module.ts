@@ -35,8 +35,6 @@ import { MongooseWeatherLogRepository } from "./mongoose/repositories/mongoose-w
   providers: [
     { provide: UsersRepository, useClass: MongooseUsersRepository },
     { provide: WeatherLogRepository, useClass: MongooseWeatherLogRepository },
-    MongooseUsersRepository,
-    MongooseWeatherLogRepository,
   ],
   exports: [UsersRepository, WeatherLogRepository],
 })
