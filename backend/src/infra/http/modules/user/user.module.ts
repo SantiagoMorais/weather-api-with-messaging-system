@@ -1,7 +1,9 @@
 import { Module } from "@nestjs/common";
-import { UserController } from "./models/controllers/user.controller";
+import { CreateUserController } from "./models/controllers/create-user.controller";
+import { CreateUserUseCase } from "src/domain/user/application/use-cases/create-user.usecase";
 
 @Module({
-  controllers: [UserController],
+  controllers: [CreateUserController],
+  providers: [CreateUserUseCase],
 })
 export class UserModule {}
