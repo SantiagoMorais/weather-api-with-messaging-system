@@ -1,19 +1,24 @@
 import { Module } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { MongooseModule } from "@nestjs/mongoose";
+import { UsersRepository } from "src/domain/user/application/repositories/users.repository";
+import { CreateUserUseCase } from "src/domain/user/application/use-cases/create-user.usecase";
+import { SeedAdminUserUseCase } from "src/domain/user/application/use-cases/seed-admin-user.usecase";
+import { WeatherLogRepository } from "src/domain/weatherLog/application/repositories/weather-log.repository";
+import { CryptographyModule } from "../cryptography/cryptography.module";
 import { Env } from "../env/env";
+import { DatabaseSeederService } from "./mongoose/database-seeder.service";
+import { MongooseUsersRepository } from "./mongoose/repositories/mongoose-users.repository";
+import { MongooseWeatherLogRepository } from "./mongoose/repositories/mongoose-weather-log.repository";
 import { User, UserSchema } from "./mongoose/schemas/user.schema";
 import {
   WeatherLog,
   WeatherLogSchema,
 } from "./mongoose/schemas/weather-log.schema";
-import { UsersRepository } from "src/domain/user/application/repositories/users.repository";
-import { MongooseUsersRepository } from "./mongoose/repositories/mongoose-users.repository";
-import { WeatherLogRepository } from "src/domain/weatherLog/application/repositories/weather-log.repository";
-import { MongooseWeatherLogRepository } from "./mongoose/repositories/mongoose-weather-log.repository";
 
 @Module({
   imports: [
+    CryptographyModule,
     MongooseModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService<Env, true>) => {
@@ -35,6 +40,9 @@ import { MongooseWeatherLogRepository } from "./mongoose/repositories/mongoose-w
   providers: [
     { provide: UsersRepository, useClass: MongooseUsersRepository },
     { provide: WeatherLogRepository, useClass: MongooseWeatherLogRepository },
+    CreateUserUseCase,
+    SeedAdminUserUseCase,
+    DatabaseSeederService,
   ],
   exports: [UsersRepository, WeatherLogRepository],
 })
