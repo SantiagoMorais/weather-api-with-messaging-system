@@ -22,6 +22,7 @@ export const createUserBodySchema = z
   .refine((data) => data.password === data.repeatPassword, {
     error: "The passwords don't match.",
     path: ["repeatPassword"],
-  });
+  })
+  .strict();
 
 export type TCreateUserControllerRequest = z.infer<typeof createUserBodySchema>;

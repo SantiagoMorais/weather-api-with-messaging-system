@@ -22,6 +22,7 @@ export class CreateUserUseCase {
     name,
     password,
     repeatPassword,
+    roles,
   }: ICreateUserUseCaseRequest): Promise<TCreateUserUseCaseResponse> {
     const userAlreadyExists = await this.usersRepository.findByEmail(email);
 
@@ -35,6 +36,7 @@ export class CreateUserUseCase {
       email,
       name,
       password: hashPassword,
+      roles: roles ?? ["Role_User"],
     });
 
     await this.usersRepository.create(user);

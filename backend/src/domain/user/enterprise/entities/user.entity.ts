@@ -25,8 +25,12 @@ export class User extends AggregateRoot<IUsersProps> {
     return this.props.password;
   }
 
+  get roles() {
+    return this.props.roles;
+  }
+
   static create(
-    props: Optional<IUsersProps, "updatedAt" | "createdAt">,
+    props: Optional<IUsersProps, "updatedAt" | "createdAt" | "roles">,
     id?: UniqueEntityId
   ) {
     const user = new User(
@@ -34,6 +38,7 @@ export class User extends AggregateRoot<IUsersProps> {
         ...props,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt ?? new Date(),
+        roles: props.roles ?? ["Role_User"],
       },
       id
     );

@@ -16,6 +16,7 @@ export class MongooseUserMapper {
         name: raw.name,
         password: raw.password,
         createdAt: raw.createdAt,
+        roles: raw.roles,
       },
       new UniqueEntityId(raw._id.toString())
     );
@@ -29,6 +30,7 @@ export class MongooseUserMapper {
       password: user.password,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
+      roles: user.roles,
     };
   }
 }

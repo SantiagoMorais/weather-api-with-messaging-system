@@ -13,6 +13,7 @@ export class SeedAdminUserUseCase {
       name: "John Doe",
       password: "Gdash@123",
       repeatPassword: "Gdash@123",
+      roles: ["Role_Admin"],
     });
 
     if (result.isSuccess()) {

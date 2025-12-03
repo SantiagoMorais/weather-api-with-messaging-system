@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument } from "mongoose";
+import { TUserRoles } from "src/core/types/user-roles";
 
 export type UserDocument = HydratedDocument<User>;
-export type UserRole = "Role_Admin" | "Role_User";
 
 @Schema({ collection: "users" })
 export class User {
@@ -24,8 +24,8 @@ export class User {
   @Prop({ type: Date, required: false })
   updatedAt?: Date | null;
 
-  @Prop({ type: [String], default: ["Role_User"] })
-  roles: UserRole[];
+  @Prop({ type: [String], default: ["Role_User"], select: false })
+  roles: TUserRoles[] = ["Role_User"];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
