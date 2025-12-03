@@ -3,10 +3,12 @@ import { CreateUserUseCase } from "src/domain/user/application/use-cases/create-
 import { CryptographyModule } from "src/infra/cryptography/cryptography.module";
 import { DatabaseModule } from "src/infra/database/database.module";
 import { CreateUserController } from "./models/controllers/create-user.controller";
+import { AuthenticateUserController } from "./models/controllers/authenticate-user.controller";
+import { AuthenticateUserUseCase } from "src/domain/user/application/use-cases/authenticate-user.usecase";
 
 @Module({
   imports: [CryptographyModule, DatabaseModule],
-  controllers: [CreateUserController],
-  providers: [CreateUserUseCase],
+  controllers: [CreateUserController, AuthenticateUserController],
+  providers: [CreateUserUseCase, AuthenticateUserUseCase],
 })
 export class UserModule {}
