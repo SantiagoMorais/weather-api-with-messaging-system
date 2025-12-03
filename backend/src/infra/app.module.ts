@@ -6,6 +6,7 @@ import { CryptographyModule } from "./cryptography/cryptography.module";
 import { AuthModule } from "./auth/auth.module";
 import { DatabaseModule } from "./database/database.module";
 import { HttpModule as AppHttpModule } from "./http/http.module";
+import { SwaggerService } from "./swagger/swagger.service";
 
 @Module({
   imports: [
@@ -19,5 +20,6 @@ import { HttpModule as AppHttpModule } from "./http/http.module";
     DatabaseModule,
     AppHttpModule,
   ],
+  providers: [SwaggerService],
 })
 export class AppModule {}
