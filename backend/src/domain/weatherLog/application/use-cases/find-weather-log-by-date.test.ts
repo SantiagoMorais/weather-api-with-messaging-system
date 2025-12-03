@@ -1,5 +1,5 @@
 import { InMemoryWeatherLogRepository } from "test/repositories/in-memory-weather-log-repository";
-import { FindWeatherLogByDateUseCase } from "./find-weather-log-by-id.usecase";
+import { FindWeatherLogByDateUseCase } from "./find-weather-log-by-date.usecase";
 import { makeWeatherLog } from "test/factories/make-weather-log";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 

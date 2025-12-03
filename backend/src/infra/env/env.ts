@@ -6,6 +6,8 @@ export const envSchema = z.object({
   JWT_PRIVATE_KEY: z.coerce.string(),
   JWT_PUBLIC_KEY: z.coerce.string(),
   GEMINI_API_KEY: z.coerce.string(),
+  MONGO_URI: z.coerce.string(),
+  MONGO_DB: z.coerce.string().default("gdash"),
 });
 
 export type Env = z.infer<typeof envSchema>;
