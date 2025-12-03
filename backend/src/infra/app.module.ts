@@ -5,6 +5,7 @@ import { envSchema } from "./env/env";
 import { CryptographyModule } from "./cryptography/cryptography.module";
 import { AuthModule } from "./auth/auth.module";
 import { DatabaseModule } from "./database/database.module";
+import { HttpModule as AppHttpModule } from "./http/http.module";
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { DatabaseModule } from "./database/database.module";
     CryptographyModule,
     AuthModule,
     DatabaseModule,
+    AppHttpModule,
   ],
 })
 export class AppModule {}
