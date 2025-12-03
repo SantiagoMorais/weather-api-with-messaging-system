@@ -4,9 +4,9 @@ import {
   ObservationStatsSchema,
 } from "./observation-stats.schema";
 import { Location, LocationSchema } from "./location.schema";
-import { Document } from "mongoose";
+import { Document, HydratedDocument } from "mongoose";
 
-export type WeatherLogDocument = WeatherLog & Document;
+export type WeatherLogDocument = HydratedDocument<WeatherLog>;
 
 @Schema({ collection: "weather_logs", timestamps: true })
 export class WeatherLog {

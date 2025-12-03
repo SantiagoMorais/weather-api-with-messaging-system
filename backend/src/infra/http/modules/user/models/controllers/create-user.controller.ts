@@ -21,7 +21,7 @@ import { CreateUserSwaggerDTO } from "../dto/create-user-swagger.dto";
 const bodyValidationPipe = new ZodValidationPipe(createUserBodySchema);
 
 @ApiTags("Users")
-@Controller("/user")
+@Controller("/users")
 @Public()
 export class CreateUserController {
   constructor(private createUserUseCase: CreateUserUseCase) {}
