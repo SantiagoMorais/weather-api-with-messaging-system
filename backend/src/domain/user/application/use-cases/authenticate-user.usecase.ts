@@ -10,7 +10,7 @@ import { failure, success } from "src/core/result";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
-export class AuthenticateUser {
+export class AuthenticateUserUseCase {
   constructor(
     private usersRepository: UsersRepository,
     private hashComparer: HashComparer,

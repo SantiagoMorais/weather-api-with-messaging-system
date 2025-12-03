@@ -2,20 +2,20 @@ import { FakeCryptographer } from "test/cryptography/fake-cryptographer";
 import { FakeHasher } from "test/cryptography/fake-hasher";
 import { makeUser } from "test/factories/make-user";
 import { InMemoryUsersRepository } from "test/repositories/in-memory-users-repository";
-import { AuthenticateUser } from "./authenticate-user.usecase";
+import { AuthenticateUserUseCase } from "./authenticate-user.usecase";
 import { WrongCredentialsError } from "src/core/errors/wrong-credentials-error";
 
 let inMemoryUsersRepository: InMemoryUsersRepository;
 let fakeHasher: FakeHasher;
 let fakeCryptographer: FakeCryptographer;
-let sut: AuthenticateUser;
+let sut: AuthenticateUserUseCase;
 
 describe("AuthenticateUser use case", () => {
   beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository();
     fakeHasher = new FakeHasher();
     fakeCryptographer = new FakeCryptographer();
-    sut = new AuthenticateUser(
+    sut = new AuthenticateUserUseCase(
       inMemoryUsersRepository,
       fakeHasher,
       fakeCryptographer
