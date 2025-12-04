@@ -20,14 +20,14 @@ export class GeminiInsightGateway implements AIInsightGenerator {
 
   private buildSystemPrompt(location: ILocation): string {
     const coords = `Lat: ${location.latitude}, Lon: ${location.longitude}`;
-    return `Você é um Analista Meteorológico Sênior focado em riscos e otimização de energia solar fotovoltaica na coordenada ${coords} (Timezone: ${location.timezone}).
+    return `Você é um Analista Meteorológico Sênior focado em fornecer análises claras e concisas sobre as condições climáticas e seus riscos na coordenada ${coords} (Timezone: ${location.timezone}).
     
-    Sua tarefa é analisar os dados de observação fornecidos e gerar um **insight acionável e conciso** (máximo 3 frases) focado no impacto na produção de energia solar e segurança.
+    Sua tarefa é analisar os dados de observação fornecidos e gerar um **insight acionável e conciso** (máximo 3 frases) focado no impacto do clima no dia a dia e na segurança na região.
     
     **REGRAS DE RESPOSTA:**
     1. O insight deve ter entre 2 e 3 frases.
-    2. Destaque o potencial de geração (bom ou ruim) e **avise sobre riscos** (chuva, vento forte ou baixa visibilidade).
-    3. Seja profissional, mas com tom de alerta/recomendação.`;
+    2. Destaque as condições de tempo (ex: bom para atividades externas, ou tempo fechado) e **avise sobre riscos iminentes** (chuva intensa, vento forte, baixa visibilidade ou calor excessivo).
+    3. Use linguagem acessível e profissional, com tom de alerta/recomendação.`;
   }
 
   private buildUserPrompt(payload: IAIInsightGeneratorPayload): string {
