@@ -5,7 +5,7 @@ import z from "zod";
 export const weatherLogPropsSchema = z
   .object({
     createdAt: z.coerce.date(),
-    updatedAt: z.coerce.date(),
+    updatedAt: z.coerce.date().optional(),
     hourlyObservationStats: observationStatsSchema,
     currentForecastStats: z
       .array(observationStatsSchema)
@@ -15,4 +15,6 @@ export const weatherLogPropsSchema = z
   })
   .strict();
 
-export type TWeatherLogProps = z.infer<typeof weatherLogPropsSchema>;
+export type TWeatherLogControllerRequest = z.infer<
+  typeof weatherLogPropsSchema
+>;

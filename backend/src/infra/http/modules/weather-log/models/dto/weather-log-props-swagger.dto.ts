@@ -1,9 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { LocationDTO } from "./location.dto";
 import { ObservationStatsDTO } from "./observation-stats.dto";
-import { TWeatherLogProps } from "../schemas/weather-log-props.schema";
+import { TWeatherLogControllerRequest } from "../schemas/weather-log-controller-request.schema";
 
-export class WeatherLogPropsSwaggerDTO implements TWeatherLogProps {
+export class WeatherLogPropsSwaggerDTO implements TWeatherLogControllerRequest {
   @ApiProperty({
     description: "Date when the log was created (System timestamp)",
     example: "2025-12-04T17:00:00.000Z",

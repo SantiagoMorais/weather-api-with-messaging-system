@@ -10,9 +10,9 @@ import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { ReceiveWeatherLogUseCase } from "src/domain/weatherLog/application/use-cases/receive-weather-log.usecase";
 import { Public } from "src/infra/auth/public";
 import {
-  type TWeatherLogProps,
+  type TWeatherLogControllerRequest,
   weatherLogPropsSchema,
-} from "../schemas/weather-log-props.schema";
+} from "../schemas/weather-log-controller-request.schema";
 import { ZodValidationPipe } from "src/infra/http/pipes/zod-validation.pipe";
 import { WeatherLogPropsSwaggerDTO } from "../dto/weather-log-props-swagger.dto";
 import { DataAlreadyExistsError } from "src/core/errors/data-already-exists-error";
@@ -33,7 +33,7 @@ export class ReceiveWeatherLogController {
     status: 409,
     description: `Conflict - Weather log with hour ${new Date().getHours()}h already exists for today`,
   })
-  async handle(@Body(bodyValidationPipe) body: TWeatherLogProps) {
+  async handle(@Body(bodyValidationPipe) body: TWeatherLogControllerRequest) {
     const data = body;
 
     Logger.log("Start creating weather log", "ReceiveWeatherLogController");

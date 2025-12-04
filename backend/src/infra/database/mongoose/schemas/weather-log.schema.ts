@@ -10,6 +10,9 @@ export type WeatherLogDocument = HydratedDocument<WeatherLog>;
 
 @Schema({ collection: "weather_logs", timestamps: true })
 export class WeatherLog {
+  @Prop({ type: String, required: true, unique: true, index: true })
+  _id: string;
+
   @Prop({ type: ObservationStatsSchema, required: true })
   hourlyObservationStats: ObservationStats;
 
