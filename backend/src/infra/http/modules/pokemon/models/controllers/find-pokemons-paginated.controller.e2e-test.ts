@@ -9,11 +9,12 @@ import { UserDocument } from "src/infra/database/mongoose/schemas/user.schema";
 import request from "supertest";
 import { authenticateAndGetToken } from "test/helpers/authenticate-and-get-token";
 import { IFindPokemonsControllerResponse } from "../interfaces/find-pokemons-controller.response";
+
 const USER_MODEL_TOKEN = getModelToken(User.name);
 
 describe("Get pokemon details (E2E)", () => {
   let app: INestApplication;
-  let userModal: Model<UserDocument>;
+  let userModel: Model<UserDocument>;
   let accessToken: string;
   let jwt: JwtService;
 
@@ -26,9 +27,9 @@ describe("Get pokemon details (E2E)", () => {
     jwt = moduleRef.get(JwtService);
     await app.init();
 
-    userModal = moduleRef.get<Model<UserDocument>>(USER_MODEL_TOKEN);
+    userModel = moduleRef.get<Model<UserDocument>>(USER_MODEL_TOKEN);
 
-    accessToken = await authenticateAndGetToken({ userModal, jwt });
+    accessToken = await authenticateAndGetToken({ userModel, jwt });
   });
 
   afterAll(async () => {

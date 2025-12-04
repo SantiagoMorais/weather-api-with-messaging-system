@@ -14,7 +14,7 @@ const USER_MODEL_TOKEN = getModelToken(User.name);
 
 describe("Authenticate User (E2E)", () => {
   let app: INestApplication;
-  let userModal: Model<UserDocument>;
+  let userModel: Model<UserDocument>;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -24,11 +24,11 @@ describe("Authenticate User (E2E)", () => {
     app = moduleRef.createNestApplication();
     await app.init();
 
-    userModal = moduleRef.get<Model<UserDocument>>(USER_MODEL_TOKEN);
+    userModel = moduleRef.get<Model<UserDocument>>(USER_MODEL_TOKEN);
   });
 
   beforeEach(async () => {
-    await userModal.deleteMany({});
+    await userModel.deleteMany({});
   });
 
   afterAll(async () => {
@@ -37,9 +37,9 @@ describe("Authenticate User (E2E)", () => {
 
   test("[POST]/users/auth", async () => {
     const user = userStub();
-    await userModal.create({ ...user, password: await hash(user.password, 8) });
+    await userModel.create({ ...user, password: await hash(user.password, 8) });
 
-    const userOnDatabase: IUsersProps | null = await userModal.findOne({
+    const userOnDatabase: IUsersProps | null = await userModel.findOne({
       email: user.email,
     });
 

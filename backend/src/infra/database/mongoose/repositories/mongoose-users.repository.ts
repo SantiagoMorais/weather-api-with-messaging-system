@@ -10,17 +10,17 @@ import { MongooseUserMapper } from "../mappers/mongoose-user.mapper";
 export class MongooseUsersRepository implements UsersRepository {
   constructor(
     @InjectModel(User.name)
-    private userModal: Model<UserDocument>
+    private userModel: Model<UserDocument>
   ) {}
 
   async create(user: UserDomain): Promise<void> {
     const data = MongooseUserMapper.toMongoose(user);
 
-    await this.userModal.create(data);
+    await this.userModel.create(data);
   }
 
   async findByEmail(email: string): Promise<UserDomain | null> {
-    const user = await this.userModal.findOne({ email });
+    const user = await this.userModel.findOne({ email });
 
     if (!user) {
       return null;

@@ -3,17 +3,17 @@ import { getModelToken } from "@nestjs/mongoose";
 import { Test } from "@nestjs/testing";
 import { Model } from "mongoose";
 import { randomUUID } from "node:crypto";
-import { IUsersProps } from "src/core/interfaces/entities/users-props";
 import { User } from "src/domain/user/enterprise/entities/user.entity";
 import { AppModule } from "src/infra/app.module";
 import { UserDocument } from "src/infra/database/mongoose/schemas/user.schema";
 import request from "supertest";
+import { TCreateUserControllerRequest } from "../schemas/create-user-body-schema";
 
 const USER_MODEL_TOKEN = getModelToken(User.name);
 
 describe("Create User (E2E)", () => {
   let app: INestApplication;
-  let userModal: Model<UserDocument>;
+  let userModel: Model<UserDocument>;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -23,11 +23,11 @@ describe("Create User (E2E)", () => {
     app = moduleRef.createNestApplication();
     await app.init();
 
-    userModal = moduleRef.get<Model<UserDocument>>(USER_MODEL_TOKEN);
+    userModel = moduleRef.get<Model<UserDocument>>(USER_MODEL_TOKEN);
   });
 
   beforeEach(async () => {
-    await userModal.deleteMany({});
+    await userModel.deleteMany({});
   });
 
   afterAll(async () => {
@@ -46,9 +46,10 @@ describe("Create User (E2E)", () => {
 
       expect(response.statusCode).toBe(201);
 
-      const userOnDatabase: IUsersProps | null = await userModal.findOne({
-        email: testEmail,
-      });
+      const userOnDatabase: TCreateUserControllerRequest | null =
+        await userModel.findOne({
+          email: testEmail,
+        });
 
       expect(userOnDatabase).toBeTruthy();
       expect(userOnDatabase?.name).toBe("John Doe");
