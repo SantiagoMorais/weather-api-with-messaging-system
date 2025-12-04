@@ -3,7 +3,6 @@ import {
   Body,
   ConflictException,
   Controller,
-  HttpCode,
   Logger,
   Post,
 } from "@nestjs/common";
@@ -28,7 +27,6 @@ export class CreateUserController {
   constructor(private createUserUseCase: CreateUserUseCase) {}
 
   @Post()
-  @HttpCode(201)
   @ApiBody({ type: CreateUserSwaggerDTO })
   @ApiResponse({ status: 201, description: "Created - User created" })
   @ApiResponse({
@@ -60,8 +58,8 @@ export class CreateUserController {
         default:
           throw new BadRequestException();
       }
-    } else {
-      Logger.log("User created", "CreateUserController");
     }
+    Logger.log("User created", "CreateUserController");
+    
   }
 }

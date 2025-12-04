@@ -9,7 +9,9 @@ import { Model } from "mongoose";
 import { MongooseWeatherLogMapper } from "../mappers/mongoose-weather-log.mapper";
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { DomainEvents } from "src/core/events/domain-events";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class MongooseWeatherLogRepository implements WeatherLogRepository {
   constructor(
     @InjectModel(WeatherLogSchemaClass.name)

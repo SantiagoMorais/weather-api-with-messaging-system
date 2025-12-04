@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { User } from "src/infra/database/mongoose/schemas/user.schema";
 
 export const userStub = (): User => {
-  const randomEmailAddress = randomUUID().slice(0, 6) + "@test.com";
+  const randomEmailAddress = randomUUID() + "@test.com";
 
   return {
     createdAt: new Date(),
