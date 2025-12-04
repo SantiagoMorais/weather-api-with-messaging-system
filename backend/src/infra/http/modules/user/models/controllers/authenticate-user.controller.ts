@@ -7,7 +7,7 @@ import {
   Post,
   UnauthorizedException,
 } from "@nestjs/common";
-import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiBody, ApiOkResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { AuthenticateUserUseCase } from "src/domain/user/application/use-cases/authenticate-user.usecase";
 import { Public } from "src/infra/auth/public";
 import { ZodValidationPipe } from "src/infra/http/pipes/zod-validation.pipe";
@@ -17,6 +17,8 @@ import {
 } from "../schemas/authenticate-user-schema";
 import { WrongCredentialsError } from "src/core/errors/wrong-credentials-error";
 import { AuthenticateUserSwaggerDTO } from "../dto/authenticate-user-swagger.dto";
+import { IAuthenticateUserControllerResponse } from "../interfaces/authenticate-user-controller.response";
+import { AuthenticateUserResponseDTO } from "../dto/authenticate-user-response.dto";
 
 const bodyValidationPipe = new ZodValidationPipe(authenticateUserSchema);
 
@@ -29,7 +31,10 @@ export class AuthenticateUserController {
   @Post()
   @HttpCode(200)
   @ApiBody({ type: AuthenticateUserSwaggerDTO })
-  @ApiResponse({ status: 200, description: "Ok - User authenticated" })
+  @ApiOkResponse({
+    description: "Ok - User authenticated",
+    type: AuthenticateUserResponseDTO,
+  })
   @ApiResponse({
     status: 400,
     description: "Bad request - Zod Validation Error",
@@ -38,7 +43,9 @@ export class AuthenticateUserController {
     status: 401,
     description: "Unauthorized - Invalid credentials",
   })
-  async handle(@Body(bodyValidationPipe) body: TAuthenticateControllerRequest) {
+  async handle(
+    @Body(bodyValidationPipe) body: TAuthenticateControllerRequest
+  ): Promise<IAuthenticateUserControllerResponse> {
     Logger.log("Verifying user by email", "AuthenticateUserController");
     const { email, password } = body;
 
