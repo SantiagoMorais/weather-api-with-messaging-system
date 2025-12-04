@@ -35,7 +35,7 @@ describe("Authenticate User (E2E)", () => {
     await app.close();
   });
 
-  it("[POST]/users/auth", async () => {
+  test("[POST]/users/auth", async () => {
     const user = userStub();
 
     await userModal.create({ ...user, password: await hash(user.password, 8) });

@@ -13,7 +13,7 @@ describe("GetPokemonByNameOrId use case", () => {
 
   it("should be able to find all pokemons paginated", async () => {
     for (let i = 0; i < 10; i++) {
-      const { pokemon } = makePokemon({ url: `https://pokemon/${i + 1}` });
+      const { pokemon } = makePokemon({ _id: i + 1 });
       inMemoryPokemonGateway.pokemons.push(pokemon);
     }
     const result = await sut.execute({ limit: 2, offset: 2 });
@@ -23,7 +23,7 @@ describe("GetPokemonByNameOrId use case", () => {
     expect(result.value?.pokemons.results).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          url: "https://pokemon/3",
+          _id: 3,
         }),
       ])
     );
@@ -31,7 +31,7 @@ describe("GetPokemonByNameOrId use case", () => {
 
   it("should not return more than the limit of pokemons on the list", async () => {
     for (let i = 0; i < 10; i++) {
-      const { pokemon } = makePokemon({ url: `https://pokemon/${i + 1}` });
+      const { pokemon } = makePokemon({ _id: i + 1 });
       inMemoryPokemonGateway.pokemons.push(pokemon);
     }
     const result = await sut.execute({ limit: 10, offset: 8 });
@@ -46,7 +46,6 @@ describe("GetPokemonByNameOrId use case", () => {
     }
     const result = await sut.execute({});
 
-    expect(result.value?.pokemons.results).toHaveLength(20);
     expect(result.value?.pokemons.results).toHaveLength(20);
   });
 });

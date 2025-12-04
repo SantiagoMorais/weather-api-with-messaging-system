@@ -34,7 +34,7 @@ describe("Create User (E2E)", () => {
     await app.close();
   });
 
-  it("[POST]/users", async () => {
+  test("[POST]/users", async () => {
     const testEmail = randomUUID().slice(6) + "@test.com";
     const response = await request(app.getHttpServer()).post("/users").send({
       name: "John Doe",

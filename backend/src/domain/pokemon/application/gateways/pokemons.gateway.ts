@@ -16,7 +16,7 @@ export abstract class PokemonGateway {
   abstract findAll(
     limit: number,
     offset: number,
-    baseEndpointPath?: string
+    baseEndpointPath: string | null
   ): Promise<IFetchAllPokemonsDataResponse>;
   abstract findAllByType(type: TPokemonType): Promise<IFetchPokemonsByType>;
 }

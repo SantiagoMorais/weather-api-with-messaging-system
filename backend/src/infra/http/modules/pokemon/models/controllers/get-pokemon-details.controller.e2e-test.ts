@@ -35,7 +35,7 @@ describe("Get pokemon details (E2E)", () => {
     await app.close();
   });
 
-  it("[GET]/pokemons/details", async () => {
+  test("[GET]/pokemons/details", async () => {
     const response = await request(app.getHttpServer())
       .get("/pokemons/charmander")
       .set("Authorization", `Bearer ${accessToken}`);

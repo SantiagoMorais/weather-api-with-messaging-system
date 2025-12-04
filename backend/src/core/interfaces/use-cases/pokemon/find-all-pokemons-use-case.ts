@@ -4,7 +4,7 @@ import { IFetchAllPokemonsDataResponse } from "../../services/fetch-all-pokemons
 export interface IFindAllPokemonsUseCaseRequest {
   limit?: number;
   offset?: number;
-  baseUrlPath?: string;
+  baseUrlPath: string | null;
 }
 
 export type TFindAllPokemonsUseCaseResponse = Result<

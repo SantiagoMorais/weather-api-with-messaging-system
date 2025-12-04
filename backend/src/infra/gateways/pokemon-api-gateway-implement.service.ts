@@ -108,7 +108,7 @@ export class PokemonApiGatewayImplement implements PokemonGateway {
   async findAll(
     limit: number,
     offset: number,
-    baseEndpointPath?: string
+    baseEndpointPath: string | null
   ): Promise<IFetchAllPokemonsDataResponse> {
     try {
       const params = new URLSearchParams();

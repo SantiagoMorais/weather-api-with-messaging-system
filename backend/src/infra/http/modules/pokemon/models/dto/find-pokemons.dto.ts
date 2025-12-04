@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IFindAllPokemonsUseCaseRequest } from "src/core/interfaces/use-cases/pokemon/find-all-pokemons-use-case";
+import { IFindPokemonsControllerParams } from "../interfaces/find-pokemons-controller.params";
 
-export class FindPokemonsDTO implements IFindAllPokemonsUseCaseRequest {
+export class FindPokemonsDTO implements IFindPokemonsControllerParams {
   @ApiProperty({
     description:
       "The limit/number of pokemons returned by page (The page size).",
