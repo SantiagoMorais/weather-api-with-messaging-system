@@ -7,7 +7,6 @@ import {
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { MongooseWeatherLogMapper } from "../mappers/mongoose-weather-log.mapper";
-import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { DomainEvents } from "src/core/events/domain-events";
 import { Injectable } from "@nestjs/common";
 
@@ -29,9 +28,9 @@ export class MongooseWeatherLogRepository implements WeatherLogRepository {
 
   async save(weatherLog: WeatherLog): Promise<void> {
     const data = MongooseWeatherLogMapper.toMongoose(weatherLog);
-    const id = data._id;
+    const id = weatherLog.id.toString();
 
-    await this.weatherLogModal.findByIdAndUpdate(new UniqueEntityId(id), data, {
+    await this.weatherLogModal.findByIdAndUpdate(id, data, {
       upsert: true,
       new: true,
       runValidators: true,
