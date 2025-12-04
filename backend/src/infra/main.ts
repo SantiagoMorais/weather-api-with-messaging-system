@@ -18,7 +18,7 @@ async function bootstrap() {
   const port = envService.get("PORT");
 
   await app.listen(port);
-  Logger.log(`Server running on http://localhost:${port}`, "Bootstrap");
+  Logger.log(`Server running on http://localhost:${port}`, "Main");
   Logger.log(
     `Swagger docs available on http://localhost:${port}/docs`,
     "Swagger"
