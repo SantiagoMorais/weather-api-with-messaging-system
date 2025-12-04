@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Controller,
   Get,
+  HttpCode,
   Logger,
   Query,
 } from "@nestjs/common";
@@ -16,6 +17,7 @@ export class FindPokemonsPaginatedController {
   constructor(private findAllPokemonsUseCase: FindAllPokemonsUseCase) {}
 
   @Get()
+  @HttpCode(200)
   @ApiQuery({
     name: "limit",
     required: false,

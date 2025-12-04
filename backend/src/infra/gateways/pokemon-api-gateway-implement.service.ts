@@ -1,18 +1,17 @@
 import { HttpService } from "@nestjs/axios";
 import { Injectable } from "@nestjs/common";
 import { firstValueFrom } from "rxjs";
-import { PokemonGateway } from "src/domain/pokemon/application/gateways/pokemons.gateway";
 import { IPokemonProps } from "src/core/interfaces/entities/pokemon-props";
 import {
   IFetchAllPokemonsAPIResponse,
   IFetchAllPokemonsDataResponse,
-  IPokemonFormattedBaseDetails,
 } from "src/core/interfaces/services/fetch-all-pokemons-data-response";
 import { IFetchPokemonsByType } from "src/core/interfaces/services/fetch-pokemons-by-type";
 import { IGetBasePokemonDataResponse } from "src/core/interfaces/services/get-base-pokemon-data-response";
 import { IGetPokemonSpeciesDataResponse } from "src/core/interfaces/services/get-pokemon-species-data-response";
+import { IPokemonFormattedBaseDetails } from "src/core/interfaces/services/pokemon-formatted-base-details";
 import { TPokemonType } from "src/core/types/pokemon/pokemon-types";
-import { extractIdFromPokeApiUrl } from "src/utils/extract-id-from-poke-api-url";
+import { PokemonGateway } from "src/domain/pokemon/application/gateways/pokemons.gateway";
 import { extractPaginationParams } from "src/utils/extract-pagination-params";
 
 const BASE_URL_ENDPOINT = "/pokemons";
@@ -160,12 +159,19 @@ export class PokemonApiGatewayImplement implements PokemonGateway {
         }>(`${this.baseUrl}/type/${type}`)
       );
 
+      const fetchMoreDetailsPromises = res.data.pokemon.map(
+        async ({ pokemon }) => {
+          const data = await this.getBaseByNameOrId(pokemon.name);
+          return data;
+        }
+      );
+
+      const detailedResults = (await Promise.all(
+        fetchMoreDetailsPromises
+      )) as IPokemonFormattedBaseDetails[];
+
       return {
-        pokemons: res.data.pokemon.map((p) => ({
-          name: p.pokemon.name,
-          id: extractIdFromPokeApiUrl(p.pokemon.url),
-          url: p.pokemon.url,
-        })),
+        pokemons: detailedResults,
       };
     } catch (error) {
       throw new Error("Error fetching pokemons by type: " + error);

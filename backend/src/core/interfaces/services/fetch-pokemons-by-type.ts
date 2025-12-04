@@ -1,7 +1,5 @@
+import { IPokemonFormattedBaseDetails } from "./pokemon-formatted-base-details";
+
 export interface IFetchPokemonsByType {
-  pokemons: {
-    name: string;
-    id: number | null;
-    url: string;
-  }[];
+  pokemons: IPokemonFormattedBaseDetails[];
 }

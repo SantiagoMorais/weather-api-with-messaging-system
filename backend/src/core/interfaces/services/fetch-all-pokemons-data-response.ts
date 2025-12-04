@@ -1,18 +1,9 @@
-import { TPokemonType } from "src/core/types/pokemon/pokemon-types";
+import { IPokemonFormattedBaseDetails } from "./pokemon-formatted-base-details";
 
 export interface IFetchAllPokemonsAPIResponse {
   results: { name: string; url: string }[];
   next: string | null;
   previous: string | null;
-}
-
-export interface IPokemonFormattedBaseDetails {
-  _id: number;
-  name: string;
-  image?: string | null;
-  types: TPokemonType[];
-  height: number;
-  weight: number;
 }
 
 export interface IFetchAllPokemonsDataResponse {
