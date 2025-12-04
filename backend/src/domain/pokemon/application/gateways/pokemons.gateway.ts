@@ -15,7 +15,8 @@ export abstract class PokemonGateway {
   ): Promise<IPokemonFormattedBaseDetails | null>;
   abstract findAll(
     limit: number,
-    offset: number
+    offset: number,
+    baseEndpointPath?: string
   ): Promise<IFetchAllPokemonsDataResponse>;
   abstract findAllByType(type: TPokemonType): Promise<IFetchPokemonsByType>;
 }

@@ -13,10 +13,12 @@ export class FindAllPokemonsUseCase {
   async execute({
     limit,
     offset,
+    baseUrlPath,
   }: IFindAllPokemonsUseCaseRequest): Promise<TFindAllPokemonsUseCaseResponse> {
     const pokemons = await this.pokemonGateway.findAll(
       limit ?? 20,
-      offset ?? 0
+      offset ?? 0,
+      ...(baseUrlPath ? baseUrlPath : "")
     );
 
     return success({

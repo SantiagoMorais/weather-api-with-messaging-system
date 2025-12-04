@@ -17,6 +17,6 @@ export const pokemonTypes = [
   "rock",
   "steel",
   "water",
-] as const;
+];
 
 export type TPokemonType = (typeof pokemonTypes)[number];

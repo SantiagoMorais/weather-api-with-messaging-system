@@ -5,7 +5,7 @@ import {
   TReceiveWeatherLogResponse,
 } from "src/core/interfaces/use-cases/weather-log/receive-weather-log-use-case";
 import { failure, success } from "src/core/result";
-import { formatDateToString } from "src/utils/formatDateToString";
+import { formatDateToString } from "src/utils/format-date-to-string";
 import { WeatherLog } from "../../enterprise/entities/weather-log.entity";
 import { WeatherLogRepository } from "../repositories/weather-log.repository";
 

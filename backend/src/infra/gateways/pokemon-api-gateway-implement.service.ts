@@ -12,7 +12,10 @@ import { IFetchPokemonsByType } from "src/core/interfaces/services/fetch-pokemon
 import { IGetBasePokemonDataResponse } from "src/core/interfaces/services/get-base-pokemon-data-response";
 import { IGetPokemonSpeciesDataResponse } from "src/core/interfaces/services/get-pokemon-species-data-response";
 import { TPokemonType } from "src/core/types/pokemon/pokemon-types";
-import { extractIdFromPokeApiUrl } from "src/utils/extractIfFromPokeApiUrl";
+import { extractIdFromPokeApiUrl } from "src/utils/extract-id-from-poke-api-url";
+import { extractPaginationParams } from "src/utils/extract-pagination-params";
+
+const BASE_URL_ENDPOINT = "/pokemons";
 
 @Injectable()
 export class PokemonApiGatewayImplement implements PokemonGateway {
@@ -104,7 +107,8 @@ export class PokemonApiGatewayImplement implements PokemonGateway {
 
   async findAll(
     limit: number,
-    offset: number
+    offset: number,
+    baseEndpointPath?: string
   ): Promise<IFetchAllPokemonsDataResponse> {
     try {
       const params = new URLSearchParams();
@@ -128,10 +132,20 @@ export class PokemonApiGatewayImplement implements PokemonGateway {
         fetchMoreDetailsPromises
       )) as IPokemonFormattedBaseDetails[];
 
+      const nextParams = extractPaginationParams(res.data.next);
+      const previousParams = extractPaginationParams(res.data.previous);
+      const nextUrl = nextParams
+        ? `${baseEndpointPath ?? BASE_URL_ENDPOINT}?limit=${nextParams.limit}&offset=${nextParams.offset}`
+        : null;
+
+      const previousUrl = previousParams
+        ? `${baseEndpointPath ?? BASE_URL_ENDPOINT}?limit=${previousParams.limit}&offset=${previousParams.offset}`
+        : null;
+
       return {
         results: detailedResults,
-        next: res.data.next,
-        previous: res.data.previous,
+        next: nextUrl,
+        previous: previousUrl,
       };
     } catch (error) {
       throw new Error("Error fetching pokemon list: " + error);
