@@ -1,17 +1,18 @@
 import { INestApplication } from "@nestjs/common";
 import { getModelToken } from "@nestjs/mongoose";
 import { Test } from "@nestjs/testing";
+import { hash } from "bcrypt";
 import { Model } from "mongoose";
-import { randomUUID } from "node:crypto";
 import { IUsersProps } from "src/core/interfaces/entities/users-props";
 import { User } from "src/domain/user/enterprise/entities/user.entity";
 import { AppModule } from "src/infra/app.module";
 import { UserDocument } from "src/infra/database/mongoose/schemas/user.schema";
 import request from "supertest";
+import { userStub } from "test/stubs/user.stub";
 
 const USER_MODEL_TOKEN = getModelToken(User.name);
 
-describe("Create User (E2E)", () => {
+describe("Authenticate User (E2E)", () => {
   let app: INestApplication;
   let userModal: Model<UserDocument>;
 
@@ -34,22 +35,27 @@ describe("Create User (E2E)", () => {
     await app.close();
   });
 
-  it("[POST]/users", async () => {
-    const testEmail = randomUUID().slice(6) + "@test.com";
-    const response = await request(app.getHttpServer()).post("/users").send({
-      name: "John Doe",
-      email: testEmail,
-      password: "John#1234",
-      repeatPassword: "John#1234",
-    });
+  it("[POST]/users/auth", async () => {
+    const user = userStub();
 
-    expect(response.statusCode).toBe(201);
+    await userModal.create({ ...user, password: await hash(user.password, 8) });
 
     const userOnDatabase: IUsersProps | null = await userModal.findOne({
-      email: testEmail,
+      email: user.email,
     });
 
     expect(userOnDatabase).toBeTruthy();
-    expect(userOnDatabase?.name).toBe("John Doe");
+
+    const response = await request(app.getHttpServer())
+      .post("/users/auth")
+      .send({
+        email: user.email,
+        password: user.password,
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual({
+      access_token: expect.any(String),
+    });
   });
 });

@@ -20,12 +20,12 @@ export class MongooseUsersRepository implements UsersRepository {
   }
 
   async findByEmail(email: string): Promise<UserDomain | null> {
-    const UserDocument = await this.userModal.findOne({ email });
+    const user = await this.userModal.findOne({ email });
 
-    if (!UserDocument) {
+    if (!user) {
       return null;
     }
 
-    return MongooseUserMapper.toDomain(UserDocument);
+    return MongooseUserMapper.toDomain(user);
   }
 }

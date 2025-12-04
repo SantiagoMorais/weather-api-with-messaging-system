@@ -22,13 +22,12 @@ import {
     MongooseModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService<Env, true>) => {
+        const isTestAmbient =
+          configService.get("NODE_ENV", { infer: true }) === "test";
         const uri = configService.get("MONGO_URI", { infer: true });
-        const dbName = configService.get("MONGO_DB");
+        const testUri = configService.get("MONGO_TEST_URI", { infer: true });
 
-        return {
-          uri,
-          dbName,
-        };
+        return { uri: isTestAmbient ? testUri : uri };
       },
     }),
     MongooseModule.forFeature([

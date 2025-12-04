@@ -24,7 +24,6 @@ export class MongooseUserMapper {
 
   static toMongoose(user: DomainUser) {
     return {
-      _id: user.id.toString(),
       email: user.email,
       name: user.name,
       password: user.password,

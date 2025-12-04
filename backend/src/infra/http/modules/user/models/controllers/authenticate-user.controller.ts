@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  HttpCode,
   Logger,
   Post,
   UnauthorizedException,
@@ -26,6 +27,7 @@ export class AuthenticateUserController {
   constructor(private authenticateUserUseCase: AuthenticateUserUseCase) {}
 
   @Post()
+  @HttpCode(200)
   @ApiBody({ type: AuthenticateUserSwaggerDTO })
   @ApiResponse({ status: 200, description: "Ok - User authenticated" })
   @ApiResponse({

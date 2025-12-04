@@ -17,6 +17,7 @@
     "test:watch": "vitest",
     "test:cov": "vitest run --coverage",
     "test:e2e": "vitest run --config ./vitest.config.e2e.ts",
+    "test:e2e:watch": "vitest --config ./vitest.config.e2e.ts",
     "seed": "ts-node -r src/infra/database/seed.ts"
   },
   "dependencies": {

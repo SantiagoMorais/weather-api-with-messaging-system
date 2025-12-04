@@ -10,6 +10,7 @@ export default defineConfig({
     root: "./",
     exclude: ["**/node_modules/**", "**/dist/**"],
     setupFiles: ["./test/setup-e2e.ts"],
+    maxConcurrency: 1,
   },
   plugins: [
     swc.vite({

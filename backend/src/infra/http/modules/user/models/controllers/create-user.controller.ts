@@ -3,6 +3,7 @@ import {
   Body,
   ConflictException,
   Controller,
+  HttpCode,
   Logger,
   Post,
 } from "@nestjs/common";
@@ -27,6 +28,7 @@ export class CreateUserController {
   constructor(private createUserUseCase: CreateUserUseCase) {}
 
   @Post()
+  @HttpCode(201)
   @ApiBody({ type: CreateUserSwaggerDTO })
   @ApiResponse({ status: 201, description: "Created - User created" })
   @ApiResponse({
