@@ -57,7 +57,7 @@ export class AuthenticateUserController {
     if (result.isFailure()) {
       const error = result.value;
 
-      Logger.log(error.message, "AuthenticateUserController");
+      Logger.error(error.message, "AuthenticateUserController");
       switch (error.constructor) {
         case WrongCredentialsError:
           throw new UnauthorizedException(error.message);

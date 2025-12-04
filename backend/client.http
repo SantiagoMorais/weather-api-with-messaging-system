@@ -1,14 +1,41 @@
 @baseUrl = http://localhost:3333
 
+@authToken = {{authenticate.response.body.access_token}}
+
 # @name create_user
 POST {{baseUrl}}/users
 Content-Type: application/json
 
 {
     "name": "John Doe",
-    "email": "new@test.com",
+    "email": "email@test.com",
     "password": "John@123",
-    "repeatPassword": "John@123",
+    "repeatPassword": "John@123"
 }
 
 ###
+
+# @name authenticate
+POST {{baseUrl}}/users/auth
+Content-Type: application/json
+
+{
+    "email": "email@test.com",
+    "password": "John@123"
+}
+
+###
+
+# @name fetch_pokemons
+GET {{baseUrl}}/pokemons
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name get_pokemon_details
+GET {{baseUrl}}/pokemons/pikachu
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+

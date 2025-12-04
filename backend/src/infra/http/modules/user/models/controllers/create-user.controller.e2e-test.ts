@@ -34,22 +34,36 @@ describe("Create User (E2E)", () => {
     await app.close();
   });
 
-  test("[POST]/users", async () => {
-    const testEmail = randomUUID().slice(6) + "@test.com";
-    const response = await request(app.getHttpServer()).post("/users").send({
-      name: "John Doe",
-      email: testEmail,
-      password: "John#1234",
-      repeatPassword: "John#1234",
+  describe("[POST]/users", () => {
+    it("should be able to create an user", async () => {
+      const testEmail = randomUUID().slice(6) + "@test.com";
+      const response = await request(app.getHttpServer()).post("/users").send({
+        name: "John Doe",
+        email: testEmail,
+        password: "John#1234",
+        repeatPassword: "John#1234",
+      });
+
+      expect(response.statusCode).toBe(201);
+
+      const userOnDatabase: IUsersProps | null = await userModal.findOne({
+        email: testEmail,
+      });
+
+      expect(userOnDatabase).toBeTruthy();
+      expect(userOnDatabase?.name).toBe("John Doe");
     });
 
-    expect(response.statusCode).toBe(201);
+    it("should not be able to create an user with password without special characters", async () => {
+      const testEmail = randomUUID().slice(6) + "@test.com";
+      const response = await request(app.getHttpServer()).post("/users").send({
+        name: "John Doe",
+        email: testEmail,
+        password: "12345678",
+        repeatPassword: "12345678",
+      });
 
-    const userOnDatabase: IUsersProps | null = await userModal.findOne({
-      email: testEmail,
+      expect(response.statusCode).toBe(400);
     });
-
-    expect(userOnDatabase).toBeTruthy();
-    expect(userOnDatabase?.name).toBe("John Doe");
   });
 });
