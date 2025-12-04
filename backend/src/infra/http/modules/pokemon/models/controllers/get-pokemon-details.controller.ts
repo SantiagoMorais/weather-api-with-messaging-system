@@ -6,16 +6,13 @@ import {
   HttpCode,
   Logger,
   NotFoundException,
+  Param,
 } from "@nestjs/common";
-import { ApiBody, ApiOkResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiOkResponse, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 import { GetPokemonByNameOrIdUseCase } from "src/domain/pokemon/application/use-cases/get-pokemon-by-name-or-id.usecase";
-import { GetPokemonDetailsDTO } from "../dto/get-pokemon-details.dto";
 import { GetPokemonControllerResponse } from "../interfaces/get-pokemon-controller.response";
-import {
-  getPokemonBodySchema,
-  type TGetPokemonControllerRequest,
-} from "../schemas/get-pokemon-body-schema";
+
 import { GetPokemonDetailsResponseDTO } from "../dto/get-pokemon-details-response.dto";
 
 @ApiTags("Pokemons")
@@ -23,7 +20,7 @@ import { GetPokemonDetailsResponseDTO } from "../dto/get-pokemon-details-respons
 export class GetPokemonDetailsController {
   constructor(private getPokemonDetailsUseCase: GetPokemonByNameOrIdUseCase) {}
 
-  @Get("/details")
+  @Get("/:nameOrId")
   @HttpCode(200)
   @ApiOkResponse({
     description: "Ok - Pokemon found.",
@@ -33,12 +30,13 @@ export class GetPokemonDetailsController {
     status: 404,
     description: "Not found - Pokemon name or id don't match.",
   })
-  @ApiBody({ type: GetPokemonDetailsDTO })
+  @ApiParam({
+    name: "nameOrId",
+    description: 'The name, as "Charmander" or its id number, as 9',
+  })
   async handle(
-    @Body(getPokemonBodySchema) body: TGetPokemonControllerRequest
+    @Param("nameOrId") nameOrId: string
   ): Promise<GetPokemonControllerResponse> {
-    const { nameOrId } = body;
-
     Logger.log("Start getting pokemon data", "GetPokemonDetailsController");
 
     const result = await this.getPokemonDetailsUseCase.execute({
