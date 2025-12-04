@@ -2,14 +2,16 @@ import { TPokemonImages } from "src/core/types/pokemon/pokemon-images";
 import { TPokemonStatName } from "src/core/types/pokemon/pokemon-stat-name";
 import { TPokemonType } from "src/core/types/pokemon/pokemon-types";
 
+export interface IPokemonStat {
+  statName: TPokemonStatName;
+  value: number;
+}
+
 export interface IPokemonProps {
   _id: number;
   name: string;
   images: TPokemonImages;
-  stats: Array<{
-    statName: TPokemonStatName;
-    value: number;
-  }>;
+  stats: IPokemonStat[];
   height: number;
   weight: number;
   types: TPokemonType[];
