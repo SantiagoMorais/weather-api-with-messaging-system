@@ -16,6 +16,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:cov": "vitest run --coverage",
+    "test:integration": "RUN_INTEGRATION=true vitest run --config ./vitest.config.integration.ts",
     "test:e2e": "vitest run --config ./vitest.config.e2e.ts",
     "test:e2e:watch": "vitest --config ./vitest.config.e2e.ts",
     "seed": "ts-node -r src/infra/database/seed.ts"

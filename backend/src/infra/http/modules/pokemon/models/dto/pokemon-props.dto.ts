@@ -65,7 +65,7 @@ export class PokemonPropsDTO implements IPokemonProps {
       "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
     nullable: true,
   })
-  description: string;
+  description?: string;
 
   @ApiProperty({
     description: "The URL of the API resource (useful for HATEOAS).",

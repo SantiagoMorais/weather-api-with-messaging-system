@@ -18,7 +18,7 @@ export class FindAllPokemonsUseCase {
     const pokemons = await this.pokemonGateway.findAll(
       limit ?? 20,
       offset ?? 0,
-      baseUrlPath
+      baseUrlPath ?? null
     );
 
     return success({

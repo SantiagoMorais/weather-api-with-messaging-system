@@ -18,7 +18,5 @@ export const authenticateAndGetToken = async ({
 
   const accessToken = jwt.sign({ sub: user._id });
 
-  console.log("AccessToken from authenticateAndGetToken: \n", accessToken);
-
   return accessToken;
 };

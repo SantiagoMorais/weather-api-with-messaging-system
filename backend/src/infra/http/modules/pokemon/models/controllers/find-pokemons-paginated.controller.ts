@@ -56,7 +56,7 @@ export class FindPokemonsPaginatedController {
       );
     }
 
-    Logger.error("Pokemons list got.", "FindPokemonsPaginatedController");
+    Logger.log("Pokemons list got.", "FindPokemonsPaginatedController");
     const pokemons = pokemonsList.value;
 
     return pokemons;

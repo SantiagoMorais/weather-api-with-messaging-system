@@ -16,6 +16,6 @@ export interface IPokemonProps {
   weight: number;
   types: TPokemonType[];
   habitat: string;
-  description: string;
+  description?: string;
   url: string;
 }

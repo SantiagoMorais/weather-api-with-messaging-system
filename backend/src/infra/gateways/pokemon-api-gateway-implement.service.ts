@@ -1,16 +1,15 @@
 import { HttpService } from "@nestjs/axios";
 import { Injectable } from "@nestjs/common";
+import { AxiosError } from "axios";
 import { firstValueFrom } from "rxjs";
 import { IPokemonProps } from "src/core/interfaces/entities/pokemon-props";
 import {
   IFetchAllPokemonsAPIResponse,
   IFetchAllPokemonsDataResponse,
 } from "src/core/interfaces/services/fetch-all-pokemons-data-response";
-import { IFetchPokemonsByType } from "src/core/interfaces/services/fetch-pokemons-by-type";
 import { IGetBasePokemonDataResponse } from "src/core/interfaces/services/get-base-pokemon-data-response";
 import { IGetPokemonSpeciesDataResponse } from "src/core/interfaces/services/get-pokemon-species-data-response";
 import { IPokemonFormattedBaseDetails } from "src/core/interfaces/services/pokemon-formatted-base-details";
-import { TPokemonType } from "src/core/types/pokemon/pokemon-types";
 import { PokemonGateway } from "src/domain/pokemon/application/gateways/pokemons.gateway";
 import { extractPaginationParams } from "src/utils/extract-pagination-params";
 
@@ -120,12 +119,10 @@ export class PokemonApiGatewayImplement implements PokemonGateway {
         )
       );
 
-      const fetchMoreDetailsPromises = res.data.results.map(
-        async ({ name }) => {
-          const data = await this.getBaseByNameOrId(name);
-          return data;
-        }
-      );
+      const fetchMoreDetailsPromises = res.data.results.map(async ({ url }) => {
+        const data = await this.fetchBaseByUrl(url);
+        return data;
+      });
 
       const detailedResults = (await Promise.all(
         fetchMoreDetailsPromises
@@ -151,30 +148,30 @@ export class PokemonApiGatewayImplement implements PokemonGateway {
     }
   }
 
-  async findAllByType(type: TPokemonType): Promise<IFetchPokemonsByType> {
+  private async fetchBaseByUrl(
+    url: string
+  ): Promise<IPokemonFormattedBaseDetails | null> {
     try {
-      const res = await firstValueFrom(
-        this.httpService.get<{
-          pokemon: { pokemon: { name: string; url: string }; slot: number }[];
-        }>(`${this.baseUrl}/type/${type}`)
-      );
-
-      const fetchMoreDetailsPromises = res.data.pokemon.map(
-        async ({ pokemon }) => {
-          const data = await this.getBaseByNameOrId(pokemon.name);
-          return data;
-        }
-      );
-
-      const detailedResults = (await Promise.all(
-        fetchMoreDetailsPromises
-      )) as IPokemonFormattedBaseDetails[];
+      const base$ = this.httpService.get<IGetBasePokemonDataResponse>(url);
+      const baseRes = await firstValueFrom(base$);
+      const baseData = baseRes.data;
 
       return {
-        pokemons: detailedResults,
+        _id: baseData.id,
+        name: baseData.name,
+        image: baseData.sprites.front_default,
+        weight: baseData.weight,
+        height: baseData.height,
+        types: baseData.types.map((t) => t.type.name),
       };
     } catch (error) {
-      throw new Error("Error fetching pokemons by type: " + error);
+      if (
+        error instanceof AxiosError &&
+        (error.response?.status === 404 || error.response?.status === 400)
+      ) {
+        return null;
+      }
+      throw new Error(`Error fetching Pokemon by URL (${url}): ${error}`);
     }
   }
 }

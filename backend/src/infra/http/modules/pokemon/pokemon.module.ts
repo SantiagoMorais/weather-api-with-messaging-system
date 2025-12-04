@@ -7,20 +7,13 @@ import { PokemonApiGatewayImplement } from "src/infra/gateways/pokemon-api-gatew
 import { GetPokemonDetailsController } from "./models/controllers/get-pokemon-details.controller";
 import { FindAllPokemonsUseCase } from "src/domain/pokemon/application/use-cases/find-all-pokemons.usecase";
 import { FindPokemonsPaginatedController } from "./models/controllers/find-pokemons-paginated.controller";
-import { FindPokemonsByTypeController } from "./models/controllers/find-pokemons-by-type.controller";
-import { FindAllPokemonsByTypeUseCase } from "src/domain/pokemon/application/use-cases/find-all-pokemons-by-type.usecase";
 
 @Module({
   imports: [HttpModule],
-  controllers: [
-    GetPokemonDetailsController,
-    FindPokemonsPaginatedController,
-    FindPokemonsByTypeController,
-  ],
+  controllers: [GetPokemonDetailsController, FindPokemonsPaginatedController],
   providers: [
     GetPokemonByNameOrIdUseCase,
     FindAllPokemonsUseCase,
-    FindAllPokemonsByTypeUseCase,
     {
       provide: PokemonGateway,
       useClass: PokemonApiGatewayImplement,
