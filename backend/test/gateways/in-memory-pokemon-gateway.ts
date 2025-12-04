@@ -1,12 +1,30 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { IPokemonProps } from "src/core/interfaces/entities/pokemon-props";
-import { IFetchAllPokemonsDataResponse } from "src/core/interfaces/services/fetch-all-pokemons-data-response";
+import {
+  IFetchAllPokemonsDataResponse,
+  IPokemonFormattedBaseDetails,
+} from "src/core/interfaces/services/fetch-all-pokemons-data-response";
 import { IFetchPokemonsByType } from "src/core/interfaces/services/fetch-pokemons-by-type";
 import { TPokemonType } from "src/core/types/pokemon/pokemon-types";
 import { PokemonGateway } from "src/domain/pokemon/application/gateways/pokemons.gateway";
 
 export class InMemoryPokemonGateway implements PokemonGateway {
   public pokemons: IPokemonProps[] = [];
+
+  async getBaseByNameOrId(
+    nameOrId: string | number
+  ): Promise<IPokemonFormattedBaseDetails | null> {
+    const pokemon = this.pokemons.find((p) =>
+      typeof nameOrId === "string" ? p.name === nameOrId : p._id === nameOrId
+    );
+
+    if (!pokemon) return null;
+
+    return {
+      ...pokemon,
+      image: pokemon.images.frontDefault,
+    };
+  }
 
   async getByNameOrId(
     nameOrId: string | number
@@ -35,8 +53,12 @@ export class InMemoryPokemonGateway implements PokemonGateway {
 
     const data: IFetchAllPokemonsDataResponse = {
       results: pokemons.map((pokemon) => ({
+        _id: pokemon._id,
+        height: pokemon.height,
         name: pokemon.name,
-        url: pokemon.url,
+        types: pokemon.types,
+        weight: pokemon.weight,
+        image: pokemon.images.frontDefault,
       })),
       next: nextItem ? nextItem.url : null,
       previous: prevItem ? prevItem.url : null,

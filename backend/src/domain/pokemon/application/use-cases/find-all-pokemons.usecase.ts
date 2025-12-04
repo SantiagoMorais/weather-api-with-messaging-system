@@ -14,7 +14,10 @@ export class FindAllPokemonsUseCase {
     limit,
     offset,
   }: IFindAllPokemonsUseCaseRequest): Promise<TFindAllPokemonsUseCaseResponse> {
-    const pokemons = await this.pokemonGateway.findAll(limit, offset);
+    const pokemons = await this.pokemonGateway.findAll(
+      limit ?? 20,
+      offset ?? 0
+    );
 
     return success({
       pokemons,

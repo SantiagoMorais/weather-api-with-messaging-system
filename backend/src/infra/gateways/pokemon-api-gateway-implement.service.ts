@@ -3,7 +3,11 @@ import { Injectable } from "@nestjs/common";
 import { firstValueFrom } from "rxjs";
 import { PokemonGateway } from "src/domain/pokemon/application/gateways/pokemons.gateway";
 import { IPokemonProps } from "src/core/interfaces/entities/pokemon-props";
-import { IFetchAllPokemonsDataResponse } from "src/core/interfaces/services/fetch-all-pokemons-data-response";
+import {
+  IFetchAllPokemonsAPIResponse,
+  IFetchAllPokemonsDataResponse,
+  IPokemonFormattedBaseDetails,
+} from "src/core/interfaces/services/fetch-all-pokemons-data-response";
 import { IFetchPokemonsByType } from "src/core/interfaces/services/fetch-pokemons-by-type";
 import { IGetBasePokemonDataResponse } from "src/core/interfaces/services/get-base-pokemon-data-response";
 import { IGetPokemonSpeciesDataResponse } from "src/core/interfaces/services/get-pokemon-species-data-response";
@@ -15,6 +19,31 @@ export class PokemonApiGatewayImplement implements PokemonGateway {
   private baseUrl = "https://pokeapi.co/api/v2";
 
   constructor(private readonly httpService: HttpService) {}
+
+  async getBaseByNameOrId(
+    nameOrId: string | number
+  ): Promise<IPokemonFormattedBaseDetails | null> {
+    try {
+      const base$ = this.httpService.get<IGetBasePokemonDataResponse>(
+        `${this.baseUrl}/pokemon/${nameOrId}`
+      );
+
+      const baseRes = await firstValueFrom(base$);
+
+      const baseData = baseRes.data;
+
+      return {
+        _id: baseData.id,
+        name: baseData.name,
+        image: baseData.sprites.front_default,
+        weight: baseData.weight,
+        height: baseData.height,
+        types: baseData.types.map((t) => t.type.name),
+      };
+    } catch (error) {
+      throw new Error("Error fetching Pokemon: " + error);
+    }
+  }
 
   async getByNameOrId(nameOrId: string | number): Promise<IPokemonProps> {
     try {
@@ -83,12 +112,27 @@ export class PokemonApiGatewayImplement implements PokemonGateway {
       params.append("limit", limit.toString());
 
       const res = await firstValueFrom(
-        this.httpService.get<IFetchAllPokemonsDataResponse>(
+        this.httpService.get<IFetchAllPokemonsAPIResponse>(
           `${this.baseUrl}/pokemon?${params.toString()}`
         )
       );
 
-      return res.data;
+      const fetchMoreDetailsPromises = res.data.results.map(
+        async ({ name }) => {
+          const data = await this.getBaseByNameOrId(name);
+          return data;
+        }
+      );
+
+      const detailedResults = (await Promise.all(
+        fetchMoreDetailsPromises
+      )) as IPokemonFormattedBaseDetails[];
+
+      return {
+        results: detailedResults,
+        next: res.data.next,
+        previous: res.data.previous,
+      };
     } catch (error) {
       throw new Error("Error fetching pokemon list: " + error);
     }

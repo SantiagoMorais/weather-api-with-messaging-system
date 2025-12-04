@@ -5,12 +5,15 @@ import { PokemonGateway } from "src/domain/pokemon/application/gateways/pokemons
 import { GetPokemonByNameOrIdUseCase } from "src/domain/pokemon/application/use-cases/get-pokemon-by-name-or-id.usecase";
 import { PokemonApiGatewayImplement } from "src/infra/gateways/pokemon-api-gateway-implement.service";
 import { GetPokemonDetailsController } from "./models/controllers/get-pokemon-details.controller";
+import { FindAllPokemonsUseCase } from "src/domain/pokemon/application/use-cases/find-all-pokemons.usecase";
+import { FindPokemonsPaginatedController } from "./models/controllers/find-pokemons-paginated.controller";
 
 @Module({
   imports: [HttpModule],
-  controllers: [GetPokemonDetailsController],
+  controllers: [GetPokemonDetailsController, FindPokemonsPaginatedController],
   providers: [
     GetPokemonByNameOrIdUseCase,
+    FindAllPokemonsUseCase,
     {
       provide: PokemonGateway,
       useClass: PokemonApiGatewayImplement,

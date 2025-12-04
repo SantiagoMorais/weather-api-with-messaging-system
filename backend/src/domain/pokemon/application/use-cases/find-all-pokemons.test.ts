@@ -38,4 +38,15 @@ describe("GetPokemonByNameOrId use case", () => {
 
     expect(result.value?.pokemons.results).toHaveLength(2);
   });
+
+  it("should return 20 pokemons starting from the beginning when the params are omitted", async () => {
+    for (let i = 0; i < 30; i++) {
+      const { pokemon } = makePokemon({ _id: i });
+      inMemoryPokemonGateway.pokemons.push(pokemon);
+    }
+    const result = await sut.execute({});
+
+    expect(result.value?.pokemons.results).toHaveLength(20);
+    expect(result.value?.pokemons.results).toHaveLength(20);
+  });
 });
