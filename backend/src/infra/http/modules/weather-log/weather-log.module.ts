@@ -10,6 +10,8 @@ import { FindRecentLogController } from "./models/controllers/find-recent-log.co
 import { FindWeatherLogByDateUseCase } from "src/domain/weatherLog/application/use-cases/find-weather-log-by-date.usecase";
 import { FindManyRecentLogController } from "./models/controllers/find-many-recent-log.controller";
 import { FindManyWeatherLogRecentUseCase } from "src/domain/weatherLog/application/use-cases/find-many-weather-log-recent.usecase";
+import { FindCurrentHourlyObservationController } from "./models/controllers/find-current-hourly-observation.controller";
+import { FindCurrentHourlyObservationUseCase } from "src/domain/weatherLog/application/use-cases/find-current-hourly-observation.usecase";
 
 @Module({
   imports: [DatabaseModule, EnvModule],
@@ -17,11 +19,13 @@ import { FindManyWeatherLogRecentUseCase } from "src/domain/weatherLog/applicati
     ReceiveWeatherLogController,
     FindRecentLogController,
     FindManyRecentLogController,
+    FindCurrentHourlyObservationController,
   ],
   providers: [
     ReceiveWeatherLogUseCase,
     FindWeatherLogByDateUseCase,
     FindManyWeatherLogRecentUseCase,
+    FindCurrentHourlyObservationUseCase,
     // The GEMINI interface and implementation to insight generation
     {
       provide: AIInsightGenerator,

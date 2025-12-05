@@ -48,8 +48,7 @@ export class FindManyRecentLogController {
       );
 
       throw new BadRequestException(
-        "Zod validation or unexpected error occur.",
-        "FindManyRecentLogController"
+        "Zod validation or unexpected error occur."
       );
     }
 
