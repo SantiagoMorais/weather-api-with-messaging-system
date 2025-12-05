@@ -25,17 +25,21 @@ export class FindManyRecentLogController {
   @ApiResponse({ status: 400, description: "Bad request - Zod error" })
   @ApiParam({
     name: "count",
-    description: "The number of weather logs to receive",
+    description:
+      "The number of weather logs to receive. If omitted, the last 12 will be returned",
+    required: false,
   })
   async handle(
-    @Param("count") count: number
+    @Param("count") count?: number
   ): Promise<IFindManyWeatherLogsResponse> {
     Logger.log(
       "Start searching for recent weather logs list",
       "FindManyRecentLogController"
     );
 
-    const result = await this.findManyRecentLogUseCase.execute({ count });
+    const result = await this.findManyRecentLogUseCase.execute({
+      count,
+    });
 
     if (result.isFailure()) {
       Logger.error(

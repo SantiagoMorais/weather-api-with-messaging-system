@@ -1,26 +1,25 @@
-import { Test, TestingModule } from "@nestjs/testing";
-
 import { INestApplication } from "@nestjs/common";
-import { Model } from "mongoose";
-import { WeatherLogDocument } from "src/infra/database/mongoose/schemas/weather-log.schema";
-import { AppModule } from "src/infra/app.module";
-import { AIInsightGenerator } from "src/domain/weatherLog/application/services/ai-insight-generator.service";
-import { MockAIInsightGenerator } from "test/mocks/mock-ai-insight-generator";
-import { getModelToken } from "@nestjs/mongoose";
-import { WeatherLog } from "src/domain/weatherLog/enterprise/entities/weather-log.entity";
 import { JwtService } from "@nestjs/jwt";
-import { authenticateAndGetToken } from "test/helpers/authenticate-and-get-token";
-import { UserDocument } from "src/infra/database/mongoose/schemas/user.schema";
-import { User } from "src/domain/user/enterprise/entities/user.entity";
-import request from "supertest";
-import { weatherLogStub } from "test/stubs/weather-log.stub";
-import { TWeatherLogControllerRequest } from "../schemas/weather-log-controller-request.schema";
+import { getModelToken } from "@nestjs/mongoose";
+import { Test, TestingModule } from "@nestjs/testing";
+import { Model } from "mongoose";
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
+import { User } from "src/domain/user/enterprise/entities/user.entity";
+import { AIInsightGenerator } from "src/domain/weatherLog/application/services/ai-insight-generator.service";
+import { WeatherLog } from "src/domain/weatherLog/enterprise/entities/weather-log.entity";
+import { AppModule } from "src/infra/app.module";
+import { UserDocument } from "src/infra/database/mongoose/schemas/user.schema";
+import { WeatherLogDocument } from "src/infra/database/mongoose/schemas/weather-log.schema";
+import request from "supertest";
+import { authenticateAndGetToken } from "test/helpers/authenticate-and-get-token";
+import { MockAIInsightGenerator } from "test/mocks/mock-ai-insight-generator";
+import { weatherLogStub } from "test/stubs/weather-log.stub";
+import { IFindManyWeatherLogsResponse } from "../interfaces/find-many-weather-logs-response";
 
 const WEATHER_MODEL_TOKEN = getModelToken(WeatherLog.name);
 const USER_MODEL_TOKEN = getModelToken(User.name);
 
-describe("FindRecentLogController (E2E)", () => {
+describe("FindManyRecentLogController (E2E)", () => {
   let app: INestApplication;
   let weatherModel: Model<WeatherLogDocument>;
   let userModel: Model<UserDocument>;
@@ -54,25 +53,24 @@ describe("FindRecentLogController (E2E)", () => {
     await app.close();
   });
 
-  describe("[GET]/weather-log/recent", () => {
-    it.skip("should be able to find the last created weather log", async () => {
-      const weatherLog = weatherLogStub();
-      await weatherModel.create({
-        ...weatherLog,
-        _id: new UniqueEntityId().toString(),
-      });
-
-      const logOnDatabase = await weatherModel.findOne();
-      expect(logOnDatabase).toBeTruthy();
+  describe("[GET]/weather-logs/:count", () => {
+    it("should be able to find the recent logs", async () => {
+      for (let i = 0; i < 5; i++) {
+        const weatherLog = weatherLogStub();
+        await weatherModel.create({
+          ...weatherLog,
+          _id: new UniqueEntityId(i.toString()).toString(),
+        });
+      }
 
       const response = await request(app.getHttpServer())
-        .get("/weather-log/recent")
+        .get("/weather-logs/3")
         .set("Authorization", `Bearer ${accessToken}`);
 
-      const bodyResponse: TWeatherLogControllerRequest = response.body;
+      const bodyResponse: IFindManyWeatherLogsResponse = response.body;
 
       expect(response.statusCode).toBe(200);
-      expect(bodyResponse.hourlyObservationStats).toBeDefined();
+      expect(bodyResponse.weatherLogs).toHaveLength(3);
     });
   });
 });
