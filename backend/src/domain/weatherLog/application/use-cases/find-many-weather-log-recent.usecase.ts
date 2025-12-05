@@ -7,7 +7,7 @@ import { success } from "src/core/result";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
-export class FindManyWeatherLogRecent {
+export class FindManyWeatherLogRecentUseCase {
   constructor(private weatherLogRepository: WeatherLogRepository) {}
 
   async execute({

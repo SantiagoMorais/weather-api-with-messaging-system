@@ -1,15 +1,15 @@
 import { InMemoryWeatherLogRepository } from "test/repositories/in-memory-weather-log-repository";
-import { FindManyWeatherLogRecent } from "./find-many-weather-log-recent.usecase";
+import { FindManyWeatherLogRecentUseCase } from "./find-many-weather-log-recent.usecase";
 import { makeWeatherLog } from "test/factories/make-weather-log";
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 
 let inMemoryWeatherLogRepository: InMemoryWeatherLogRepository;
-let sut: FindManyWeatherLogRecent;
+let sut: FindManyWeatherLogRecentUseCase;
 
-describe("FindManyWeatherLogRecent use case", () => {
+describe("FindManyWeatherLogRecentUseCase use case", () => {
   beforeEach(() => {
     inMemoryWeatherLogRepository = new InMemoryWeatherLogRepository();
-    sut = new FindManyWeatherLogRecent(inMemoryWeatherLogRepository);
+    sut = new FindManyWeatherLogRecentUseCase(inMemoryWeatherLogRepository);
   });
 
   it("should be able to return the recent weather log", async () => {
