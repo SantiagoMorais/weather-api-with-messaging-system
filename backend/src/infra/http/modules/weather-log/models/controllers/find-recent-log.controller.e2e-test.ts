@@ -46,6 +46,10 @@ describe("FindRecentLogController", () => {
     accessToken = await authenticateAndGetToken({ userModel, jwt });
   });
 
+  beforeEach(async () => {
+    await weatherModel.deleteMany({});
+  });
+
   describe("[GET]/weather-log/recent", () => {
     it.skip("should be able to find the last created weather log", async () => {
       const weatherLog = weatherLogStub();
