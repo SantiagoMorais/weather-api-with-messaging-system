@@ -8,7 +8,7 @@ import { Document, HydratedDocument } from "mongoose";
 
 export type WeatherLogDocument = HydratedDocument<WeatherLog>;
 
-@Schema({ collection: "weather_logs", timestamps: true })
+@Schema({ collection: "weather_logs", timestamps: true, autoIndex: false })
 export class WeatherLog {
   @Prop({ type: String, required: true, unique: true, index: true })
   _id: string;
@@ -20,7 +20,7 @@ export class WeatherLog {
   location: Location;
 
   @Prop({ type: [ObservationStatsSchema], required: true })
-  currentForecast: ObservationStats[];
+  currentForecastStats: ObservationStats[];
 
   @Prop({ type: String, required: false, default: null })
   insight: string | null;

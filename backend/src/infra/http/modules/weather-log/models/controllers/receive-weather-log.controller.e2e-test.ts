@@ -8,8 +8,9 @@ import { AppModule } from "src/infra/app.module";
 import { WeatherLogDocument } from "src/infra/database/mongoose/schemas/weather-log.schema";
 import request from "supertest";
 import { MockAIInsightGenerator } from "test/mocks/mock-ai-insight-generator";
-import { TWeatherLogControllerRequest } from "../schemas/weather-log-controller-request.schema";
 import { weatherLogStub } from "test/stubs/weather-log.stub";
+import { TWeatherLogControllerRequest } from "../schemas/weather-log-controller-request.schema";
+import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 
 const WEATHER_MODEL_TOKEN = getModelToken(WeatherLog.name);
 
@@ -37,25 +38,64 @@ describe("Receive Weather log (E2E)", () => {
     await app.close();
   });
 
-  test("[POST]/weather-log", async () => {
-    const weatherLog = weatherLogStub();
+  beforeEach(async () => {
+    await weatherModel.deleteMany({});
+  });
 
-    const response = await request(app.getHttpServer())
-      .post("/weather-log")
-      .send(weatherLog);
+  describe("[POST]/weather-log", () => {
+    it("should be able to receive/create a weather log", async () => {
+      const weatherLog = weatherLogStub();
 
-    expect(response.statusCode).toBe(201);
+      const response = await request(app.getHttpServer())
+        .post("/weather-log")
+        .send(weatherLog);
 
-    const weatherOnDatabase: TWeatherLogControllerRequest | null =
-      await weatherModel.findOne({
-        "location.latitude": weatherLog.location.latitude,
+      expect(response.statusCode).toBe(201);
+
+      const weatherOnDatabase: TWeatherLogControllerRequest | null =
+        await weatherModel.findOne({
+          "location.latitude": weatherLog.location.latitude,
+        });
+
+      expect(weatherOnDatabase).toBeTruthy();
+      expect(weatherOnDatabase?.location.latitude).toEqual(
+        weatherLog.location.latitude
+      );
+    });
+
+    test("When a second weather log be created, the first one must have its current forecast emptied", async () => {
+      const oldWeatherLog = weatherLogStub({
+        createdAt: new Date(2025, 11, 10),
       });
 
-    console.log(weatherOnDatabase);
+      const oldWeatherLogDocument = await weatherModel.create({
+        ...oldWeatherLog,
+        currentForecastStats: oldWeatherLog.currentForecastStats,
+        _id: new UniqueEntityId().toString(),
+      });
 
-    expect(weatherOnDatabase).toBeTruthy();
-    expect(weatherOnDatabase?.location.latitude).toEqual(
-      weatherLog.location.latitude
-    );
+      const logOnDatabase = await weatherModel.findById(
+        oldWeatherLogDocument._id
+      );
+      expect(logOnDatabase?.currentForecastStats).toHaveLength(1);
+
+      const recentWeatherLog = weatherLogStub({
+        createdAt: new Date(2025, 11, 20),
+      });
+
+      await request(app.getHttpServer())
+        .post("/weather-log")
+        .send(recentWeatherLog);
+
+      const updatedOldLog = await weatherModel.findById(
+        oldWeatherLogDocument._id
+      );
+
+      expect(updatedOldLog).toBeTruthy();
+      expect(updatedOldLog?.currentForecastStats).toEqual([]);
+
+      const newLogCount = await weatherModel.countDocuments();
+      expect(newLogCount).toBe(2);
+    });
   });
 });

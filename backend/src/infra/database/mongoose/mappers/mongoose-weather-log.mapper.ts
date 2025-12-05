@@ -14,7 +14,7 @@ export class MongooseWeatherLogMapper {
     return DomainWeatherLog.create(
       {
         hourlyObservationStats: raw.hourlyObservationStats,
-        currentForecastStats: raw.currentForecast,
+        currentForecastStats: raw.currentForecastStats,
         location: raw.location as ILocation,
         insight: raw.insight,
         createdAt: raw.createdAt,

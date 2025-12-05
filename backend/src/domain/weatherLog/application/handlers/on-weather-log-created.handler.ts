@@ -25,7 +25,7 @@ export class OnWeatherLogCreated {
   private async handle(event: WeatherLogCreatedEvent): Promise<void> {
     const { weatherLog } = event;
     let insight: string | null = null;
-    const logId = weatherLog.id.toString();
+    const logId = weatherLog.id;
 
     const aiPayload: IAIInsightGeneratorPayload = {
       stats: weatherLog.hourlyObservationStats,
@@ -34,12 +34,16 @@ export class OnWeatherLogCreated {
     };
 
     try {
-      console.info(`[AI] Generating domain insight to WeatherLog ${logId}`);
+      console.info(
+        `[AI] Generating domain insight to WeatherLog ${logId.toString()}`
+      );
       insight = await this.aiInsightGenerator.generateInsight(aiPayload);
-      console.log(`[AI] Insight successfully generated to ${logId}.`);
+      console.log(
+        `[AI] Insight successfully generated to ${logId.toString()}.`
+      );
     } catch (error) {
       console.error(
-        `[AI ERROR] Fail to generate insight to ${logId}. The log will be saved with a null insight`,
+        `[AI ERROR] Fail to generate insight to ${logId.toString()}. The log will be saved with a null insight`,
         error
       );
       insight = null;

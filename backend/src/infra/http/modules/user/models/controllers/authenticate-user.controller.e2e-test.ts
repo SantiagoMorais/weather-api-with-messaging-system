@@ -37,7 +37,11 @@ describe("Authenticate User (E2E)", () => {
 
   test("[POST]/users/auth", async () => {
     const user = userStub();
-    await userModel.create({ ...user, password: await hash("John@1234", 8) });
+    await userModel.create({
+      email: user.email,
+      name: user.name,
+      password: await hash("John@1234", 8),
+    });
 
     const userOnDatabase: IUsersProps | null = await userModel.findOne({
       email: user.email,

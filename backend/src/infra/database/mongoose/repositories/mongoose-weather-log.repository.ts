@@ -43,6 +43,10 @@ export class MongooseWeatherLogRepository implements WeatherLogRepository {
     const data = MongooseWeatherLogMapper.toMongoose(weatherLog);
     const id = weatherLog.id.toString();
 
+    if (weatherLog.currentForecastStats.length === 0) {
+      data.currentForecastStats = [];
+    }
+
     await this.weatherLogModal.findByIdAndUpdate(id, data, {
       upsert: true,
       new: true,
