@@ -11,21 +11,7 @@ describe("FindHourlyObservationByDate use case", () => {
     sut = new FindCurrentHourlyObservationUseCase(inMemoryWeatherLogRepository);
   });
 
-  it("should be able to find a observation by date", async () => {
-    const hourlyObservation = makeWeatherLog();
-    await inMemoryWeatherLogRepository.save(hourlyObservation);
-
-    const result = await sut.execute();
-
-    expect(result.isSuccess()).toBe(true);
-    expect(result.value).toEqual(
-      expect.objectContaining({
-        hourlyObservation: expect.any(Object),
-      })
-    );
-  });
-
-  it("should not be able to find a observation with a different date", async () => {
+  it("should be able to find the latest observation", async () => {
     const baseDate = new Date("2025-11-29T21:00:00");
     const differentDate = new Date("2025-11-30T21:00:00");
     const olderHourlyObservation = makeWeatherLog({ createdAt: baseDate });
