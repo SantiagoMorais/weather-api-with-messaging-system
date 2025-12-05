@@ -25,7 +25,7 @@ describe("GenerateInsightForWeatherLog use case", () => {
 
     inMemoryWeatherLogRepository.weatherLogs.push(weatherLog);
 
-    const result = await sut.execute({ weatherLogId: uniqueId.toString() });
+    const result = await sut.execute({ weatherLogId: uniqueId });
 
     expect(result.isSuccess()).toBe(true);
     expect(result.value).toEqual(
@@ -44,7 +44,7 @@ describe("GenerateInsightForWeatherLog use case", () => {
 
     inMemoryWeatherLogRepository.weatherLogs.push(weatherLog);
 
-    const result = await sut.execute({ weatherLogId: differentId.toString() });
+    const result = await sut.execute({ weatherLogId: differentId });
 
     expect(result.isFailure()).toBe(true);
     expect(result.value).toBeInstanceOf(DataNotFoundError);

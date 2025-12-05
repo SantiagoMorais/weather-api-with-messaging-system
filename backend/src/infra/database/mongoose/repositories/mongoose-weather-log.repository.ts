@@ -9,6 +9,7 @@ import { Model } from "mongoose";
 import { MongooseWeatherLogMapper } from "../mappers/mongoose-weather-log.mapper";
 import { DomainEvents } from "src/core/events/domain-events";
 import { Injectable } from "@nestjs/common";
+import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 
 @Injectable()
 export class MongooseWeatherLogRepository implements WeatherLogRepository {
@@ -17,7 +18,19 @@ export class MongooseWeatherLogRepository implements WeatherLogRepository {
     private weatherLogModal: Model<WeatherLogDocument>
   ) {}
 
-  async findById(id: string | number): Promise<WeatherLog | null> {
+  async findMostRecentLog(): Promise<WeatherLog | null> {
+    const mostRecentLog = await this.weatherLogModal
+      .findOne()
+      .sort({ createdAt: -1 })
+      .limit(1)
+      .exec();
+
+    if (!mostRecentLog) return null;
+
+    return MongooseWeatherLogMapper.toDomain(mostRecentLog);
+  }
+
+  async findById(id: UniqueEntityId): Promise<WeatherLog | null> {
     const weatherLogDocument = await this.weatherLogModal.findById(id);
     if (!weatherLogDocument) return null;
 

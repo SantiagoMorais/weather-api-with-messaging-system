@@ -29,6 +29,12 @@ export class ReceiveWeatherLogUseCase {
         )
       );
 
+    const previousLog = await this.weatherLogRepository.findMostRecentLog();
+    if (previousLog) {
+      previousLog.currentForecastStats = [];
+      await this.weatherLogRepository.save(previousLog);
+    }
+
     const weatherLog = WeatherLog.create({
       location,
       currentForecastStats,

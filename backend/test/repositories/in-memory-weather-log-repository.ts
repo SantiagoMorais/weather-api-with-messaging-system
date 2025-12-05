@@ -1,18 +1,37 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { WeatherLog } from "src/domain/weatherLog/enterprise/entities/weather-log.entity";
 import { WeatherLogRepository } from "src/domain/weatherLog/application/repositories/weather-log.repository";
+import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 
 export class InMemoryWeatherLogRepository implements WeatherLogRepository {
   public weatherLogs: WeatherLog[] = [];
 
-  async findById(id: string | number): Promise<WeatherLog | null> {
-    const weatherLog = this.weatherLogs.find((w) => w.id.toString() === id);
+  async findMostRecentLog(): Promise<WeatherLog | null> {
+    if (this.weatherLogs.length === 0) return null;
+
+    const sortedLogs = [...this.weatherLogs].sort(
+      (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+    );
+
+    return sortedLogs[0];
+  }
+
+  async findById(id: UniqueEntityId): Promise<WeatherLog | null> {
+    const weatherLog = this.weatherLogs.find((w) => w.id.equals(id));
     if (!weatherLog) return null;
     return weatherLog;
   }
 
   async save(weatherLog: WeatherLog): Promise<void> {
-    this.weatherLogs.push(weatherLog);
+    const itemIndex = this.weatherLogs.findIndex((item) =>
+      item.id.equals(weatherLog.id)
+    );
+
+    if (itemIndex >= 0) {
+      this.weatherLogs[itemIndex] = weatherLog;
+    } else {
+      this.weatherLogs.push(weatherLog);
+    }
   }
 
   async findManyRecent(amount: number): Promise<WeatherLog[]> {

@@ -39,4 +39,25 @@ describe("ReceiveWeatherLog use case", () => {
       DataAlreadyExistsError
     );
   });
+
+  it("should clean the current forecast of the last weather log before adding a new one", async () => {
+    const oldWeatherLogPayload = makeWeatherLog({
+      createdAt: new Date(2025, 11, 10),
+    });
+    inMemoryWeatherLogRepository.weatherLogs.push(oldWeatherLogPayload);
+
+    const newWeatherLogPayload = makeWeatherLog({
+      createdAt: new Date(2025, 11, 11),
+    });
+
+    await sut.execute(newWeatherLogPayload);
+
+    expect(inMemoryWeatherLogRepository.weatherLogs).toHaveLength(2);
+
+    const logAfterCleanup = await inMemoryWeatherLogRepository.findById(
+      oldWeatherLogPayload.id
+    );
+
+    expect(logAfterCleanup?.currentForecastStats).toEqual([]);
+  });
 });

@@ -26,7 +26,7 @@ export class GenerateInsightForWeatherLogUseCase {
 
     if (!weatherLog)
       return failure(
-        new DataNotFoundError(`WeatherLog ${weatherLogId} not found`)
+        new DataNotFoundError(`WeatherLog ${weatherLogId.toString()} not found`)
       );
 
     const payload: IAIInsightGeneratorPayload = {

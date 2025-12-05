@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { IPokemonProps } from "src/core/interfaces/entities/pokemon-props";
-import {
-  IFetchAllPokemonsDataResponse,
-  IPokemonFormattedBaseDetails,
-} from "src/core/interfaces/services/fetch-all-pokemons-data-response";
-import { IFetchPokemonsByType } from "src/core/interfaces/services/fetch-pokemons-by-type";
-import { TPokemonType } from "src/core/types/pokemon/pokemon-types";
+import { IFetchAllPokemonsDataResponse } from "src/core/interfaces/services/fetch-all-pokemons-data-response";
+import { IPokemonFormattedBaseDetails } from "src/core/interfaces/services/pokemon-formatted-base-details";
+
 import { PokemonGateway } from "src/domain/pokemon/application/gateways/pokemons.gateway";
 
 export class InMemoryPokemonGateway implements PokemonGateway {
@@ -65,19 +62,5 @@ export class InMemoryPokemonGateway implements PokemonGateway {
     };
 
     return data;
-  }
-
-  async findAllByType(type: TPokemonType): Promise<IFetchPokemonsByType> {
-    const pokemons = this.pokemons.filter((pokemon) =>
-      pokemon.types.some((pokeType) => pokeType === type)
-    );
-
-    return {
-      pokemons: pokemons.map((pokemon) => ({
-        id: pokemon._id,
-        name: pokemon.name,
-        url: pokemon.url,
-      })),
-    };
   }
 }
