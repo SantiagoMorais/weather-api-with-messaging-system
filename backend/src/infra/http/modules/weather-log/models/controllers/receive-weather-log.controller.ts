@@ -27,13 +27,18 @@ export class ReceiveWeatherLogController {
 
   @Post()
   @ApiBody({ type: WeatherLogPropsSwaggerDTO })
-  @ApiResponse({ status: 201, description: "Created - Weather log received" })
+  @ApiResponse({
+    status: 201,
+    description: "Created - Weather log received",
+  })
   @ApiResponse({ status: 400, description: "Bad request - Data not match" })
   @ApiResponse({
     status: 409,
     description: `Conflict - Weather log with hour ${new Date().getHours()}h already exists for today`,
   })
-  async handle(@Body(bodyValidationPipe) body: TWeatherLogControllerRequest) {
+  async handle(
+    @Body(bodyValidationPipe) body: TWeatherLogControllerRequest
+  ): Promise<void> {
     const data = body;
 
     Logger.log("Start creating weather log", "ReceiveWeatherLogController");

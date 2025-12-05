@@ -6,12 +6,15 @@ import { AIInsightGenerator } from "src/domain/weatherLog/application/services/a
 import { GeminiInsightGateway } from "src/infra/gateways/gemini-insight-gateway.service";
 import { OnWeatherLogCreated } from "src/domain/weatherLog/application/handlers/on-weather-log-created.handler";
 import { EnvModule } from "src/infra/env/env.module";
+import { FindRecentLogController } from "./models/controllers/find-recent-log.controller";
+import { FindWeatherLogByDateUseCase } from "src/domain/weatherLog/application/use-cases/find-weather-log-by-date.usecase";
 
 @Module({
   imports: [DatabaseModule, EnvModule],
-  controllers: [ReceiveWeatherLogController],
+  controllers: [ReceiveWeatherLogController, FindRecentLogController],
   providers: [
     ReceiveWeatherLogUseCase,
+    FindWeatherLogByDateUseCase,
     // The GEMINI interface and implementation to insight generation
     {
       provide: AIInsightGenerator,

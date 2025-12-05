@@ -19,8 +19,9 @@ export class WeatherLogPropsSwaggerDTO implements TWeatherLogControllerRequest {
     type: "string",
     format: "date-time",
     required: true,
+    nullable: true,
   })
-  updatedAt: Date;
+  updatedAt?: Date | null;
 
   @ApiProperty({
     description: "Geographic location data",
@@ -54,5 +55,5 @@ export class WeatherLogPropsSwaggerDTO implements TWeatherLogControllerRequest {
     nullable: true,
     required: false,
   })
-  insight: string | null;
+  insight?: string | null;
 }

@@ -5,7 +5,7 @@ import z from "zod";
 export const weatherLogPropsSchema = z
   .object({
     createdAt: z.coerce.date(),
-    updatedAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date().optional().nullable(),
     hourlyObservationStats: observationStatsSchema,
     currentForecastStats: z
       .array(observationStatsSchema)
