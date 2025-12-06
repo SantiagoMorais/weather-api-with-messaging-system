@@ -1,11 +1,13 @@
 import { Module } from "@nestjs/common";
-import { JwtModule } from "@nestjs/jwt";
+import { JwtModule, JwtModuleOptions } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { EnvModule } from "../env/env.module";
 import { EnvService } from "../env/env.service";
 import { APP_GUARD } from "@nestjs/core";
 import { JwtAuthGuard } from "./jwt-auth.guard";
 import { JwtStrategy } from "./jwt-strategy";
+
+type SignOptionsType = Required<JwtModuleOptions>["signOptions"]["expiresIn"];
 
 @Module({
   imports: [
@@ -17,8 +19,11 @@ import { JwtStrategy } from "./jwt-strategy";
       useFactory(env: EnvService) {
         const privateKey = env.get("JWT_PRIVATE_KEY");
         const publicKey = env.get("JWT_PUBLIC_KEY");
+        const expiresIn = (env.get("JWT_EXPIRES_IN") ||
+          "7d") as SignOptionsType;
+
         return {
-          signOptions: { algorithm: "RS256" },
+          signOptions: { algorithm: "RS256", expiresIn },
           privateKey: Buffer.from(privateKey, "base64"),
           publicKey: Buffer.from(publicKey, "base64"),
         };

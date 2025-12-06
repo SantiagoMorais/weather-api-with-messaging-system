@@ -4,6 +4,7 @@ export const envSchema = z.object({
   PORT: z.coerce.number().optional().default(3333),
   JWT_PRIVATE_KEY: z.coerce.string(),
   JWT_PUBLIC_KEY: z.coerce.string(),
+  JWT_EXPIRES_IN: z.coerce.string().default("7d"), // 7 days
   GEMINI_API_KEY: z.coerce.string(),
   MONGO_URI: z.coerce.string(),
   MONGO_TEST_URI: z.coerce.string(),
