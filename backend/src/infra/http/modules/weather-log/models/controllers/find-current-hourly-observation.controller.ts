@@ -6,12 +6,9 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { ApiOkResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { FindCurrentHourlyObservationUseCase } from "src/domain/weatherLog/application/use-cases/find-current-hourly-observation.usecase";
-import {
-  ObservationStatsDTO,
-  ObservationStatsWithIdDTO,
-} from "../dto/observation-stats.dto";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
+import { FindCurrentHourlyObservationUseCase } from "src/domain/weatherLog/application/use-cases/find-current-hourly-observation.usecase";
+import { ObservationStatsWithIdDTO } from "../dto/observation-stats.dto";
 
 @ApiTags("Weather")
 @Controller("/weather-log/hourly-observation")
@@ -23,7 +20,7 @@ export class FindCurrentHourlyObservationController {
   @Get()
   @ApiOkResponse({
     description: "OK - Data received",
-    type: ObservationStatsDTO,
+    type: ObservationStatsWithIdDTO,
   })
   @ApiResponse({ status: 400, description: "Bad request - Zod error" })
   @ApiResponse({ status: 404, description: "Not found - Data not created yet" })
