@@ -16,6 +16,9 @@ export class FindInsightUseCase {
         new DataNotFoundError("Current insight was not created yet.")
       );
 
-    return success({ insight: weatherLog.insight });
+    return success({
+      insight: weatherLog.insight,
+      id: weatherLog.id.toString(),
+    });
   }
 }

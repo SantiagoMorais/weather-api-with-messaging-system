@@ -1,4 +1,4 @@
-import { IObservationStats } from "src/core/interfaces/observation-stats";
+import { IObservationStats } from "src/core/interfaces/services/open-weather/observation-stats";
 import { makeWeatherLog } from "test/factories/make-weather-log";
 import { InMemoryWeatherLogRepository } from "test/repositories/in-memory-weather-log-repository";
 import { FindCurrentForecastUseCase } from "./find-current-forecast.usecase";

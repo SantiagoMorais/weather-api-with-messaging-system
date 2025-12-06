@@ -16,6 +16,9 @@ export class FindLocationUseCase {
         new DataNotFoundError("Current forecast was not created yet.")
       );
 
-    return success({ location: weatherLog.location });
+    return success({
+      location: weatherLog.location,
+      id: weatherLog.id.toString(),
+    });
   }
 }

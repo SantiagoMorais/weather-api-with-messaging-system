@@ -16,6 +16,9 @@ export class FindCurrentForecastUseCase {
         new DataNotFoundError("Current forecast was not created yet.")
       );
 
-    return success({ currentForecast: weatherLog.currentForecastStats });
+    return success({
+      currentForecast: weatherLog.currentForecastStats,
+      id: weatherLog.id.toString(),
+    });
   }
 }

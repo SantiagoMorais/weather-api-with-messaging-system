@@ -43,9 +43,6 @@ export class ReceiveWeatherLogUseCase {
 
     await this.weatherLogRepository.save(weatherLog);
 
-    return success({
-      currentForecast: weatherLog.currentForecastStats,
-      hourlyObservation: weatherLog.hourlyObservationStats,
-    });
+    return success({ weatherLog });
   }
 }

@@ -16,6 +16,9 @@ export class FindCurrentHourlyObservationUseCase {
         new DataNotFoundError("There is not a weather log registered yet.")
       );
 
-    return success({ hourlyObservation: weatherLog.hourlyObservationStats });
+    return success({
+      hourlyObservation: weatherLog.hourlyObservationStats,
+      id: weatherLog.id.toString(),
+    });
   }
 }

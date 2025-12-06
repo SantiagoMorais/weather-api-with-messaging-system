@@ -2,7 +2,7 @@ import { AggregateRoot } from "src/core/entities/aggregate-root";
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { IUsersProps } from "src/core/interfaces/entities/users-props";
 import { UserCreatedEvent } from "../events/user-created.event";
-import { Optional } from "src/core/types/optional";
+import { Optional } from "src/core/types/utility-types/optional";
 
 export class User extends AggregateRoot<IUsersProps> {
   get name() {
