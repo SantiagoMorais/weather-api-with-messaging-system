@@ -1,10 +1,16 @@
 package main
 
 import (
-	"fmt"
+	"worker/config"
+	"worker/orchestrator"
+	"worker/rabbitmq"
+	"worker/types"
 )
 
-
 func main() {
-	fmt.Println("Hello World")
+    cfg := config.LoadConfig()
+
+    rabbitmq.ConsumeWeatherQueue(cfg, func(payload types.FullWeatherPayload) {
+        orchestrator.HandlePayload(cfg, payload)
+    })
 }
