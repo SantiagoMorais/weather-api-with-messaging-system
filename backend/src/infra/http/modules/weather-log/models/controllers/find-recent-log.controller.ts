@@ -7,12 +7,9 @@ import {
 } from "@nestjs/common";
 import { ApiOkResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
-import { WeatherLogPresenter } from "src/infra/http/presenters/weather-log.presenter";
-import {
-  WeatherLogPropsSwaggerDTO,
-  WeatherLogResponseSwaggerDTO,
-} from "../dto/weather-log-props-swagger.dto";
 import { FindMostRecentWeatherLogUseCase } from "src/domain/weatherLog/application/use-cases/find-most-recent-weather-log.usecase";
+import { WeatherLogPresenter } from "src/infra/http/presenters/weather-log.presenter";
+import { WeatherLogResponseSwaggerDTO } from "../dto/weather-log-props-swagger.dto";
 
 @ApiTags("Weather")
 @Controller("/weather-log/recent")
@@ -24,7 +21,7 @@ export class FindRecentLogController {
   @Get()
   @ApiOkResponse({
     description: "OK - Weather received",
-    type: WeatherLogPropsSwaggerDTO,
+    type: WeatherLogResponseSwaggerDTO,
   })
   @ApiResponse({ status: 400, description: "Bad request - Zod error" })
   @ApiResponse({

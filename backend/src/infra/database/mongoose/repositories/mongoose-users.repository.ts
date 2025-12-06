@@ -15,7 +15,7 @@ export class MongooseUsersRepository implements UsersRepository {
   ) {}
 
   async findById(id: UniqueEntityId): Promise<UserDomain | null> {
-    const user = await this.userModel.findOne({ id });
+    const user = await this.userModel.findOne({ id: id.toString() });
 
     if (!user) {
       return null;

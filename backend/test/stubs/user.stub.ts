@@ -6,7 +6,7 @@ export const userStub = (): User => {
   const randomEmailAddress = randomUUID() + "@test.com";
 
   return {
-    id: new UniqueEntityId(),
+    id: new UniqueEntityId().toString(),
     createdAt: new Date(),
     email: randomEmailAddress,
     name: "John Doe",

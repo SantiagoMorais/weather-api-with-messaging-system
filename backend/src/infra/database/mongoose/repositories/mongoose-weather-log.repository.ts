@@ -19,37 +19,40 @@ export class MongooseWeatherLogRepository implements WeatherLogRepository {
     private weatherLogModal: Model<WeatherLogDocument>
   ) {}
 
-  private async expirePreviousForecast(location: ILocation) {
-    const latestLog = await this.weatherLogModal
+  async findMostRecentByLocation(
+    location: ILocation
+  ): Promise<WeatherLog | null> {
+    const doc = await this.weatherLogModal
       .findOne({
         "location.latitude": location.latitude,
         "location.longitude": location.longitude,
-        currentForecastStats: { $exists: true, $not: { $size: 0 } },
       })
       .sort({ createdAt: -1 })
       .limit(1)
       .exec();
 
-    if (latestLog) {
-      await this.weatherLogModal
-        .updateOne(
-          { _id: latestLog._id },
-          { $set: { currentForecastStats: [] } }
-        )
-        .exec();
-    }
+    if (!doc) return null;
+
+    return MongooseWeatherLogMapper.toDomain(doc);
   }
 
-  async findByHour(date: Date): Promise<WeatherLog | null> {
-    const startOfHour = new Date(date);
-    startOfHour.setMinutes(0, 0, 0);
+  async findByHour(
+    date: Date,
+    location: ILocation
+  ): Promise<WeatherLog | null> {
+    const start = new Date(date);
+    start.setMinutes(0, 0, 0);
 
-    const endOfHour = new Date(date);
-    endOfHour.setMinutes(59, 59, 999);
+    const end = new Date(start);
+    end.setHours(end.getHours() + 1);
 
-    const doc = await this.weatherLogModal.findOne({
-      createdAt: { $gte: startOfHour, $lte: endOfHour },
-    });
+    const doc = await this.weatherLogModal
+      .findOne({
+        createdAt: { $gte: start, $lt: end },
+        "location.latitude": location.latitude,
+        "location.longitude": location.longitude,
+      })
+      .exec();
 
     if (!doc) return null;
 
@@ -126,5 +129,23 @@ export class MongooseWeatherLogRepository implements WeatherLogRepository {
       MongooseWeatherLogMapper.toDomain(weatherLogDocument);
 
     return weatherLogEntity;
+  }
+
+  async expirePreviousForecast(location: ILocation): Promise<void> {
+    const latestLog = await this.weatherLogModal
+      .findOne({
+        "location.latitude": location.latitude,
+        "location.longitude": location.longitude,
+        currentForecastStats: { $exists: true, $not: { $size: 0 } },
+      })
+      .sort({ createdAt: -1 })
+      .limit(1)
+      .exec();
+
+    if (!latestLog) return;
+
+    await this.weatherLogModal
+      .updateOne({ _id: latestLog._id }, { $set: { currentForecastStats: [] } })
+      .exec();
   }
 }

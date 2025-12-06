@@ -14,6 +14,8 @@ import { FindCurrentHourlyObservationController } from "./models/controllers/fin
 import { FindCurrentHourlyObservationUseCase } from "src/domain/weatherLog/application/use-cases/find-current-hourly-observation.usecase";
 import { FindCurrentForecastController } from "./models/controllers/find-current-forecast.controller";
 import { FindCurrentForecastUseCase } from "src/domain/weatherLog/application/use-cases/find-current-forecast.usecase";
+import { FindCurrentInsightController } from "./models/controllers/find-current-insight.controller";
+import { FindInsightUseCase } from "src/domain/weatherLog/application/use-cases/find-current-insight.usecase";
 
 @Module({
   imports: [DatabaseModule, EnvModule],
@@ -23,6 +25,7 @@ import { FindCurrentForecastUseCase } from "src/domain/weatherLog/application/us
     FindManyRecentLogController,
     FindCurrentHourlyObservationController,
     FindCurrentForecastController,
+    FindCurrentInsightController,
   ],
   providers: [
     ReceiveWeatherLogUseCase,
@@ -30,6 +33,7 @@ import { FindCurrentForecastUseCase } from "src/domain/weatherLog/application/us
     FindManyWeatherLogRecentUseCase,
     FindCurrentHourlyObservationUseCase,
     FindCurrentForecastUseCase,
+    FindInsightUseCase,
     // The GEMINI interface and implementation to insight generation
     {
       provide: AIInsightGenerator,

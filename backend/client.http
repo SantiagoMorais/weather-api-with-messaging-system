@@ -26,6 +26,13 @@ Content-Type: application/json
 
 ###
 
+# @name user_profile
+GET {{baseUrl}}/users/me
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
 # @name fetch_pokemons
 GET {{baseUrl}}/pokemons
 Content-Type: application/json
@@ -38,4 +45,89 @@ GET {{baseUrl}}/pokemons/pikachu
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
+###
 
+# @name create_weather_log
+POST {{baseUrl}}/weather-log
+Content-Type: application/json
+
+{
+  "createdAt": "2025-12-04T17:00:00.000Z",
+
+  "location": {
+    "longitude": -43.9333,
+    "latitude": -19.9167,
+    "timezone": "America/Sao_Paulo"
+  },
+
+  "hourlyObservationStats": {
+    "timestamp": "2025-12-04T18:00:00.000Z",
+    "temperature": 25.5,
+    "isDay": true,
+    "uvIndex": 7,
+    "relativeHumidity": 65,
+    "apparentTemperature": 27.8,
+    "precipitationProbability": 10,
+    "precipitation": 0.5,
+    "rain": 0.1,
+    "cloudCover": 30,
+    "visibility": 10000,
+    "windSpeed": 15.2,
+    "soilTemperature": 22,
+    "soilMoisture": 45
+  },
+
+  "currentForecastStats": [
+    {
+      "timestamp": "2025-12-04T19:00:00.000Z",
+      "temperature": 23.4,
+      "isDay": true,
+      "uvIndex": 5,
+      "relativeHumidity": 70,
+      "apparentTemperature": 24.2,
+      "precipitationProbability": 15,
+      "precipitation": 0.2,
+      "rain": 0,
+      "cloudCover": 40,
+      "visibility": 10000,
+      "windSpeed": 12.5,
+      "soilTemperature": 21,
+      "soilMoisture": 50
+    }
+  ]
+}
+
+###
+
+# @name get_recent_weather_log
+GET {{baseUrl}}/weather-log/recent
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name get_many_weather_logs
+GET {{baseUrl}}/weather-logs/12
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name get_current_insight
+GET {{baseUrl}}/weather-log/insight
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name get_current_hourly_observation
+GET {{baseUrl}}/weather-log/hourly-observation
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name get_current_forecast
+GET {{baseUrl}}/weather-log/current-forecast
+Content-Type: application/json
+Authorization: Bearer {{authToken}}

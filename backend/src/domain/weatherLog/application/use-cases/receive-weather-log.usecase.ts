@@ -16,27 +16,29 @@ export class ReceiveWeatherLogUseCase {
   async execute(
     data: IReceiveWeatherLogRequest
   ): Promise<TReceiveWeatherLogResponse> {
-    const { createdAt } = data;
+    const { createdAt, location } = data;
 
-    // 1. Verifica se já existe LOG no mesmo horário
-    const existingAtSameHour =
-      await this.weatherLogRepository.findByHour(createdAt);
-    if (existingAtSameHour) {
-      return failure(
-        new DataAlreadyExistsError(
-          `Hourly Observation with timestamp ${formatDateToString(createdAt)} already registered.`
-        )
-      );
+    const lastLog =
+      await this.weatherLogRepository.findMostRecentByLocation(location);
+
+    if (lastLog) {
+      const sameHour =
+        lastLog.createdAt.getHours() === createdAt.getHours() &&
+        lastLog.createdAt.getDate() === createdAt.getDate() &&
+        lastLog.createdAt.getMonth() === createdAt.getMonth() &&
+        lastLog.createdAt.getFullYear() === createdAt.getFullYear();
+
+      if (sameHour) {
+        return failure(
+          new DataAlreadyExistsError(
+            `Hourly Observation with timestamp ${formatDateToString(createdAt)} already registered.`
+          )
+        );
+      }
     }
 
-    // 2. Pega o mais recente (de outro horário)
-    const previousLog = await this.weatherLogRepository.findMostRecent();
-    if (previousLog) {
-      previousLog.currentForecastStats = [];
-      await this.weatherLogRepository.save(previousLog);
-    }
+    await this.weatherLogRepository.expirePreviousForecast(data.location);
 
-    // 3. Cria o novo
     const weatherLog = WeatherLog.create(data);
     await this.weatherLogRepository.save(weatherLog);
 

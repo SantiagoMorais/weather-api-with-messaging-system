@@ -2,18 +2,38 @@
 import { WeatherLog } from "src/domain/weatherLog/enterprise/entities/weather-log.entity";
 import { WeatherLogRepository } from "src/domain/weatherLog/application/repositories/weather-log.repository";
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
+import { ILocation } from "src/core/interfaces/services/open-weather/location";
 
 export class InMemoryWeatherLogRepository implements WeatherLogRepository {
   public weatherLogs: WeatherLog[] = [];
 
-  async findByHour(date: Date): Promise<WeatherLog | null> {
+  async findMostRecentByLocation(
+    location: ILocation
+  ): Promise<WeatherLog | null> {
+    const logs = this.weatherLogs
+      .filter(
+        (log) =>
+          log.location.latitude === location.latitude &&
+          log.location.longitude === location.longitude
+      )
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+
+    return logs[0] ?? null;
+  }
+
+  async findByHour(
+    date: Date,
+    location: ILocation
+  ): Promise<WeatherLog | null> {
     return (
       this.weatherLogs.find(
         (log) =>
           log.createdAt.getHours() === date.getHours() &&
           log.createdAt.getDate() === date.getDate() &&
           log.createdAt.getMonth() === date.getMonth() &&
-          log.createdAt.getFullYear() === date.getFullYear()
+          log.createdAt.getFullYear() === date.getFullYear() &&
+          log.location.latitude === location.latitude &&
+          log.location.longitude === location.longitude
       ) ?? null
     );
   }
@@ -57,5 +77,21 @@ export class InMemoryWeatherLogRepository implements WeatherLogRepository {
     return this.weatherLogs.reduce((latest, log) =>
       log.createdAt > latest.createdAt ? log : latest
     );
+  }
+
+  async expirePreviousForecast(location: ILocation): Promise<void> {
+    const latest = this.weatherLogs
+      .filter(
+        (log) =>
+          log.location.latitude === location.latitude &&
+          log.location.longitude === location.longitude
+      )
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())[0];
+
+    if (!latest) return;
+
+    latest.currentForecastStats = [];
+
+    await this.save(latest);
   }
 }
