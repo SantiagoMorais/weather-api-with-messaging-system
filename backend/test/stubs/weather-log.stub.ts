@@ -1,11 +1,12 @@
-import { TWeatherLogControllerRequest } from "src/infra/http/modules/weather-log/models/schemas/weather-log-controller-request.schema";
+import { UniqueEntityId } from "src/core/entities/unique-entity-id";
+import { TWeatherLogControllerResponse } from "src/infra/http/modules/weather-log/models/schemas/weather-log-controller-request.schema";
 import { makeWeatherLog } from "test/factories/make-weather-log";
 
 export const weatherLogStub = ({
   createdAt,
 }: {
   createdAt?: Date;
-} = {}): TWeatherLogControllerRequest => {
+} = {}): TWeatherLogControllerResponse => {
   const weatherLogEntity = makeWeatherLog();
   const weatherDateCreation = createdAt ?? new Date("2025-12-04T12:00:00.000Z");
   const locationData = {
@@ -20,5 +21,6 @@ export const weatherLogStub = ({
     insight: weatherLogEntity.insight,
     location: locationData,
     createdAt: weatherDateCreation,
+    _id: new UniqueEntityId().toString(),
   };
 };

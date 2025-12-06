@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { IPokemonProps } from "src/core/interfaces/entities/pokemon-props";
-import { IFetchAllPokemonsDataResponse } from "src/core/interfaces/services/fetch-all-pokemons-data-response";
-import { IPokemonFormattedBaseDetails } from "src/core/interfaces/services/pokemon-formatted-base-details";
+import { IFetchAllPokemonsDataResponse } from "src/core/interfaces/services/poke-api/fetch-all-pokemons-data-response";
+import { IPokemonFormattedBaseDetails } from "src/core/interfaces/services/poke-api/pokemon-formatted-base-details";
 
 import { PokemonGateway } from "src/domain/pokemon/application/gateways/pokemons.gateway";
 
@@ -12,7 +12,7 @@ export class InMemoryPokemonGateway implements PokemonGateway {
     nameOrId: string | number
   ): Promise<IPokemonFormattedBaseDetails | null> {
     const pokemon = this.pokemons.find((p) =>
-      typeof nameOrId === "string" ? p.name === nameOrId : p._id === nameOrId
+      typeof nameOrId === "string" ? p.name === nameOrId : p.id === nameOrId
     );
 
     if (!pokemon) return null;
@@ -28,7 +28,7 @@ export class InMemoryPokemonGateway implements PokemonGateway {
   ): Promise<IPokemonProps | null> {
     const itsName = typeof nameOrId === "string";
     const pokemon = this.pokemons.find((p) =>
-      itsName ? p.name === nameOrId : p._id === nameOrId
+      itsName ? p.name === nameOrId : p.id === nameOrId
     );
 
     if (!pokemon) return null;
@@ -50,7 +50,7 @@ export class InMemoryPokemonGateway implements PokemonGateway {
 
     const data: IFetchAllPokemonsDataResponse = {
       results: pokemons.map((pokemon) => ({
-        _id: pokemon._id,
+        id: pokemon.id,
         height: pokemon.height,
         name: pokemon.name,
         types: pokemon.types,

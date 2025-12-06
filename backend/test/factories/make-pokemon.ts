@@ -3,7 +3,7 @@ import { IPokemonProps } from "src/core/interfaces/entities/pokemon-props";
 
 export const makePokemon = (override: Partial<IPokemonProps> = {}) => {
   const pokemon: IPokemonProps = {
-    _id: 1,
+    id: 1,
     description: "lorem ipsum",
     habitat: faker.location.continent(),
     height: 1.25,

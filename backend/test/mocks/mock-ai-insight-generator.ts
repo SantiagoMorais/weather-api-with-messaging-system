@@ -13,6 +13,6 @@ export class MockAIInsightGenerator implements AIInsightGenerator {
         ? "Risco de chuva identificado."
         : "Clima ideal.";
 
-    return `[MOCK INSIGHT] Análise simulada para o log ${payload.weatherLogId}. ${risk}`;
+    return `[MOCK INSIGHT] Análise simulada para o log ${payload.weatherLogId.toString()}. ${risk}`;
   }
 }

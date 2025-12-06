@@ -34,7 +34,7 @@ export class PokemonApiGatewayImplement implements PokemonGateway {
       const baseData = baseRes.data;
 
       return {
-        _id: baseData.id,
+        id: baseData.id,
         name: baseData.name,
         image: baseData.sprites.front_default,
         weight: baseData.weight,
@@ -157,7 +157,7 @@ export class PokemonApiGatewayImplement implements PokemonGateway {
       const baseData = baseRes.data;
 
       return {
-        _id: baseData.id,
+        id: baseData.id,
         name: baseData.name,
         image: baseData.sprites.front_default,
         weight: baseData.weight,
