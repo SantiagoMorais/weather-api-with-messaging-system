@@ -4,6 +4,7 @@ import { GeminiInsightGateway } from "./gemini-insight-gateway.service";
 import { EnvService } from "../env/env.service";
 import { makeWeatherLog } from "test/factories/make-weather-log";
 import { IAIInsightGeneratorPayload } from "src/domain/weatherLog/application/services/ai-insight-generator.service";
+import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 
 const makeWeatherLogResponse = makeWeatherLog();
 const mockPayload: IAIInsightGeneratorPayload = {
@@ -22,7 +23,7 @@ const mockPayload: IAIInsightGeneratorPayload = {
     precipitationProbability: 0,
     rain: 0,
   },
-  weatherLogId: 1,
+  weatherLogId: new UniqueEntityId("1"),
 };
 
 describe("GeminiInsightGateway (Integration Test)", () => {
@@ -58,7 +59,7 @@ describe("GeminiInsightGateway (Integration Test)", () => {
     gateway = module.get<GeminiInsightGateway>(GeminiInsightGateway);
   });
 
-  it.only("should generate a non-empty insight string (successful API call)", async () => {
+  it("should generate a non-empty insight string (successful API call)", async () => {
     const insight = await gateway.generateInsight(mockPayload);
 
     console.log("--- Insight Generated (Test) ---");

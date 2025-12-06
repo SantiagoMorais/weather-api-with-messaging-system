@@ -22,7 +22,7 @@ describe("Pokemon API Gateway Service", () => {
 
     expect(result).toBeDefined();
     expect(result.name).toBe("pikachu");
-    expect(result._id).toBe(25);
+    expect(result.id).toBe(25);
     expect(result.types).toContain("electric");
     expect(result.habitat).toEqual(expect.any(String));
   }, 10000); // timeout 10 seconds
