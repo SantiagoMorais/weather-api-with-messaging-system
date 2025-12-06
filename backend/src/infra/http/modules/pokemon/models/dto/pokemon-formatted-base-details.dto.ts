@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IPokemonFormattedBaseDetails } from "src/core/interfaces/services/pokemon-formatted-base-details";
+import { IPokemonFormattedBaseDetails } from "src/core/interfaces/services/poke-api/pokemon-formatted-base-details";
 import {
   pokemonTypes,
   TPokemonType,
@@ -10,7 +10,7 @@ export class PokemonFormattedBaseDetailsDTO implements IPokemonFormattedBaseDeta
     description: "The unique ID of the Pokémon.",
     example: 1,
   })
-  _id: number;
+  id: number;
 
   @ApiProperty({
     description: "The name of the Pokémon.",

@@ -64,7 +64,7 @@ describe("Get pokemon details (E2E)", () => {
 
       expect(pokemonsList.pokemons.results).toHaveLength(10);
       expect(pokemonsList.pokemons.results).toEqual(
-        expect.arrayContaining([expect.objectContaining({ _id: 101 })])
+        expect.arrayContaining([expect.objectContaining({ id: 101 })])
       );
     });
 
@@ -87,7 +87,7 @@ describe("Get pokemon details (E2E)", () => {
       expect(previousResponse.statusCode).toBe(200);
       expect(pokemons.results).toHaveLength(10);
       expect(pokemons.results).toEqual(
-        expect.arrayContaining([expect.objectContaining({ _id: 91 })])
+        expect.arrayContaining([expect.objectContaining({ id: 91 })])
       );
     });
 

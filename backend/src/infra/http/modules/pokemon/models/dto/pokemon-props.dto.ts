@@ -12,7 +12,7 @@ export class PokemonPropsDTO implements IPokemonProps {
     description: "The unique ID of the Pokémon.",
     example: 1,
   })
-  _id: number;
+  id: number;
 
   @ApiProperty({
     description: "The name of the Pokémon.",

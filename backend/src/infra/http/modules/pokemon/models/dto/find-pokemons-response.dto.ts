@@ -1,4 +1,4 @@
-import { IFetchAllPokemonsDataResponse } from "src/core/interfaces/services/fetch-all-pokemons-data-response";
+import { IFetchAllPokemonsDataResponse } from "src/core/interfaces/services/poke-api/fetch-all-pokemons-data-response";
 import { IFindPokemonsControllerResponse } from "../interfaces/find-pokemons-controller.response";
 import { ApiProperty } from "@nestjs/swagger";
 import { PokemonFormattedBaseDetailsDTO } from "./pokemon-formatted-base-details.dto"; // Assumindo o nome do arquivo
