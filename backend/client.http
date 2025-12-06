@@ -2,6 +2,9 @@
 
 @authToken = {{authenticate.response.body.access_token}}
 
+# put the worker key here
+@workerKey = put-your-worker-key-HERE
+
 # @name create_user
 POST {{baseUrl}}/users
 Content-Type: application/json
@@ -50,6 +53,7 @@ Authorization: Bearer {{authToken}}
 # @name create_weather_log
 POST {{baseUrl}}/weather-log
 Content-Type: application/json
+x-worker-key: {{workerKey}}
 
 {
   "createdAt": "2025-12-04T17:00:00.000Z",

@@ -11,6 +11,7 @@ export const envSchema = z.object({
   NODE_ENV: z
     .enum(["test", "production", "development"])
     .default("development"),
+  WORKER_API_KEY: z.coerce.string(),
 });
 
 export type Env = z.infer<typeof envSchema>;
