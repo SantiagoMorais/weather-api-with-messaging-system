@@ -2,28 +2,32 @@ import { ILocation } from "src/core/interfaces/services/open-weather/location";
 import { WeatherLog as DomainWeatherLog } from "src/domain/weatherLog/enterprise/entities/weather-log.entity";
 import { WeatherLogDocument } from "../schemas/weather-log.schema";
 import { IToMongooseWeatherLogResult } from "../interfaces/to-mongoose-weather-log-result";
+import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 
 export class MongooseWeatherLogMapper {
   static toDomain(raw: WeatherLogDocument): DomainWeatherLog {
-    return DomainWeatherLog.create({
-      hourlyObservationStats: raw.hourlyObservationStats,
-      currentForecastStats: raw.currentForecastStats,
-      location: raw.location as ILocation,
-      insight: raw.insight,
-      createdAt: raw.createdAt,
-      updatedAt: raw.updatedAt,
-    });
+    return DomainWeatherLog.create(
+      {
+        hourlyObservationStats: raw.hourlyObservationStats,
+        currentForecastStats: raw.currentForecastStats,
+        location: raw.location as ILocation,
+        insight: raw.insight,
+        createdAt: raw.createdAt,
+        updatedAt: raw.updatedAt,
+      },
+      new UniqueEntityId(raw.id)
+    );
   }
 
-  static toMongoose(raw: DomainWeatherLog): IToMongooseWeatherLogResult {
+  static toMongoose(entity: DomainWeatherLog): IToMongooseWeatherLogResult {
     return {
-      id: raw.id,
-      hourlyObservationStats: raw.hourlyObservationStats,
-      currentForecastStats: raw.currentForecastStats,
-      location: raw.location,
-      insight: raw.insight,
-      createdAt: raw.createdAt,
-      updatedAt: raw.updatedAt,
+      id: entity.id.toString(),
+      hourlyObservationStats: entity.hourlyObservationStats,
+      currentForecastStats: entity.currentForecastStats,
+      location: entity.location,
+      insight: entity.insight,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
     };
   }
 }

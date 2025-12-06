@@ -5,6 +5,7 @@ import { User as UserDomain } from "src/domain/user/enterprise/entities/user.ent
 import { UserDocument, User } from "../schemas/user.schema";
 import { Model } from "mongoose";
 import { MongooseUserMapper } from "../mappers/mongoose-user.mapper";
+import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 
 @Injectable()
 export class MongooseUsersRepository implements UsersRepository {
@@ -12,6 +13,16 @@ export class MongooseUsersRepository implements UsersRepository {
     @InjectModel(User.name)
     private userModel: Model<UserDocument>
   ) {}
+
+  async findById(id: UniqueEntityId): Promise<UserDomain | null> {
+    const user = await this.userModel.findOne({ id });
+
+    if (!user) {
+      return null;
+    }
+
+    return MongooseUserMapper.toDomain(user);
+  }
 
   async create(user: UserDomain): Promise<void> {
     const data = MongooseUserMapper.toMongoose(user);

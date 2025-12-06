@@ -10,6 +10,7 @@ import { MongooseWeatherLogMapper } from "../mappers/mongoose-weather-log.mapper
 import { DomainEvents } from "src/core/events/domain-events";
 import { Injectable } from "@nestjs/common";
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
+import { ILocation } from "src/core/interfaces/services/open-weather/location";
 
 @Injectable()
 export class MongooseWeatherLogRepository implements WeatherLogRepository {
@@ -17,6 +18,43 @@ export class MongooseWeatherLogRepository implements WeatherLogRepository {
     @InjectModel(WeatherLogSchemaClass.name)
     private weatherLogModal: Model<WeatherLogDocument>
   ) {}
+
+  private async expirePreviousForecast(location: ILocation) {
+    const latestLog = await this.weatherLogModal
+      .findOne({
+        "location.latitude": location.latitude,
+        "location.longitude": location.longitude,
+        currentForecastStats: { $exists: true, $not: { $size: 0 } },
+      })
+      .sort({ createdAt: -1 })
+      .limit(1)
+      .exec();
+
+    if (latestLog) {
+      await this.weatherLogModal
+        .updateOne(
+          { _id: latestLog._id },
+          { $set: { currentForecastStats: [] } }
+        )
+        .exec();
+    }
+  }
+
+  async findByHour(date: Date): Promise<WeatherLog | null> {
+    const startOfHour = new Date(date);
+    startOfHour.setMinutes(0, 0, 0);
+
+    const endOfHour = new Date(date);
+    endOfHour.setMinutes(59, 59, 999);
+
+    const doc = await this.weatherLogModal.findOne({
+      createdAt: { $gte: startOfHour, $lte: endOfHour },
+    });
+
+    if (!doc) return null;
+
+    return MongooseWeatherLogMapper.toDomain(doc);
+  }
 
   async findMostRecentLog(): Promise<WeatherLog | null> {
     const mostRecentLog = await this.weatherLogModal
@@ -31,7 +69,9 @@ export class MongooseWeatherLogRepository implements WeatherLogRepository {
   }
 
   async findById(id: UniqueEntityId): Promise<WeatherLog | null> {
-    const weatherLogDocument = await this.weatherLogModal.findById(id);
+    const weatherLogDocument = await this.weatherLogModal.findOne({
+      id: id.toString(),
+    });
     if (!weatherLogDocument) return null;
 
     const weatherLogEntity =
@@ -43,15 +83,17 @@ export class MongooseWeatherLogRepository implements WeatherLogRepository {
     const data = MongooseWeatherLogMapper.toMongoose(weatherLog);
     const id = weatherLog.id.toString();
 
-    if (weatherLog.currentForecastStats.length === 0) {
-      data.currentForecastStats = [];
-    }
+    await this.expirePreviousForecast(data.location);
 
-    await this.weatherLogModal.findByIdAndUpdate(id, data, {
-      upsert: true,
-      new: true,
-      runValidators: true,
-    });
+    await this.weatherLogModal.findOneAndUpdate(
+      { id },
+      { $set: data },
+      {
+        upsert: true,
+        new: true,
+        runValidators: true,
+      }
+    );
 
     DomainEvents.dispatchEventsForAggregate(weatherLog.id);
   }
@@ -70,10 +112,13 @@ export class MongooseWeatherLogRepository implements WeatherLogRepository {
     return domainWeatherLogs;
   }
 
-  async findByDate(date: Date): Promise<WeatherLog | null> {
-    const weatherLogDocument = await this.weatherLogModal.findOne({
-      createdAt: { $eq: date },
-    });
+  async findMostRecent(): Promise<WeatherLog | null> {
+    const weatherLogDocument = await this.weatherLogModal
+      .findOne({})
+      .sort({
+        createdAt: -1,
+      })
+      .exec();
 
     if (!weatherLogDocument) return null;
 

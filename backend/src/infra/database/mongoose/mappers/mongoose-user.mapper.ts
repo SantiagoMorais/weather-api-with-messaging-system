@@ -16,7 +16,7 @@ export class MongooseUserMapper {
 
   static toMongoose(user: DomainUser): IToMongooseUserResult {
     return {
-      id: user.id,
+      id: user.id.toString(),
       email: user.email,
       name: user.name,
       password: user.password,

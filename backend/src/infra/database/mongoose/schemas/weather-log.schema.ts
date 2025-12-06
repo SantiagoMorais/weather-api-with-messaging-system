@@ -1,18 +1,17 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { HydratedDocument } from "mongoose";
+import { Location, LocationSchema } from "./location.schema";
 import {
   ObservationStats,
   ObservationStatsSchema,
 } from "./observation-stats.schema";
-import { Location, LocationSchema } from "./location.schema";
-import { Document, HydratedDocument } from "mongoose";
-import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 
 export type WeatherLogDocument = HydratedDocument<WeatherLog>;
 
 @Schema({ collection: "weather_logs", timestamps: true, autoIndex: false })
 export class WeatherLog {
-  @Prop({ type: UniqueEntityId, required: true, unique: true })
-  id: UniqueEntityId; // Unique entity id from Entity. It's different of _id object_id from MongoDB
+  @Prop({ type: String, required: true, unique: true })
+  id: string; // Unique entity id from Entity. It's different of _id object_id from MongoDB
 
   @Prop({ type: ObservationStatsSchema, required: true })
   hourlyObservationStats: ObservationStats;
