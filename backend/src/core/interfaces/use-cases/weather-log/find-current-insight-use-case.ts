@@ -5,6 +5,6 @@ export type TFindCurrentInsightUseCaseResponse = Result<
   DataNotFoundError,
   {
     insight?: string | null;
-    _id: string;
+    id: string; // Entity ID
   }
 >;

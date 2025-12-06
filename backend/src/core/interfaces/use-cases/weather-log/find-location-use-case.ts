@@ -6,6 +6,6 @@ export type TFindLocationUseCaseResponse = Result<
   DataNotFoundError,
   {
     location: ILocation;
-    _id: string;
+    id: string; // Entity ID
   }
 >;

@@ -13,7 +13,7 @@ export interface IReceiveWeatherLogRequest {
 export type TReceiveWeatherLogResponse = Result<
   DataAlreadyExistsError,
   {
-    _id: string;
+    id: string; // Entity ID
     hourlyObservation: IObservationStats;
     currentForecast: IObservationStats[];
   }

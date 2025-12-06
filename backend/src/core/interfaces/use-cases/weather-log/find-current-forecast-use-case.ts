@@ -4,5 +4,8 @@ import { IObservationStats } from "../../services/open-weather/observation-stats
 
 export type TFindCurrentForecastResponse = Result<
   DataNotFoundError,
-  { currentForecast: IObservationStats[]; _id: string }
+  {
+    currentForecast: IObservationStats[];
+    id: string; // Entity ID
+  }
 >;

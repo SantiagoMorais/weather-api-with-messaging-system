@@ -4,5 +4,8 @@ import { IObservationStats } from "../../services/open-weather/observation-stats
 
 export type TFindHourlyObservationResponse = Result<
   DataNotFoundError,
-  { hourlyObservation: IObservationStats; _id: string }
+  {
+    hourlyObservation: IObservationStats;
+    id: string; // Entity ID
+  }
 >;
