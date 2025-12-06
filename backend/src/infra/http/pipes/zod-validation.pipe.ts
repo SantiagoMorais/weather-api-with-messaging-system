@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { BadRequestException, PipeTransform } from "@nestjs/common";
 import { ZodType, ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
