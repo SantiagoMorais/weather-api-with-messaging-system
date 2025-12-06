@@ -14,8 +14,7 @@ import { UserDocument } from "src/infra/database/mongoose/schemas/user.schema";
 import { User } from "src/domain/user/enterprise/entities/user.entity";
 import request from "supertest";
 import { weatherLogStub } from "test/stubs/weather-log.stub";
-import { TWeatherLogControllerRequest } from "../schemas/weather-log-controller-request.schema";
-import { UniqueEntityId } from "src/core/entities/unique-entity-id";
+import { TWeatherLogControllerResponse } from "../schemas/weather-log-controller-request.schema";
 
 const WEATHER_MODEL_TOKEN = getModelToken(WeatherLog.name);
 const USER_MODEL_TOKEN = getModelToken(User.name);
@@ -55,24 +54,37 @@ describe("FindRecentLogController (E2E)", () => {
   });
 
   describe("[GET]/weather-log/recent", () => {
-    it.skip("should be able to find the last created weather log", async () => {
-      const weatherLog = weatherLogStub();
+    it("should be able to find the most recent weather log created", async () => {
+      const { request: olderLog, id: olderLogId } = weatherLogStub({
+        createdAt: new Date(2025, 1, 1),
+      });
       await weatherModel.create({
-        ...weatherLog,
-        _id: new UniqueEntityId().toString(),
+        ...olderLog,
+        createdAt: olderLog.createdAt,
+        id: olderLogId,
       });
 
-      const logOnDatabase = await weatherModel.findOne();
-      expect(logOnDatabase).toBeTruthy();
+      const { request: recentLog, id: recentLogId } = weatherLogStub({
+        createdAt: new Date(2025, 1, 2),
+      });
+
+      await weatherModel.create({
+        ...recentLog,
+        createdAt: recentLog.createdAt,
+        id: recentLogId,
+      });
+
+      const weatherLogsList = await weatherModel.find();
+      expect(weatherLogsList).toHaveLength(2);
 
       const response = await request(app.getHttpServer())
         .get("/weather-log/recent")
         .set("Authorization", `Bearer ${accessToken}`);
 
-      const bodyResponse: TWeatherLogControllerRequest = response.body;
-
       expect(response.statusCode).toBe(200);
-      expect(bodyResponse.hourlyObservationStats).toBeDefined();
+
+      const bodyResponse: TWeatherLogControllerResponse = response.body;
+      expect(bodyResponse.id).toEqual(recentLogId);
     });
   });
 });

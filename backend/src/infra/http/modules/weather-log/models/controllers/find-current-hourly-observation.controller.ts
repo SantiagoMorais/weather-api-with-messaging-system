@@ -7,7 +7,10 @@ import {
 } from "@nestjs/common";
 import { ApiOkResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { FindCurrentHourlyObservationUseCase } from "src/domain/weatherLog/application/use-cases/find-current-hourly-observation.usecase";
-import { ObservationStatsDTO } from "../dto/observation-stats.dto";
+import {
+  ObservationStatsDTO,
+  ObservationStatsWithIdDTO,
+} from "../dto/observation-stats.dto";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 
 @ApiTags("Weather")
@@ -24,7 +27,7 @@ export class FindCurrentHourlyObservationController {
   })
   @ApiResponse({ status: 400, description: "Bad request - Zod error" })
   @ApiResponse({ status: 404, description: "Not found - Data not created yet" })
-  async handle() {
+  async handle(): Promise<ObservationStatsWithIdDTO> {
     const result = await this.findCurrentHourlyObservationUseCase.execute();
     Logger.log(
       "Starting searching for recent hourly observation",
@@ -43,5 +46,8 @@ export class FindCurrentHourlyObservationController {
           throw new BadRequestException();
       }
     }
+
+    const { hourlyObservation, id } = result.value;
+    return { hourlyObservation, id };
   }
 }

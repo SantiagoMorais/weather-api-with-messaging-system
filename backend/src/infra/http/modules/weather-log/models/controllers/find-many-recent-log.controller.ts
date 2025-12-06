@@ -7,7 +7,8 @@ import {
 } from "@nestjs/common";
 import { ApiOkResponse, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { FindManyWeatherLogRecentUseCase } from "src/domain/weatherLog/application/use-cases/find-many-weather-log-recent.usecase";
-import { WeatherLogSummarizedSwaggerDTO } from "../dto/find-many-weather-logs-response-swagger.dto";
+import { WeatherLogPresenter } from "src/infra/http/presenters/weather-log.presenter";
+import { WeatherLogSummarizedSwaggerDTO } from "../dto/weather-log-summarized-swagger.dto";
 import { IFindManyWeatherLogsResponse } from "../interfaces/find-many-weather-logs-response";
 
 @ApiTags("Weather")
@@ -58,9 +59,13 @@ export class FindManyRecentLogController {
 
     const emptyList = Boolean(!weatherLogs.length);
 
+    const weatherLogsFormatted = weatherLogs.map((log) =>
+      WeatherLogPresenter.toHTTP(log)
+    );
+
     return {
       location: emptyList ? undefined : weatherLogs[0].location,
-      weatherLogs,
+      weatherLogs: weatherLogsFormatted,
     };
   }
 }

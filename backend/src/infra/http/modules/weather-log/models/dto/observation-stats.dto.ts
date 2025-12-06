@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { TObservationStats } from "src/core/types/weather-log/observation-stats.schema";
+import { TObservationStats } from "src/infra/http/modules/weather-log/models/schemas/observation-stats.schema";
+import { IHourlyObservationWithId } from "../interfaces/hourly-observation-with-id";
 
 export class ObservationStatsDTO implements TObservationStats {
   @ApiProperty({
@@ -69,16 +70,16 @@ export class ObservationStatsDTO implements TObservationStats {
   soilMoisture: number;
 }
 
-export class ObservationStatsWithIdDTO extends ObservationStatsDTO {
+export class ObservationStatsWithIdDTO implements IHourlyObservationWithId {
   @ApiProperty({
-    description: "The database id of weather log",
+    description: "The database id of the weather log",
   })
-  _id: string;
+  id: string;
 
   @ApiProperty({
     description: "Current hourly observation statistics",
     type: ObservationStatsDTO,
     required: true,
   })
-  observationStats: ObservationStatsDTO;
+  hourlyObservation: ObservationStatsDTO;
 }

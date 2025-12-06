@@ -7,7 +7,7 @@ import { AppModule } from "src/infra/app.module";
 import { WeatherLogDocument } from "src/infra/database/mongoose/schemas/weather-log.schema";
 import request from "supertest";
 import { weatherLogStub } from "test/stubs/weather-log.stub";
-import { TWeatherLogControllerRequest } from "../schemas/weather-log-controller-request.schema";
+import { TWeatherLogControllerResponse } from "../schemas/weather-log-controller-request.schema";
 
 const WEATHER_MODEL_TOKEN = getModelToken(WeatherLog.name);
 
@@ -18,7 +18,7 @@ async function waitForInsight(
   latitude: number,
   timeoutMs: number = 5000,
   intervalMs: number = 200
-): Promise<TWeatherLogControllerRequest | null> {
+): Promise<TWeatherLogControllerResponse | null> {
   const startTime = Date.now();
 
   while (Date.now() - startTime < timeoutMs) {
@@ -65,7 +65,7 @@ describe("Receive Weather log (E2E)", () => {
     // keep this test skipped unless you want to verify the AI insight generation
     // this process cost tokens upon your api key
     it.skip("The AI should return a insight upon weather creation", async () => {
-      const weatherLog = weatherLogStub();
+      const { request: weatherLog } = weatherLogStub();
 
       const response = await request(app.getHttpServer())
         .post("/weather-log")

@@ -7,15 +7,18 @@ import {
 } from "@nestjs/common";
 import { ApiOkResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
-import { FindWeatherLogByDateUseCase } from "src/domain/weatherLog/application/use-cases/find-weather-log-by-date.usecase";
-import { MongooseWeatherLogMapper } from "src/infra/database/mongoose/mappers/mongoose-weather-log.mapper";
-import { WeatherLogPropsSwaggerDTO } from "../dto/weather-log-props-swagger.dto";
+import { WeatherLogPresenter } from "src/infra/http/presenters/weather-log.presenter";
+import {
+  WeatherLogPropsSwaggerDTO,
+  WeatherLogResponseSwaggerDTO,
+} from "../dto/weather-log-props-swagger.dto";
+import { FindMostRecentWeatherLogUseCase } from "src/domain/weatherLog/application/use-cases/find-most-recent-weather-log.usecase";
 
 @ApiTags("Weather")
 @Controller("/weather-log/recent")
 export class FindRecentLogController {
   constructor(
-    private findWeatherLogByDateUseCase: FindWeatherLogByDateUseCase
+    private findMostRecentWeatherLogUseCase: FindMostRecentWeatherLogUseCase
   ) {}
 
   @Get()
@@ -28,13 +31,10 @@ export class FindRecentLogController {
     status: 404,
     description: "Not found - No registered weather logs",
   })
-  async handle(): Promise<WeatherLogPropsSwaggerDTO> {
+  async handle(): Promise<WeatherLogResponseSwaggerDTO> {
     Logger.log("Start finding recent weather log", "FindRecentLogController");
 
-    const now = new Date();
-    const result = await this.findWeatherLogByDateUseCase.execute({
-      date: now,
-    });
+    const result = await this.findMostRecentWeatherLogUseCase.execute();
 
     if (result.isFailure()) {
       const error = result.value;
@@ -50,8 +50,16 @@ export class FindRecentLogController {
 
     Logger.log("Recent weather log found", "ReceiveWeatherLogController");
     const { weatherLog } = result.value;
-    const response = MongooseWeatherLogMapper.toMongoose(weatherLog);
+    const response = WeatherLogPresenter.toHTTP(weatherLog);
 
-    return { ...response };
+    return {
+      createdAt: response.createdAt,
+      currentForecastStats: response.currentForecastStats,
+      hourlyObservationStats: response.hourlyObservationStats,
+      location: response.location,
+      insight: response.insight,
+      updatedAt: response.updatedAt,
+      id: response.id.toString(),
+    };
   }
 }

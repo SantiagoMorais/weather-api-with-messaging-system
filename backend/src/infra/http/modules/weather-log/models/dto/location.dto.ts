@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { TLocation } from "src/core/types/weather-log/location.schema";
+import { TLocation } from "src/infra/http/modules/weather-log/models/schemas/location.schema";
 
 export class LocationDTO implements TLocation {
   @ApiProperty({

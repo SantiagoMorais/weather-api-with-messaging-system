@@ -5,20 +5,18 @@ import z from "zod";
 export const weatherLogPropsSchema = z
   .object({
     createdAt: z.coerce.date(),
+    updatedAt: z.coerce.date().optional().nullable(),
     hourlyObservationStats: observationStatsSchema,
     currentForecastStats: z
       .array(observationStatsSchema)
       .min(1, "Forecast stats array cannot be empty"),
     location: locationSchema,
+    insight: z.string().nullable().optional(),
   })
   .strict();
 
 export const weatherLogPropsSchemaResponse = z.intersection(
-  z.object({
-    id: z.string(),
-    insight: z.string().nullable().optional(),
-    updatedAt: z.coerce.date().optional().nullable(),
-  }),
+  z.object({ id: z.string() }),
   weatherLogPropsSchema
 );
 

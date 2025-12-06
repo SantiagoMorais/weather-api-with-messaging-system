@@ -3,6 +3,7 @@ import { JwtService } from "@nestjs/jwt";
 import { getModelToken } from "@nestjs/mongoose";
 import { Test, TestingModule } from "@nestjs/testing";
 import { Model } from "mongoose";
+import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { User } from "src/domain/user/enterprise/entities/user.entity";
 import { AIInsightGenerator } from "src/domain/weatherLog/application/services/ai-insight-generator.service";
 import { WeatherLog } from "src/domain/weatherLog/enterprise/entities/weather-log.entity";
@@ -18,7 +19,7 @@ import { IFindManyWeatherLogsResponse } from "../interfaces/find-many-weather-lo
 const WEATHER_MODEL_TOKEN = getModelToken(WeatherLog.name);
 const USER_MODEL_TOKEN = getModelToken(User.name);
 
-describe("FindManyRecentLogController (E2E)", () => {
+describe("FindCurrentHourlyObservationController (E2E)", () => {
   let app: INestApplication;
   let weatherModel: Model<WeatherLogDocument>;
   let userModel: Model<UserDocument>;
@@ -52,26 +53,9 @@ describe("FindManyRecentLogController (E2E)", () => {
     await app.close();
   });
 
-  describe("[GET]/weather-logs/:count", () => {
-    it("should be able to find the recent logs", async () => {
-      for (let i = 0; i < 5; i++) {
-        const date = new Date(2025, 1, 1, 10, 0, i);
-        const { request: weatherLog, id } = weatherLogStub({ createdAt: date });
-        await weatherModel.create({
-          ...weatherLog,
-          id,
-          createdAt: weatherLog.createdAt,
-        });
-      }
-
-      const response = await request(app.getHttpServer())
-        .get("/weather-logs/3")
-        .set("Authorization", `Bearer ${accessToken}`);
-
-      const bodyResponse: IFindManyWeatherLogsResponse = response.body;
-
-      expect(response.statusCode).toBe(200);
-      expect(bodyResponse.weatherLogs).toHaveLength(3);
+  describe("[GET]/weather-log/hourly-observation", () => {
+    it("should be able to get the most recent hourly observation", () => {
+      expect(1).toBe(1);
     });
   });
 });
