@@ -9,7 +9,7 @@ export class FindCurrentForecastUseCase {
   constructor(private weatherLogRepository: WeatherLogRepository) {}
 
   async execute(): Promise<TFindCurrentForecastResponse> {
-    const weatherLog = await this.weatherLogRepository.findMostRecentLog();
+    const weatherLog = await this.weatherLogRepository.findMostRecent();
 
     if (!weatherLog)
       return failure(

@@ -9,7 +9,7 @@ export class FindCurrentHourlyObservationUseCase {
   constructor(private weatherLogRepository: WeatherLogRepository) {}
 
   async execute(): Promise<TFindHourlyObservationResponse> {
-    const weatherLog = await this.weatherLogRepository.findMostRecentLog();
+    const weatherLog = await this.weatherLogRepository.findMostRecent();
 
     if (!weatherLog)
       return failure(

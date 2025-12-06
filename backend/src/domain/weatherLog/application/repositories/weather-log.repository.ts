@@ -5,6 +5,6 @@ export abstract class WeatherLogRepository {
   abstract findById(id: UniqueEntityId): Promise<WeatherLog | null>;
   abstract save(weatherLog: WeatherLog): Promise<void>;
   abstract findManyRecent(amount: number): Promise<WeatherLog[]>;
-  abstract findByDate(date: Date): Promise<WeatherLog | null>;
-  abstract findMostRecentLog(): Promise<WeatherLog | null>;
+  abstract findMostRecent(): Promise<WeatherLog | null>;
+  abstract findByHour(date: Date): Promise<WeatherLog | null>;
 }

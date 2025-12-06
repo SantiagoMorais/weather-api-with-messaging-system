@@ -13,34 +13,31 @@ import { WeatherLogRepository } from "../repositories/weather-log.repository";
 export class ReceiveWeatherLogUseCase {
   constructor(private weatherLogRepository: WeatherLogRepository) {}
 
-  async execute({
-    currentForecastStats,
-    hourlyObservationStats,
-    location,
-    createdAt,
-  }: IReceiveWeatherLogRequest): Promise<TReceiveWeatherLogResponse> {
-    const weatherLogAlreadyExists =
-      await this.weatherLogRepository.findByDate(createdAt);
+  async execute(
+    data: IReceiveWeatherLogRequest
+  ): Promise<TReceiveWeatherLogResponse> {
+    const { createdAt } = data;
 
-    if (weatherLogAlreadyExists)
+    // 1. Verifica se já existe LOG no mesmo horário
+    const existingAtSameHour =
+      await this.weatherLogRepository.findByHour(createdAt);
+    if (existingAtSameHour) {
       return failure(
         new DataAlreadyExistsError(
           `Hourly Observation with timestamp ${formatDateToString(createdAt)} already registered.`
         )
       );
+    }
 
-    const previousLog = await this.weatherLogRepository.findMostRecentLog();
+    // 2. Pega o mais recente (de outro horário)
+    const previousLog = await this.weatherLogRepository.findMostRecent();
     if (previousLog) {
       previousLog.currentForecastStats = [];
       await this.weatherLogRepository.save(previousLog);
     }
 
-    const weatherLog = WeatherLog.create({
-      location,
-      currentForecastStats,
-      hourlyObservationStats,
-    });
-
+    // 3. Cria o novo
+    const weatherLog = WeatherLog.create(data);
     await this.weatherLogRepository.save(weatherLog);
 
     return success({ weatherLog });
