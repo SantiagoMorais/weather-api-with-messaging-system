@@ -1,6 +1,6 @@
 import pika
 import json
-from collector.src.settings import settings
+from src.settings import settings
 
 def send_message(payload: dict):
     connection = pika.BlockingConnection(

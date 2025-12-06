@@ -1,6 +1,6 @@
-from collector.src.openmeteo_client import fetch_weather
-from collector.src.payload import build_payload
-from collector.src.rabbitmq import send_message
+from src.openmeteo_client import fetch_weather
+from src.payload import build_payload
+from src.rabbitmq import send_message
 import schedule
 import time
 
