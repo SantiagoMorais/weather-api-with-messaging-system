@@ -68,3 +68,17 @@ export class ObservationStatsDTO implements TObservationStats {
   })
   soilMoisture: number;
 }
+
+export class ObservationStatsWithIdDTO extends ObservationStatsDTO {
+  @ApiProperty({
+    description: "The database id of weather log",
+  })
+  _id: string;
+
+  @ApiProperty({
+    description: "Current hourly observation statistics",
+    type: ObservationStatsDTO,
+    required: true,
+  })
+  observationStats: ObservationStatsDTO;
+}

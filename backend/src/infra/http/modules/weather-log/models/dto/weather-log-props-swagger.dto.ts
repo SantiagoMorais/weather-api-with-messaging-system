@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { TWeatherLogControllerRequest } from "../schemas/weather-log-controller-request.schema";
 import { LocationDTO } from "./location.dto";
 import { ObservationStatsDTO } from "./observation-stats.dto";
-import { TWeatherLogControllerRequest } from "../schemas/weather-log-controller-request.schema";
 
 export class WeatherLogPropsSwaggerDTO implements TWeatherLogControllerRequest {
   @ApiProperty({
@@ -56,4 +56,11 @@ export class WeatherLogPropsSwaggerDTO implements TWeatherLogControllerRequest {
     required: false,
   })
   insight?: string | null;
+}
+
+export class WeatherLogResponseSwaggerDTO extends WeatherLogPropsSwaggerDTO {
+  @ApiProperty({
+    description: "The database id of weather log",
+  })
+  _id: string;
 }

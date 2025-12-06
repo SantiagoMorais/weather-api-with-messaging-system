@@ -15,6 +15,15 @@ export const weatherLogPropsSchema = z
   })
   .strict();
 
+export const weatherLogPropsSchemaResponse = z.intersection(
+  z.object({ _id: z.string() }),
+  weatherLogPropsSchema
+);
+
 export type TWeatherLogControllerRequest = z.infer<
   typeof weatherLogPropsSchema
+>;
+
+export type TWeatherLogControllerResponse = z.infer<
+  typeof weatherLogPropsSchemaResponse
 >;
