@@ -1,29 +1,22 @@
 import { User as DomainUser } from "src/domain/user/enterprise/entities/user.entity";
 import { UserDocument } from "../schemas/user.schema";
-import { UniqueEntityId } from "src/core/entities/unique-entity-id";
+import { IToMongooseUserResult } from "../interfaces/to-mongoose-user.result";
 
 export class MongooseUserMapper {
   static toDomain(raw: UserDocument): DomainUser {
-    if (!raw._id) {
-      throw new Error(
-        "Mongoose Document must have an _id to be mapped to a Domain Entity"
-      );
-    }
-
-    return DomainUser.create(
-      {
-        email: raw.email,
-        name: raw.name,
-        password: raw.password,
-        createdAt: raw.createdAt,
-        roles: raw.roles,
-      },
-      new UniqueEntityId(raw._id.toString())
-    );
+    return DomainUser.create({
+      email: raw.email,
+      name: raw.name,
+      password: raw.password,
+      createdAt: raw.createdAt,
+      roles: raw.roles,
+      updatedAt: raw.updatedAt,
+    });
   }
 
-  static toMongoose(user: DomainUser) {
+  static toMongoose(user: DomainUser): IToMongooseUserResult {
     return {
+      id: user.id,
       email: user.email,
       name: user.name,
       password: user.password,
