@@ -14,7 +14,7 @@ describe("GetPokemonByNameOrId use case", () => {
 
   it("should be able to get a pokemon by name or id", async () => {
     for (let i = 0; i < 6; i++) {
-      const { pokemon } = makePokemon({ _id: i + 1, name: `pokemon-${i + 1}` });
+      const { pokemon } = makePokemon({ id: i + 1, name: `pokemon-${i + 1}` });
       inMemoryPokemonGateway.pokemons.push(pokemon);
     }
 

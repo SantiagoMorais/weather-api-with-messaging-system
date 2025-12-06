@@ -13,7 +13,7 @@ describe("GetPokemonByNameOrId use case", () => {
 
   it("should be able to find all pokemons paginated", async () => {
     for (let i = 0; i < 10; i++) {
-      const { pokemon } = makePokemon({ _id: i + 1 });
+      const { pokemon } = makePokemon({ id: i + 1 });
       inMemoryPokemonGateway.pokemons.push(pokemon);
     }
     const result = await sut.execute({ limit: 2, offset: 2 });
@@ -23,7 +23,7 @@ describe("GetPokemonByNameOrId use case", () => {
     expect(result.value?.pokemons.results).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          _id: 3,
+          id: 3,
         }),
       ])
     );
@@ -31,7 +31,7 @@ describe("GetPokemonByNameOrId use case", () => {
 
   it("should not return more than the limit of pokemons on the list", async () => {
     for (let i = 0; i < 10; i++) {
-      const { pokemon } = makePokemon({ _id: i + 1 });
+      const { pokemon } = makePokemon({ id: i + 1 });
       inMemoryPokemonGateway.pokemons.push(pokemon);
     }
     const result = await sut.execute({ limit: 10, offset: 8 });
@@ -41,7 +41,7 @@ describe("GetPokemonByNameOrId use case", () => {
 
   it("should return 20 pokemons starting from the beginning when the params are omitted", async () => {
     for (let i = 0; i < 30; i++) {
-      const { pokemon } = makePokemon({ _id: i });
+      const { pokemon } = makePokemon({ id: i });
       inMemoryPokemonGateway.pokemons.push(pokemon);
     }
     const result = await sut.execute({});
