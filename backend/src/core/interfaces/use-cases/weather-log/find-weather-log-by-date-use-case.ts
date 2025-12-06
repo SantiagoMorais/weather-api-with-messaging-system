@@ -8,5 +8,5 @@ export interface IFindWeatherLogByDateUseCaseRequest {
 
 export type TFindWeatherLogByDateUseCaseResponse = Result<
   DataNotFoundError,
-  { weatherLog: WeatherLog }
+  { weatherLog: WeatherLog; _id: string }
 >;

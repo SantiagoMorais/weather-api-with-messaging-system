@@ -1,5 +1,5 @@
 import { Result } from "src/core/result";
-import { IFetchAllPokemonsDataResponse } from "../../services/fetch-all-pokemons-data-response";
+import { IFetchAllPokemonsDataResponse } from "../../services/poke-api/fetch-all-pokemons-data-response";
 
 export interface IFindAllPokemonsUseCaseRequest {
   limit?: number;

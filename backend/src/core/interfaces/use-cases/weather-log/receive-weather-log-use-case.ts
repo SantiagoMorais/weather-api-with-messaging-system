@@ -1,5 +1,5 @@
-import { ILocation } from "../../location";
-import { IObservationStats } from "../../observation-stats";
+import { ILocation } from "../../services/open-weather/location";
+import { IObservationStats } from "../../services/open-weather/observation-stats";
 import { Result } from "src/core/result";
 import { DataAlreadyExistsError } from "src/core/errors/data-already-exists-error";
 
@@ -13,6 +13,7 @@ export interface IReceiveWeatherLogRequest {
 export type TReceiveWeatherLogResponse = Result<
   DataAlreadyExistsError,
   {
+    _id: string;
     hourlyObservation: IObservationStats;
     currentForecast: IObservationStats[];
   }

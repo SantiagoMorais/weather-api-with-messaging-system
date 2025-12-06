@@ -10,5 +10,5 @@ export interface IGenerateInsightForWeatherLogRequest {
 
 export type TGenerateInsightForWeatherLogResponse = Result<
   DataNotFoundError | AIGenerationFailedError,
-  { weatherLog: WeatherLog }
+  { weatherLog: WeatherLog; _id: string }
 >;

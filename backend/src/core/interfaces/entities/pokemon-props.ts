@@ -8,7 +8,7 @@ export interface IPokemonStat {
 }
 
 export interface IPokemonProps {
-  _id: number;
+  id: number;
   name: string;
   images: TPokemonImages;
   stats: IPokemonStat[];

@@ -1,5 +1,5 @@
-import { ILocation } from "../location";
-import { IObservationStats } from "../observation-stats";
+import { ILocation } from "../services/open-weather/location";
+import { IObservationStats } from "../services/open-weather/observation-stats";
 import { ITimestamps } from "../timestamps";
 
 export interface IWeatherLogProps extends ITimestamps {
