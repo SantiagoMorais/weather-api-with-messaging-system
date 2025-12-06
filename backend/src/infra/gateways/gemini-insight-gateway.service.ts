@@ -1,6 +1,6 @@
 import { GenerateContentParameters, GoogleGenAI } from "@google/genai";
 import { Injectable } from "@nestjs/common";
-import { ILocation } from "src/core/interfaces/location";
+import { ILocation } from "src/core/interfaces/services/open-weather/location";
 import {
   AIInsightGenerator,
   IAIInsightGeneratorPayload,

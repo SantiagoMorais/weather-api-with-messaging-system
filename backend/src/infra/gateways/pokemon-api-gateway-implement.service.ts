@@ -6,10 +6,10 @@ import { IPokemonProps } from "src/core/interfaces/entities/pokemon-props";
 import {
   IFetchAllPokemonsAPIResponse,
   IFetchAllPokemonsDataResponse,
-} from "src/core/interfaces/services/fetch-all-pokemons-data-response";
-import { IGetBasePokemonDataResponse } from "src/core/interfaces/services/get-base-pokemon-data-response";
-import { IGetPokemonSpeciesDataResponse } from "src/core/interfaces/services/get-pokemon-species-data-response";
-import { IPokemonFormattedBaseDetails } from "src/core/interfaces/services/pokemon-formatted-base-details";
+} from "src/core/interfaces/services/poke-api/fetch-all-pokemons-data-response";
+import { IGetBasePokemonDataResponse } from "src/core/interfaces/services/poke-api/get-base-pokemon-data-response";
+import { IGetPokemonSpeciesDataResponse } from "src/core/interfaces/services/poke-api/get-pokemon-species-data-response";
+import { IPokemonFormattedBaseDetails } from "src/core/interfaces/services/poke-api/pokemon-formatted-base-details";
 import { PokemonGateway } from "src/domain/pokemon/application/gateways/pokemons.gateway";
 import { extractPaginationParams } from "src/utils/extract-pagination-params";
 
@@ -75,7 +75,7 @@ export class PokemonApiGatewayImplement implements PokemonGateway {
       const habitat = speciesData.habitat?.name ?? "unknown";
 
       return {
-        _id: baseData.id,
+        id: baseData.id,
         name: baseData.name,
         images: {
           frontDefault: baseData.sprites.front_default,
