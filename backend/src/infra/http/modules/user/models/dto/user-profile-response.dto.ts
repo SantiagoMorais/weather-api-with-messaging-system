@@ -3,6 +3,11 @@ import { IUserProfileControllerResponse } from "../interfaces/user-profile-contr
 
 export class UserProfileResponseDTO implements IUserProfileControllerResponse {
   @ApiProperty({
+    description: "The database id of the user",
+  })
+  id: string;
+
+  @ApiProperty({
     description: "The fullname of the authenticated user",
     example: "Tony Stark",
   })

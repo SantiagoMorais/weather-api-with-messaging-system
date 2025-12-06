@@ -41,10 +41,11 @@ describe("Authenticate User (E2E)", () => {
       email: user.email,
       name: user.name,
       password: await hash("John@1234", 8),
+      id: user.id,
     });
 
     const userOnDatabase: IUsersProps | null = await userModel.findOne({
-      email: user.email,
+      id: user.id,
     });
 
     expect(userOnDatabase).toBeTruthy();

@@ -58,6 +58,7 @@ export class UserProfileController {
       createdAt: authUser.createdAt,
       email: authUser.email,
       name: authUser.name,
+      id: authUser.id.toString(),
     };
   }
 }

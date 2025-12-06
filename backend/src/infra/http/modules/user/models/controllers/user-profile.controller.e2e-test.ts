@@ -27,12 +27,12 @@ describe("UserProfileController (E2E)", () => {
     await app.init();
 
     userModel = moduleRef.get<Model<UserDocument>>(USER_MODEL_TOKEN);
-
-    accessToken = await authenticateAndGetToken({ userModel, jwt });
   });
 
   beforeEach(async () => {
     await userModel.deleteMany({});
+
+    accessToken = await authenticateAndGetToken({ userModel, jwt });
   });
 
   afterAll(async () => {
@@ -53,6 +53,7 @@ describe("UserProfileController (E2E)", () => {
         createdAt: expect.any(String),
         name: expect.any(String),
         email: expect.any(String),
+        id: expect.any(String),
       })
     );
   });

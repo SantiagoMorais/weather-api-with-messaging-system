@@ -60,6 +60,5 @@ export class CreateUserController {
       }
     }
     Logger.log("User created", "CreateUserController");
-    
   }
 }
