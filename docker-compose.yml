@@ -2,9 +2,8 @@ services:
   mongo:
     image: mongo:6
     restart: unless-stopped
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASS}
+    env_file:
+      - .env.mongo
     volumes:
       - mongo-data:/data/db
     ports:
@@ -13,9 +12,8 @@ services:
   rabbitmq:
     image: rabbitmq:3-management
     restart: unless-stopped
-    environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
+    env_file:
+      - .env.rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
