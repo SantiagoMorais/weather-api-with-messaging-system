@@ -5,13 +5,14 @@ import {
 } from "./observation-stats.schema";
 import { Location, LocationSchema } from "./location.schema";
 import { Document, HydratedDocument } from "mongoose";
+import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 
 export type WeatherLogDocument = HydratedDocument<WeatherLog>;
 
 @Schema({ collection: "weather_logs", timestamps: true, autoIndex: false })
 export class WeatherLog {
-  @Prop({ type: String, required: true, unique: true, index: true })
-  _id: string;
+  @Prop({ type: UniqueEntityId, required: true, unique: true })
+  id: UniqueEntityId; // Unique entity id from Entity. It's different of _id object_id from MongoDB
 
   @Prop({ type: ObservationStatsSchema, required: true })
   hourlyObservationStats: ObservationStats;

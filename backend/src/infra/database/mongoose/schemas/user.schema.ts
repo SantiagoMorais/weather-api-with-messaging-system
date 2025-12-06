@@ -1,11 +1,15 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument } from "mongoose";
+import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { TUserRoles } from "src/core/types/user-roles";
 
 export type UserDocument = HydratedDocument<User>;
 
 @Schema({ collection: "users" })
 export class User {
+  @Prop({ type: UniqueEntityId, required: true, unique: true })
+  id: UniqueEntityId; // Unique entity id from Entity. It's different of _id object_id from MongoDB
+
   @Prop({ type: String, required: true, unique: true, index: true })
   email: string;
 
