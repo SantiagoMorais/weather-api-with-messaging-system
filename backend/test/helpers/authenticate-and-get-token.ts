@@ -11,12 +11,13 @@ export const authenticateAndGetToken = async ({
   jwt: JwtService;
 }): Promise<string> => {
   const userSub = userStub();
+
   const user = await userModel.create({
     ...userSub,
     password: "John@123",
   });
 
-  const accessToken = jwt.sign({ sub: user._id });
+  const accessToken = jwt.sign({ sub: user.id });
 
   return accessToken;
 };

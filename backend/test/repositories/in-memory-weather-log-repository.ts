@@ -6,6 +6,18 @@ import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 export class InMemoryWeatherLogRepository implements WeatherLogRepository {
   public weatherLogs: WeatherLog[] = [];
 
+  async findByHour(date: Date): Promise<WeatherLog | null> {
+    return (
+      this.weatherLogs.find(
+        (log) =>
+          log.createdAt.getHours() === date.getHours() &&
+          log.createdAt.getDate() === date.getDate() &&
+          log.createdAt.getMonth() === date.getMonth() &&
+          log.createdAt.getFullYear() === date.getFullYear()
+      ) ?? null
+    );
+  }
+
   async findMostRecentLog(): Promise<WeatherLog | null> {
     if (this.weatherLogs.length === 0) return null;
 
@@ -39,11 +51,11 @@ export class InMemoryWeatherLogRepository implements WeatherLogRepository {
     return logs;
   }
 
-  async findByDate(date: Date): Promise<WeatherLog | null> {
-    const log = this.weatherLogs.find(
-      (l) => l.createdAt.getTime() === date.getTime()
+  async findMostRecent(): Promise<WeatherLog | null> {
+    if (this.weatherLogs.length === 0) return null;
+
+    return this.weatherLogs.reduce((latest, log) =>
+      log.createdAt > latest.createdAt ? log : latest
     );
-    if (!log) return null;
-    return log;
   }
 }
