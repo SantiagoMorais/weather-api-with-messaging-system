@@ -4,6 +4,8 @@ HOWTO.md
 
 # Environment Variables
 .env
+.env.mongo
+.env.rabbitmq
 
 # modules
 .venv/
