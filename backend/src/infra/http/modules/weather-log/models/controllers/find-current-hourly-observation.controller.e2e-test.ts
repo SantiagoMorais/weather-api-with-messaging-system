@@ -3,7 +3,6 @@ import { JwtService } from "@nestjs/jwt";
 import { getModelToken } from "@nestjs/mongoose";
 import { Test, TestingModule } from "@nestjs/testing";
 import { Model } from "mongoose";
-import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { User } from "src/domain/user/enterprise/entities/user.entity";
 import { AIInsightGenerator } from "src/domain/weatherLog/application/services/ai-insight-generator.service";
 import { WeatherLog } from "src/domain/weatherLog/enterprise/entities/weather-log.entity";
@@ -14,7 +13,7 @@ import request from "supertest";
 import { authenticateAndGetToken } from "test/helpers/authenticate-and-get-token";
 import { MockAIInsightGenerator } from "test/mocks/mock-ai-insight-generator";
 import { weatherLogStub } from "test/stubs/weather-log.stub";
-import { IFindManyWeatherLogsResponse } from "../interfaces/find-many-weather-logs-response";
+import { ObservationStatsWithIdDTO } from "../dto/observation-stats.dto";
 
 const WEATHER_MODEL_TOKEN = getModelToken(WeatherLog.name);
 const USER_MODEL_TOKEN = getModelToken(User.name);
@@ -54,8 +53,36 @@ describe("FindCurrentHourlyObservationController (E2E)", () => {
   });
 
   describe("[GET]/weather-log/hourly-observation", () => {
-    it("should be able to get the most recent hourly observation", () => {
-      expect(1).toBe(1);
+    it("should be able to get the most recent hourly observation", async () => {
+      for (let i = 0; i < 5; i++) {
+        const date = new Date(2025, 1, 1, 1 + i);
+        const { request: weatherLog, id } = weatherLogStub({ createdAt: date });
+        await weatherModel.create({
+          ...weatherLog,
+          id,
+          createdAt: weatherLog.createdAt,
+        });
+      }
+
+      const mostRecentDate = new Date(2025, 1, 1, 20);
+      const { request: weatherLog, id: mostRecentId } = weatherLogStub({
+        createdAt: mostRecentDate,
+      });
+      await weatherModel.create({
+        ...weatherLog,
+        id: mostRecentId,
+        createdAt: weatherLog.createdAt,
+      });
+
+      const response = await request(app.getHttpServer())
+        .get("/weather-log/hourly-observation")
+        .set("Authorization", `Bearer ${accessToken}`);
+
+      expect(response.statusCode).toBe(200);
+
+      const bodyResponse: ObservationStatsWithIdDTO = response.body;
+
+      expect(bodyResponse.id).toEqual(mostRecentId);
     });
   });
 });
