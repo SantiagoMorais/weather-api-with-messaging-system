@@ -6,8 +6,8 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <>
+    <section className="bg-background">
       <Outlet />
-    </>
+    </section>
   );
 }
