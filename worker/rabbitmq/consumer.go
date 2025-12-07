@@ -11,6 +11,7 @@ import (
 	"github.com/streadway/amqp"
 )
 
+
 func ConsumeWeatherQueue(cfg *config.Config, handleMessage func(types.FullWeatherPayload)) {
     conn, err := amqp.Dial(cfg.RabbitMQURL)
     if err != nil {
@@ -47,16 +48,21 @@ func ConsumeWeatherQueue(cfg *config.Config, handleMessage func(types.FullWeathe
                 d.Nack(false, false)
                 continue
             }
-
+        
+            currentForecastStats := make([]types.APIObservationStats, len(raw.Forecast24h))
+            for i, obs := range raw.Forecast24h {
+                currentForecastStats[i] = toAPIObservationStats(obs)
+            }
+            
             converted := types.FullWeatherPayload{
                 CreatedAt:              time.Now().Format(time.RFC3339),
                 Location:               raw.Location,
-                HourlyObservationStats: raw.Current,
-                CurrentForecastStats:   raw.Forecast24h,
+                HourlyObservationStats: toAPIObservationStats(raw.Current),
+                CurrentForecastStats:   currentForecastStats,
             }
 
-
             handleMessage(converted)
+            
             d.Ack(false)
         }
     }()

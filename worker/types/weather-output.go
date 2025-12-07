@@ -1,15 +1,9 @@
 package types
 
-type Location struct {
-    Longitude float64 `json:"longitude"`
-    Latitude  float64 `json:"latitude"`
-    Timezone  string  `json:"timezone"`
-}
-
-type HourlyObservationStats struct {
+type APIObservationStats struct {
     Timestamp               string  `json:"timestamp"`
     Temperature             float64 `json:"temperature"`
-    IsDay                   bool    `json:"isDay"`
+    IsDay                   bool    `json:"isDay"` 
     UVIndex                 float64 `json:"uvIndex"`
     RelativeHumidity        float64 `json:"relativeHumidity"`
     ApparentTemperature     float64 `json:"apparentTemperature"`
@@ -23,18 +17,9 @@ type HourlyObservationStats struct {
     SoilMoisture            float64 `json:"soilMoisture"`
 }
 
-
-type PythonWeatherPayload struct {
-    Location    Location                   `json:"location"`
-    Current     HourlyObservationStats     `json:"current"`
-    Forecast24h []HourlyObservationStats   `json:"forecast_24h"`
-}
-
 type FullWeatherPayload struct {
-    CreatedAt              string                   `json:"createdAt"`
-    Location               Location                 `json:"location"`
-    HourlyObservationStats HourlyObservationStats   `json:"hourlyObservationStats"`
-    CurrentForecastStats   []HourlyObservationStats `json:"currentForecastStats"`
+    CreatedAt              string                `json:"createdAt"`
+    Location               Location              `json:"location"`
+    HourlyObservationStats APIObservationStats   `json:"hourlyObservationStats"`
+    CurrentForecastStats   []APIObservationStats `json:"currentForecastStats"`
 }
-
-
