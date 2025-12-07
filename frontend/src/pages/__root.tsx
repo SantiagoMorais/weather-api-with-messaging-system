@@ -6,7 +6,7 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <section className="bg-background">
+    <section className="bg-background flex h-dvh w-screen flex-col items-center">
       <Outlet />
     </section>
   );

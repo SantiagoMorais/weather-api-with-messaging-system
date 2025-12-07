@@ -11,8 +11,8 @@ export const Route = createFileRoute("/_private/")({
 
 function RouteComponent() {
   return (
-    <main>
-      <header className="bg-secondary/40 flex w-full items-center gap-4 backdrop-blur-sm md:p-6 md:px-8">
+    <main className="h-dvh w-full max-w-(--breakpoint-2xl) overflow-x-hidden">
+      <header className="flex w-full items-center gap-4 backdrop-blur-sm md:p-6 md:px-8">
         <HeaderLogo />
         <HeaderNavbar />
       </header>

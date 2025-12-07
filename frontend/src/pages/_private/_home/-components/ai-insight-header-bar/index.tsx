@@ -53,7 +53,7 @@ export const AIInsightHeaderBar = () => {
         className="w-full"
         speed={100}
         speedOnHover={50}
-        gap={window.screen.width / 4}
+        gap={window.screen.width / 3}
       >
         <p>{data.currentInsight}</p>
       </InfiniteSlider>
@@ -61,8 +61,10 @@ export const AIInsightHeaderBar = () => {
   };
 
   return (
-    <section className="via-secondary from-background to-background border-y bg-linear-to-r py-1 text-center shadow backdrop-blur-sm">
+    <section className="via-secondary from-background to-background relative border-y bg-linear-to-r py-1 text-center shadow backdrop-blur-sm">
+      <div className="from-background via-background absolute top-0 z-10 h-full scale-150 bg-linear-to-r to-transparent md:w-30" />
       {dataResponse()}
+      <div className="from-background via-background absolute top-0 right-0 z-10 h-full scale-150 bg-linear-to-l to-transparent md:w-30" />
     </section>
   );
 };
