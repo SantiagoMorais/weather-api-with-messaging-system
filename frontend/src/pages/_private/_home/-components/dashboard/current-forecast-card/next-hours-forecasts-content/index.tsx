@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import type { ICurrentForecastResponse } from "@/core/interfaces/current-forecast-response";
 import { getSkyConditionIcon } from "@/utils/objects/sky-Condition-Icon-Mapper";
 import { format } from "date-fns";
@@ -13,11 +13,11 @@ export const NextHoursForecastCard = ({
     .slice(1, 7);
 
   return (
-    <Card className="bg-background/60 w-full flex-1 backdrop-blur-sm">
+    <Card className="bg-background/60 w-full min-w-80 flex-1 backdrop-blur-sm">
       <CardContent className="flex flex-col gap-4">
-        <h3 className="text-primary text-xl font-bold tracking-tight">
+        <CardTitle className="text-primary text-xl font-bold tracking-tight">
           Previsão das próximas 24h (resumo)
-        </h3>
+        </CardTitle>
 
         <div className="grid grid-cols-2 gap-4 overflow-x-auto md:grid-cols-3 lg:grid-cols-6">
           {nextSixHours.map((hour, idx: number) => {
