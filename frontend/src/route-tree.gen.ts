@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './pages/__root'
 import { Route as IndexRouteImport } from './pages/index'
 import { Route as PublicLoginIndexRouteImport } from './pages/_public/login/index'
+import { Route as PublicSigninAndSignupIndexRouteImport } from './pages/_public/SigninAndSignup/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,30 +23,40 @@ const PublicLoginIndexRoute = PublicLoginIndexRouteImport.update({
   path: '/login/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PublicSigninAndSignupIndexRoute =
+  PublicSigninAndSignupIndexRouteImport.update({
+    id: '/_public/SigninAndSignup/',
+    path: '/SigninAndSignup/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/SigninAndSignup': typeof PublicSigninAndSignupIndexRoute
   '/login': typeof PublicLoginIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/SigninAndSignup': typeof PublicSigninAndSignupIndexRoute
   '/login': typeof PublicLoginIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_public/SigninAndSignup/': typeof PublicSigninAndSignupIndexRoute
   '/_public/login/': typeof PublicLoginIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login'
+  fullPaths: '/' | '/SigninAndSignup' | '/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login'
-  id: '__root__' | '/' | '/_public/login/'
+  to: '/' | '/SigninAndSignup' | '/login'
+  id: '__root__' | '/' | '/_public/SigninAndSignup/' | '/_public/login/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PublicSigninAndSignupIndexRoute: typeof PublicSigninAndSignupIndexRoute
   PublicLoginIndexRoute: typeof PublicLoginIndexRoute
 }
 
@@ -65,11 +76,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicLoginIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_public/SigninAndSignup/': {
+      id: '/_public/SigninAndSignup/'
+      path: '/SigninAndSignup'
+      fullPath: '/SigninAndSignup'
+      preLoaderRoute: typeof PublicSigninAndSignupIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PublicSigninAndSignupIndexRoute: PublicSigninAndSignupIndexRoute,
   PublicLoginIndexRoute: PublicLoginIndexRoute,
 }
 export const routeTree = rootRouteImport
