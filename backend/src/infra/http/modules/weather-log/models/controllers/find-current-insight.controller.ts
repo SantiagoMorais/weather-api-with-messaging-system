@@ -11,7 +11,7 @@ import { FindInsightUseCase } from "src/domain/weatherLog/application/use-cases/
 import { FindCurrentInsightSwaggerDTO } from "../dto/find-current-insight-swagger.dto";
 
 @ApiTags("Weather")
-@Controller("/weather-log/insight")
+@Controller("/weather-logs/insight")
 export class FindCurrentInsightController {
   constructor(private findInsightUseCase: FindInsightUseCase) {}
 

@@ -21,7 +21,7 @@ import {
 const bodyValidationPipe = new ZodValidationPipe(weatherLogPropsSchema);
 
 @ApiTags("Weather")
-@Controller("/weather-log")
+@Controller("/weather-logs")
 @Public()
 export class ReceiveWeatherLogController {
   constructor(private receiveWeatherLogUseCase: ReceiveWeatherLogUseCase) {}

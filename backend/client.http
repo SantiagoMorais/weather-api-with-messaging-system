@@ -51,7 +51,7 @@ Authorization: Bearer {{authToken}}
 ###
 
 # @name create_weather_log
-POST {{baseUrl}}/weather-log
+POST {{baseUrl}}/weather-logs
 Content-Type: application/json
 x-worker-key: {{workerKey}}
 
@@ -104,7 +104,7 @@ x-worker-key: {{workerKey}}
 ###
 
 # @name get_recent_weather_log
-GET {{baseUrl}}/weather-log/recent
+GET {{baseUrl}}/weather-logs/recent
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
@@ -118,20 +118,20 @@ Authorization: Bearer {{authToken}}
 ###
 
 # @name get_current_insight
-GET {{baseUrl}}/weather-log/insight
+GET {{baseUrl}}/weather-logs/insight
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 ###
 
 # @name get_current_hourly_observation
-GET {{baseUrl}}/weather-log/hourly-observation
+GET {{baseUrl}}/weather-logs/hourly-observation
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 ###
 
 # @name get_current_forecast
-GET {{baseUrl}}/weather-log/current-forecast
+GET {{baseUrl}}/weather-logs/current-forecast
 Content-Type: application/json
 Authorization: Bearer {{authToken}}

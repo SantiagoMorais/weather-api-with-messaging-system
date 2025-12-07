@@ -13,12 +13,12 @@ import request from "supertest";
 import { authenticateAndGetToken } from "test/helpers/authenticate-and-get-token";
 import { MockAIInsightGenerator } from "test/mocks/mock-ai-insight-generator";
 import { weatherLogStub } from "test/stubs/weather-log.stub";
-import { ObservationStatsWithIdDTO } from "../dto/observation-stats.dto";
+import { GenerateCustomWeatherInsightResponseDTO } from "../dto/generate-custom-weather-insight-response.dto";
 
 const WEATHER_MODEL_TOKEN = getModelToken(WeatherLog.name);
 const USER_MODEL_TOKEN = getModelToken(User.name);
 
-describe("FindCurrentHourlyObservationController (E2E)", () => {
+describe("GenerateCustomWeatherInsightsController (E2E)", () => {
   let app: INestApplication;
   let weatherModel: Model<WeatherLogDocument>;
   let userModel: Model<UserDocument>;
@@ -52,37 +52,26 @@ describe("FindCurrentHourlyObservationController (E2E)", () => {
     await app.close();
   });
 
-  describe("[GET]/weather-logs/hourly-observation", () => {
-    it("should be able to get the most recent hourly observation", async () => {
-      for (let i = 0; i < 5; i++) {
-        const date = new Date(2025, 1, 1, 1 + i);
-        const { request: weatherLog, id } = weatherLogStub({ createdAt: date });
-        await weatherModel.create({
-          ...weatherLog,
-          id,
-          createdAt: weatherLog.createdAt,
-        });
-      }
-
-      const mostRecentDate = new Date(2025, 1, 1, 20);
-      const { request: weatherLog, id: mostRecentId } = weatherLogStub({
-        createdAt: mostRecentDate,
-      });
+  describe("[GET]/weather-logs/custom-insights", () => {
+    it("should be able to custom insights from most recent weather log hourly observation", async () => {
+      const { request: olderLog, id: olderLogId } = weatherLogStub();
       await weatherModel.create({
-        ...weatherLog,
-        id: mostRecentId,
-        createdAt: weatherLog.createdAt,
+        ...olderLog,
+        createdAt: olderLog.createdAt,
+        id: olderLogId,
       });
 
       const response = await request(app.getHttpServer())
-        .get("/weather-logs/hourly-observation")
+        .get("/weather-logs/custom-insights")
         .set("Authorization", `Bearer ${accessToken}`);
 
       expect(response.statusCode).toBe(200);
 
-      const bodyResponse: ObservationStatsWithIdDTO = response.body;
+      const bodyResponse: GenerateCustomWeatherInsightResponseDTO =
+        response.body;
 
-      expect(bodyResponse.id).toEqual(mostRecentId);
+      console.log(bodyResponse.insights);
+      expect(bodyResponse.insights).toEqual(expect.any(Object));
     });
   });
 });

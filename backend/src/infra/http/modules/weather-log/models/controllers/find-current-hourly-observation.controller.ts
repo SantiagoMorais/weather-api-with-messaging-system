@@ -11,7 +11,7 @@ import { FindCurrentHourlyObservationUseCase } from "src/domain/weatherLog/appli
 import { ObservationStatsWithIdDTO } from "../dto/observation-stats.dto";
 
 @ApiTags("Weather")
-@Controller("/weather-log/hourly-observation")
+@Controller("/weather-logs/hourly-observation")
 export class FindCurrentHourlyObservationController {
   constructor(
     private findCurrentHourlyObservationUseCase: FindCurrentHourlyObservationUseCase

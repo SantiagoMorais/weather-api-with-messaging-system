@@ -10,7 +10,7 @@ import (
 )
 
 func SendWeatherLog(cfg *config.Config, payload types.FullWeatherPayload) error {
-    url := fmt.Sprintf("%s/weather-log", cfg.APIBaseURL)
+    url := fmt.Sprintf("%s/weather-logs", cfg.APIBaseURL)
 
     body, err := json.Marshal(payload)
     if err != nil {

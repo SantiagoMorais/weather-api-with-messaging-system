@@ -1,6 +1,6 @@
-import { locationSchema } from "src/infra/http/modules/weather-log/models/schemas/location.schema";
-import { observationStatsSchema } from "src/infra/http/modules/weather-log/models/schemas/observation-stats.schema";
 import z from "zod";
+import { observationStatsSchema } from "./observation-stats.schema";
+import { locationSchema } from "./location.schema";
 
 export const weatherLogPropsSchema = z
   .object({

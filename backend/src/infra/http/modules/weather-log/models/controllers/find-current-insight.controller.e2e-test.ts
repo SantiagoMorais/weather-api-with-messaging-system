@@ -52,7 +52,7 @@ describe("FindCurrentInsightController (E2E)", () => {
     await app.close();
   });
 
-  describe("[GET]/weather-log/insight", () => {
+  describe("[GET]/weather-logs/insight", () => {
     it("should be able to get the current insight", async () => {
       const { request: weatherLog, id } = weatherLogStub({
         createdAt: new Date(),
@@ -63,7 +63,7 @@ describe("FindCurrentInsightController (E2E)", () => {
       });
 
       const response = await request(app.getHttpServer())
-        .get("/weather-log/insight")
+        .get("/weather-logs/insight")
         .set("Authorization", `Bearer ${accessToken}`);
 
       expect(response.statusCode).toBe(200);

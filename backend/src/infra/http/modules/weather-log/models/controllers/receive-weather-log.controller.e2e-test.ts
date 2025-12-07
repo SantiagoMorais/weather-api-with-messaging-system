@@ -51,7 +51,7 @@ describe("Receive Weather log (E2E)", () => {
       });
 
       const response = await request(app.getHttpServer())
-        .post("/weather-log")
+        .post("/weather-logs")
         .set("x-worker-key", env.get("WORKER_API_KEY"))
         .send(weatherLog);
 
@@ -74,7 +74,7 @@ describe("Receive Weather log (E2E)", () => {
       });
 
       await request(app.getHttpServer())
-        .post("/weather-log")
+        .post("/weather-logs")
         .set("x-worker-key", env.get("WORKER_API_KEY"))
         .send(firstLog); // first creation
 
@@ -83,7 +83,7 @@ describe("Receive Weather log (E2E)", () => {
       });
 
       await request(app.getHttpServer())
-        .post("/weather-log")
+        .post("/weather-logs")
         .set("x-worker-key", env.get("WORKER_API_KEY"))
         .send(mostRecentLog); // second creation
 

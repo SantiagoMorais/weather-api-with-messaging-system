@@ -68,7 +68,7 @@ describe("Receive Weather log (E2E)", () => {
       const { request: weatherLog } = weatherLogStub();
 
       const response = await request(app.getHttpServer())
-        .post("/weather-log")
+        .post("/weather-logs")
         .send(weatherLog);
 
       expect(response.statusCode).toBe(201);

@@ -52,7 +52,7 @@ describe("FindRecentLogController (E2E)", () => {
     await app.close();
   });
 
-  describe("[GET]/weather-log/recent", () => {
+  describe("[GET]/weather-logs/recent", () => {
     it("should be able to find the most recent weather log created", async () => {
       const { request: olderLog, id: olderLogId } = weatherLogStub({
         createdAt: new Date(2025, 1, 1),
@@ -77,7 +77,7 @@ describe("FindRecentLogController (E2E)", () => {
       expect(weatherLogsList).toHaveLength(2);
 
       const response = await request(app.getHttpServer())
-        .get("/weather-log/recent")
+        .get("/weather-logs/recent")
         .set("Authorization", `Bearer ${accessToken}`);
 
       expect(response.statusCode).toBe(200);

@@ -1,5 +1,5 @@
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
-import { TWeatherLogControllerRequest } from "src/infra/http/modules/weather-log/models/schemas/weather-log-controller-request.schema";
+import { TWeatherLogControllerRequest } from "src/infra/http/modules/weather-logs/models/schemas/weather-log-controller-request.schema";
 import { makeWeatherLog } from "test/factories/make-weather-log";
 
 export const weatherLogStub = ({
