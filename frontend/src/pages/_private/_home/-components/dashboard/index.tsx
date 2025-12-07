@@ -9,6 +9,7 @@ import { ListX } from "lucide-react";
 import { CurrentForecastCard } from "./current-forecast-card";
 import { CurrentWeatherCard } from "./current-weather-card";
 import { CurrentForecastChart } from "./current-forecast-as-chart";
+import { CustomWeatherInsightsCard } from "./custom-insights-card";
 
 export const Dashboard = () => {
   const timeUntilNextHour = calculateStaleTimeUntilNextHour;
@@ -72,8 +73,9 @@ export const Dashboard = () => {
           {content()}
           <CurrentForecastCard />
         </div>
-        <div className="px-4">
+        <div className="space-y-4 px-4">
           <CurrentForecastChart />
+          <CustomWeatherInsightsCard insightsData={insightsData} />
         </div>
       </div>
     </section>
