@@ -1,5 +1,5 @@
-import { ILocation } from "../../services/open-weather/location";
-import { IObservationStats } from "../../services/open-weather/observation-stats";
+import { ILocation } from "../../../../core/interfaces/services/open-weather/location";
+import { IObservationStats } from "../../../../core/interfaces/services/open-weather/observation-stats";
 import { Result } from "src/core/result";
 import { DataAlreadyExistsError } from "src/core/errors/data-already-exists-error";
 import { WeatherLog } from "src/domain/weatherLog/enterprise/entities/weather-log.entity";

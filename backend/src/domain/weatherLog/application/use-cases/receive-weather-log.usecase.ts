@@ -3,7 +3,7 @@ import { DataAlreadyExistsError } from "src/core/errors/data-already-exists-erro
 import {
   IReceiveWeatherLogRequest,
   TReceiveWeatherLogResponse,
-} from "src/core/interfaces/use-cases/weather-log/receive-weather-log-use-case";
+} from "src/domain/weatherLog/enterprise/interfaces/receive-weather-log-use-case";
 import { failure, success } from "src/core/result";
 import { formatDateToString } from "src/utils/format-date-to-string";
 import { WeatherLog } from "../../enterprise/entities/weather-log.entity";

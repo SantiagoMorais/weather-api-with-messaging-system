@@ -4,7 +4,7 @@ import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 import {
   IGenerateInsightForWeatherLogRequest,
   TGenerateInsightForWeatherLogResponse,
-} from "src/core/interfaces/use-cases/weather-log/generate-insight-for-weather-log";
+} from "src/domain/weatherLog/enterprise/interfaces/generate-insight-for-weather-log";
 import { failure, success } from "src/core/result";
 import { WeatherLogRepository } from "../repositories/weather-log.repository";
 import {

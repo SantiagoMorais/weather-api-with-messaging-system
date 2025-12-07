@@ -2,7 +2,7 @@ import { failure, success } from "src/core/result";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 import { Injectable } from "@nestjs/common";
 import { WeatherLogRepository } from "../repositories/weather-log.repository";
-import { TFindCurrentInsightUseCaseResponse } from "src/core/interfaces/use-cases/weather-log/find-current-insight-use-case";
+import { TFindCurrentInsightUseCaseResponse } from "src/domain/weatherLog/enterprise/interfaces/find-current-insight-use-case";
 
 @Injectable()
 export class FindInsightUseCase {

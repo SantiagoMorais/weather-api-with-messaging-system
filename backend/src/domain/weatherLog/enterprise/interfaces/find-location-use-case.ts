@@ -1,11 +1,11 @@
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 import { Result } from "src/core/result";
-import { IObservationStats } from "../../services/open-weather/observation-stats";
+import { ILocation } from "../../../../core/interfaces/services/open-weather/location";
 
-export type TFindHourlyObservationResponse = Result<
+export type TFindLocationUseCaseResponse = Result<
   DataNotFoundError,
   {
-    hourlyObservation: IObservationStats;
+    location: ILocation;
     id: string; // Entity ID
   }
 >;

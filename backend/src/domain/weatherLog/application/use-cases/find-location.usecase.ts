@@ -2,7 +2,7 @@ import { failure, success } from "src/core/result";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 import { Injectable } from "@nestjs/common";
 import { WeatherLogRepository } from "../repositories/weather-log.repository";
-import { TFindLocationUseCaseResponse } from "src/core/interfaces/use-cases/weather-log/find-location-use-case";
+import { TFindLocationUseCaseResponse } from "src/domain/weatherLog/enterprise/interfaces/find-location-use-case";
 
 @Injectable()
 export class FindLocationUseCase {

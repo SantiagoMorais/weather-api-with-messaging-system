@@ -1,7 +1,7 @@
 import {
   IFindManyWeatherLogRecentRequest,
   TFindManyWeatherLogRecentResponse,
-} from "src/core/interfaces/use-cases/weather-log/find-many-weather-log-recent-use-case";
+} from "src/domain/weatherLog/enterprise/interfaces/find-many-weather-log-recent-use-case";
 import { WeatherLogRepository } from "../repositories/weather-log.repository";
 import { success } from "src/core/result";
 import { Injectable } from "@nestjs/common";

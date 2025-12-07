@@ -1,4 +1,4 @@
-import { TFindCurrentForecastResponse } from "src/core/interfaces/use-cases/weather-log/find-current-forecast-use-case";
+import { TFindCurrentForecastResponse } from "src/domain/weatherLog/enterprise/interfaces/find-current-forecast-use-case";
 import { failure, success } from "src/core/result";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 import { Injectable } from "@nestjs/common";

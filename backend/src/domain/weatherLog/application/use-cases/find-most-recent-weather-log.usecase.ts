@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
-import { TFindMostRecentWeatherLogUseCaseResponse } from "src/core/interfaces/use-cases/weather-log/find-weather-log-by-date-use-case";
+import { TFindMostRecentWeatherLogUseCaseResponse } from "src/domain/weatherLog/enterprise/interfaces/find-weather-log-by-date-use-case";
 import { failure, success } from "src/core/result";
 import { WeatherLogRepository } from "../repositories/weather-log.repository";
 
