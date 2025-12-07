@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Toaster {...toasterIconsList} richColors position="top-right" />
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </>
   );
 }

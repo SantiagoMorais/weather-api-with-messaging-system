@@ -9,11 +9,11 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './pages/__root'
-import { Route as IndexRouteImport } from './pages/index'
+import { Route as PrivateIndexRouteImport } from './pages/_private/index'
 import { Route as PublicLoginIndexRouteImport } from './pages/_public/login/index'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
+const PrivateIndexRoute = PrivateIndexRouteImport.update({
+  id: '/_private/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
@@ -24,16 +24,16 @@ const PublicLoginIndexRoute = PublicLoginIndexRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof PrivateIndexRoute
   '/login': typeof PublicLoginIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof PrivateIndexRoute
   '/login': typeof PublicLoginIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_private/': typeof PrivateIndexRoute
   '/_public/login/': typeof PublicLoginIndexRoute
 }
 export interface FileRouteTypes {
@@ -41,21 +41,21 @@ export interface FileRouteTypes {
   fullPaths: '/' | '/login'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/login'
-  id: '__root__' | '/' | '/_public/login/'
+  id: '__root__' | '/_private/' | '/_public/login/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  PrivateIndexRoute: typeof PrivateIndexRoute
   PublicLoginIndexRoute: typeof PublicLoginIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_private/': {
+      id: '/_private/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof PrivateIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_public/login/': {
@@ -69,7 +69,7 @@ declare module '@tanstack/react-router' {
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  PrivateIndexRoute: PrivateIndexRoute,
   PublicLoginIndexRoute: PublicLoginIndexRoute,
 }
 export const routeTree = rootRouteImport
