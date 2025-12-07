@@ -8,7 +8,6 @@ export const NextHoursForecastCard = ({
 }: {
   forecastData: ICurrentForecastResponse;
 }) => {
-  // Seleciona 6 registros espaçados a cada 3 horas
   const nextSixHours = forecastData.currentForecast
     .filter((_, idx) => idx % 3 === 0)
     .slice(1, 7);
@@ -32,7 +31,7 @@ export const NextHoursForecastCard = ({
 
             return (
               <div
-                key={idx}
+                key={`forecast-${idx}`}
                 className="bg-background/30 flex flex-col items-center justify-center rounded-md p-2 text-center shadow-sm backdrop-blur-sm"
               >
                 <p className="text-xs font-thin">

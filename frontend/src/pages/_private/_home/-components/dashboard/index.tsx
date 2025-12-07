@@ -1,13 +1,14 @@
 import { getMostRecentCustomInsight } from "@/api/weather-log/get-most-recent-custom-insights";
 import { getMostRecentHourlyObservation } from "@/api/weather-log/get-most-recent-hourly-observation";
 import loginBackground from "@/assets/imgs/login-background.webp";
-import { calculateStaleTimeUntilNextHour } from "@/utils/functions/calculate-stale-time-until-next-hour";
-import { useQuery } from "@tanstack/react-query";
-import { CurrentWeatherCard } from "./current-weather-card";
-import { ListX, Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { TextShimmerWave } from "@/components/ui/text-shimmer-wave";
+import { calculateStaleTimeUntilNextHour } from "@/utils/functions/calculate-stale-time-until-next-hour";
+import { useQuery } from "@tanstack/react-query";
+import { ListX } from "lucide-react";
 import { CurrentForecastCard } from "./current-forecast-card";
+import { CurrentWeatherCard } from "./current-weather-card";
+import { CurrentForecastChart } from "./current-forecast-as-chart";
 
 export const Dashboard = () => {
   const timeUntilNextHour = calculateStaleTimeUntilNextHour;
@@ -62,7 +63,7 @@ export const Dashboard = () => {
 
   return (
     <section className="size-full p-4 pb-8 md:p-8 md:pb-12">
-      <ul className="border-primary/40 bg-background/20 relative size-full overflow-hidden rounded-md border backdrop-blur-sm">
+      <div className="border-primary/40 bg-background/20 relative size-full overflow-hidden rounded-md border backdrop-blur-sm">
         <img
           src={loginBackground}
           className="absolute -z-10 size-full rounded-lg object-cover opacity-30"
@@ -71,7 +72,10 @@ export const Dashboard = () => {
           {content()}
           <CurrentForecastCard />
         </div>
-      </ul>
+        <div className="px-4">
+          <CurrentForecastChart />
+        </div>
+      </div>
     </section>
   );
 };
