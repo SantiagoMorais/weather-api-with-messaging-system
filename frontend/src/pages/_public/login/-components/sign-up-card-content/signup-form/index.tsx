@@ -9,7 +9,7 @@ import { Form } from "@/components/ui/form";
 import {
   createUserSchema,
   type TCreateUser,
-} from "@/core/schemas/create-user-schema";
+} from "@/core/api/requests/create-user-schema";
 import { isAxiosError } from "axios";
 import { useReward } from "react-rewards";
 import { toast } from "sonner";

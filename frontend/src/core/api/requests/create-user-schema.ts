@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { passwordValidationSchema } from "./password-validation-schema";
+import { passwordValidationSchema } from "../../schemas/password-validation-schema";
 
 export const createUserSchema = z
   .object({

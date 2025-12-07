@@ -3,7 +3,7 @@ import { Form } from "@/components/ui/form";
 import {
   authenticateUserSchema,
   type TAuthenticateUser,
-} from "@/core/schemas/authenticate-user-schema";
+} from "@/core/api/requests/authenticate-user-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

@@ -10,7 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import type { TCreateUser } from "@/core/schemas/create-user-schema";
+import type { TCreateUser } from "@/core/api/requests/create-user-schema";
 import { Input } from "@/components/ui/input";
 
 export const SignUpFormFields = ({

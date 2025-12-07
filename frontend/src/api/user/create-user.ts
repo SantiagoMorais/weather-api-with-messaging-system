@@ -1,4 +1,4 @@
-import type { TCreateUser } from "@/core/schemas/create-user-schema";
+import type { TCreateUser } from "@/core/api/requests/create-user-schema";
 import { env } from "@/env";
 import axios, { type AxiosResponse } from "axios";
 

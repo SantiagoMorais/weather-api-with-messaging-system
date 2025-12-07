@@ -7,7 +7,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import type { TAuthenticateUser } from "@/core/schemas/authenticate-user-schema";
+import type { TAuthenticateUser } from "@/core/api/requests/authenticate-user-schema";
 import { useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
