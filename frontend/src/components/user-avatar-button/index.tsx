@@ -13,6 +13,7 @@ import {
 } from "../ui/sheet";
 import { UserSheetDataPending } from "./user-sheet-data-pending";
 import { HeaderNavbar } from "@/pages/_private/_home/-components/header-navbar";
+import { TooltipMessageTrigger } from "../tooltipMessageTrigger";
 
 export const UserAvatarButton = () => {
   const timeUntilNextHour = calculateStaleTimeUntilNextHour();
@@ -32,13 +33,15 @@ export const UserAvatarButton = () => {
     <Sheet>
       <SheetTrigger className="cursor-pointer" asChild>
         <div className="group flex items-center gap-2">
-          <p className="text-primary duration-300 group-hover:underline group-hover:opacity-70">
-            Bem vindo, <strong>{firstName}</strong>!
+          <p className="text-primary hidden duration-300 group-hover:underline group-hover:opacity-70 md:inline">
+            Bem vindo, <strong>{firstName ?? "Visitante"}</strong>!
           </p>
-          <Avatar className="size-10 duration-300 group-hover:opacity-70">
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
+          <TooltipMessageTrigger tooltipContent={data?.name ?? "Perfil"}>
+            <Avatar className="size-10 duration-300 group-hover:opacity-70">
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </TooltipMessageTrigger>
         </div>
       </SheetTrigger>
       <SheetContent className="py-4">
