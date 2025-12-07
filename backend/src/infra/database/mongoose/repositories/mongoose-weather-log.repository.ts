@@ -10,7 +10,7 @@ import { MongooseWeatherLogMapper } from "../mappers/mongoose-weather-log.mapper
 import { DomainEvents } from "src/core/events/domain-events";
 import { Injectable } from "@nestjs/common";
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
-import { ILocation } from "src/core/interfaces/services/open-weather/location";
+import { ILocation } from "src/domain/weatherLog/enterprise/api/location";
 
 @Injectable()
 export class MongooseWeatherLogRepository implements WeatherLogRepository {

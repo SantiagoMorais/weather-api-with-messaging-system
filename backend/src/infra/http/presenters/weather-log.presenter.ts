@@ -2,8 +2,8 @@ import { WeatherLog } from "src/domain/weatherLog/enterprise/entities/weather-lo
 import { ObservationStats } from "src/infra/database/mongoose/schemas/observation-stats.schema";
 import { TObservationStats } from "../modules/weather-log/models/schemas/observation-stats.schema";
 import { TWeatherLogControllerResponse } from "../modules/weather-log/models/schemas/weather-log-controller-request.schema";
-import { ILocation } from "src/core/interfaces/services/open-weather/location";
-import { TLocation } from "../modules/weather-log/models/schemas/location.schema";
+import { TLocation as LocationSchema } from "../modules/weather-log/models/schemas/location.schema";
+import { ILocation } from "src/domain/weatherLog/enterprise/api/location";
 
 export class WeatherLogPresenter {
   static toHTTP(weatherLog: WeatherLog): TWeatherLogControllerResponse {
@@ -20,7 +20,7 @@ export class WeatherLogPresenter {
     };
   }
 
-  private static mapLocation(location: ILocation): TLocation {
+  private static mapLocation(location: ILocation): LocationSchema {
     return {
       latitude: location.latitude,
       longitude: location.longitude,

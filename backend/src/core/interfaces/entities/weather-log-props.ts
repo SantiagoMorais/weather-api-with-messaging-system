@@ -1,6 +1,6 @@
-import { ILocation } from "../services/open-weather/location";
-import { IObservationStats } from "../services/open-weather/observation-stats";
+import { IObservationStats } from "src/domain/weatherLog/enterprise/api/observation-stats";
 import { ITimestamps } from "../timestamps";
+import { ILocation } from "src/domain/weatherLog/enterprise/api/location";
 
 export interface IWeatherLogProps extends ITimestamps {
   hourlyObservationStats: IObservationStats;

@@ -1,6 +1,6 @@
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
-import { ILocation } from "src/core/interfaces/services/open-weather/location";
-import { IObservationStats } from "src/core/interfaces/services/open-weather/observation-stats";
+import { IObservationStats } from "../../enterprise/api/observation-stats";
+import { ILocation } from "../../enterprise/api/location";
 
 export interface IAIInsightGeneratorPayload {
   weatherLogId: UniqueEntityId;

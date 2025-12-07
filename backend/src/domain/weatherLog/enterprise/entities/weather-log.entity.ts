@@ -1,10 +1,11 @@
 import { AggregateRoot } from "src/core/entities/aggregate-root";
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { IWeatherLogProps } from "src/core/interfaces/entities/weather-log-props";
-import { ILocation } from "src/core/interfaces/services/open-weather/location";
-import { IObservationStats } from "src/core/interfaces/services/open-weather/observation-stats";
+
 import { WeatherLogCreatedEvent } from "../events/weather-log-created.event";
 import { Optional } from "src/core/types/utility-types/optional";
+import { IObservationStats } from "../api/observation-stats";
+import { ILocation } from "../api/location";
 
 export class WeatherLog extends AggregateRoot<IWeatherLogProps> {
   get currentForecastStats() {

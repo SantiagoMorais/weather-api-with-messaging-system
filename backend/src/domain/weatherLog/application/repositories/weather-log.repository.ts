@@ -1,6 +1,6 @@
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { WeatherLog } from "../../enterprise/entities/weather-log.entity";
-import { ILocation } from "src/core/interfaces/services/open-weather/location";
+import { ILocation } from "../../enterprise/api/location";
 
 export abstract class WeatherLogRepository {
   abstract findById(id: UniqueEntityId): Promise<WeatherLog | null>;

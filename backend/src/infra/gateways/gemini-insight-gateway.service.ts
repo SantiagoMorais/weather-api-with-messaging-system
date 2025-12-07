@@ -1,11 +1,11 @@
 import { GenerateContentParameters, GoogleGenAI } from "@google/genai";
 import { Injectable } from "@nestjs/common";
-import { ILocation } from "src/core/interfaces/services/open-weather/location";
 import {
   AIInsightGenerator,
   IAIInsightGeneratorPayload,
 } from "src/domain/weatherLog/application/services/ai-insight-generator.service";
 import { EnvService } from "../env/env.service";
+import { ILocation } from "src/domain/weatherLog/enterprise/api/location";
 
 const MAX_RETRIES = 3;
 

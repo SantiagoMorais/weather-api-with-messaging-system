@@ -1,5 +1,5 @@
-import { ILocation } from "src/core/interfaces/services/open-weather/location";
-import { IObservationStats } from "src/core/interfaces/services/open-weather/observation-stats";
+import { ILocation } from "src/domain/weatherLog/enterprise/api/location";
+import { IObservationStats } from "src/domain/weatherLog/enterprise/api/observation-stats";
 
 export interface IWeatherLogSummarized {
   createdAt: Date;
