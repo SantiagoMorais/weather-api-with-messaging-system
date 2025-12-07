@@ -142,3 +142,17 @@ Authorization: Bearer {{authToken}}
 GET {{baseUrl}}/weather-logs/custom-insights
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+###
+
+# @name export_recent_weather_csv
+GET {{baseUrl}}/weather-logs/export/csv
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name export_recent_weather_xlsx
+GET {{baseUrl}}/weather-logs/export/xlsx
+Content-Type: application/json
+Authorization: Bearer {{authToken}}

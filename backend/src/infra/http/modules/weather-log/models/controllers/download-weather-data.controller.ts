@@ -22,7 +22,7 @@ export class DownloadWeatherDataController {
     private readonly findMostRecentWeatherLogUseCase: FindMostRecentWeatherLogUseCase
   ) {}
 
-  @Get(":id/export/csv")
+  @Get("export/csv")
   @ApiOkResponse({
     description: "OK - Weather data created",
   })
@@ -60,7 +60,7 @@ export class DownloadWeatherDataController {
     res.send(csv);
   }
 
-  @Get(":id/export/xlsx")
+  @Get("export/xlsx")
   @ApiOkResponse({
     description: "OK - Weather data created",
   })
