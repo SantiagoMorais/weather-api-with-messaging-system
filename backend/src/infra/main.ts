@@ -17,6 +17,12 @@ async function bootstrap() {
   const envService = app.get(EnvService);
   const port = envService.get("PORT");
 
+  app.enableCors({
+    origin: "http://localhost:5173",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  });
+
   await app.listen(port);
   Logger.log(`Server running on http://localhost:${port}`, "Main");
   Logger.log(

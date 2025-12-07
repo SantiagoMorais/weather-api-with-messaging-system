@@ -7,6 +7,7 @@ export const envSchema = z.object({
     .email("Invalid email format")
     .min(1, "SEED_USER_EMAIL is requited"),
   VITE_SEED_USER_PASS: passwordValidationSchema,
+  VITE_NEST_API_URL: z.string().url("Invalid URL format"),
 });
 
 const _env = envSchema.safeParse(import.meta.env);

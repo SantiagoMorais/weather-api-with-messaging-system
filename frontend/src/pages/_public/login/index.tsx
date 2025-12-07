@@ -42,6 +42,10 @@ function RouteComponent() {
 
   return (
     <main className="flex h-dvh w-full items-center justify-center p-4">
+      <span
+        id="rewardId"
+        className="fixed right-1/2 bottom-1/5 z-20 -translate-x-1/2"
+      />
       <LoginBackground />
       <motion.div
         className="z-10 w-full max-w-96"

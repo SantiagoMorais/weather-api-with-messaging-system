@@ -6,7 +6,7 @@ import { toasterIconsList } from "./utils/toaster-icons-list";
 function App() {
   return (
     <>
-      <Toaster {...toasterIconsList} />
+      <Toaster {...toasterIconsList} richColors position="top-right" />
       <RouterProvider router={router} />;
     </>
   );
