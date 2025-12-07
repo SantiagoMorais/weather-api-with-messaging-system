@@ -12,6 +12,7 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import { UserSheetDataPending } from "./user-sheet-data-pending";
+import { HeaderNavbar } from "@/pages/_private/_home/-components/header-navbar";
 
 export const UserAvatarButton = () => {
   const timeUntilNextHour = calculateStaleTimeUntilNextHour();
@@ -49,7 +50,11 @@ export const UserAvatarButton = () => {
             isPending={isPending}
           />
         </SheetHeader>
-        <SheetFooter>
+        <SheetFooter className="space-y-2">
+          <HeaderNavbar
+            onProfile
+            className="flex w-full flex-col items-center gap-2 border-t pt-4"
+          />
           <Button>Desconectar</Button>
         </SheetFooter>
       </SheetContent>
