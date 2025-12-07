@@ -12,10 +12,11 @@ import { FindUserByIdUseCase } from "src/domain/user/application/use-cases/find-
 import { CurrentUser } from "src/infra/auth/current-user.decorator";
 import { JwtAuthGuard } from "src/infra/auth/jwt-auth.guard";
 import { IUserProfileControllerResponse } from "../interfaces/user-profile-controller.response";
-import { ApiOkResponse, ApiResponse } from "@nestjs/swagger";
+import { ApiOkResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { UserProfileResponseDTO } from "../dto/user-profile-response.dto";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 
+@ApiTags("Users")
 @Controller("/users")
 export class UserProfileController {
   constructor(private findUserByIdUseCase: FindUserByIdUseCase) {}
