@@ -3,6 +3,7 @@ import z from "zod";
 
 export const envSchema = z.object({
   VITE_SEED_USER_EMAIL: z
+    .string()
     .email("Invalid email format")
     .min(1, "SEED_USER_EMAIL is requited"),
   VITE_SEED_USER_PASS: passwordValidationSchema,

@@ -22,7 +22,7 @@ function RouteComponent() {
         {pageSelected === "signin" ? (
           <SignInCardContent changeAuthPage={changeAuthPage} />
         ) : (
-          <SignUpCardContent />
+          <SignUpCardContent changeAuthPage={changeAuthPage} />
         )}
       </Card>
     </main>

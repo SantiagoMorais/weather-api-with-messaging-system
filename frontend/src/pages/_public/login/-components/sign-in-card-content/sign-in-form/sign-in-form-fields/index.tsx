@@ -12,7 +12,7 @@ import { useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-export const AuthFormFields = ({
+export const SignInFormFields = ({
   form,
 }: {
   form: UseFormReturn<TAuthenticateUser>;
@@ -41,7 +41,7 @@ export const AuthFormFields = ({
           <FormItem>
             <FormLabel>Senha</FormLabel>
             <FormControl>
-              <div className="border-muted-foreground focus-visible:ring-primary focus-within:ring-primary/50 focus-within:border-primary flex rounded-md border duration-200 focus-within:ring-3 focus-within:ring-offset-0">
+              <div className="border-muted-foreground/60 focus-visible:ring-primary focus-within:ring-primary/50 focus-within:border-primary flex rounded-md border duration-200 focus-within:ring-3 focus-within:ring-offset-0">
                 <Input
                   {...field}
                   placeholder="Senha"

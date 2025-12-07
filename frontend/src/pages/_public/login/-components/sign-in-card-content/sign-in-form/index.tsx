@@ -7,8 +7,8 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { AuthFormFields } from "./auth-form-fields";
 import { TbLoader2 } from "react-icons/tb";
+import { SignInFormFields } from "./sign-in-form-fields";
 
 export const SignInForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -28,7 +28,7 @@ export const SignInForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <AuthFormFields form={form} />
+        <SignInFormFields form={form} />
         <Button className="w-full" disabled={isLoading}>
           {isLoading ? <TbLoader2 className="size-5 animate-spin" /> : "Login"}
         </Button>
