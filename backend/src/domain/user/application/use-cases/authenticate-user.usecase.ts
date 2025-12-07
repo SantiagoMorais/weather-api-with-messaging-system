@@ -1,7 +1,7 @@
 import {
   IAuthenticateUserRequest,
   TAuthenticateUserResponse,
-} from "src/core/interfaces/use-cases/user/authenticate-user-use-case";
+} from "src/domain/user/enterprise/interfaces/authenticate-user-use-case";
 import { Cryptographer } from "../../cryptography/cryptographer";
 import { HashComparer } from "../../cryptography/hash-comparer";
 import { UsersRepository } from "../repositories/users.repository";

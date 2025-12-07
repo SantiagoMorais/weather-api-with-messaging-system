@@ -3,7 +3,7 @@ import { UsersRepository } from "../repositories/users.repository";
 import {
   ICreateUserUseCaseRequest,
   TCreateUserUseCaseResponse,
-} from "src/core/interfaces/use-cases/user/create-user-use-case";
+} from "src/domain/user/enterprise/interfaces/create-user-use-case";
 import { UserAlreadyExistsError } from "src/core/errors/user-already-exists-error";
 import { failure, success } from "src/core/result";
 import { PasswordMismatchError } from "src/core/errors/password-mismatch-error";

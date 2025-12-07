@@ -3,7 +3,7 @@ import { UsersRepository } from "../repositories/users.repository";
 import {
   IFindUserByIdUseCaseRequest,
   TFindUserByIdUseCaseResponse,
-} from "src/core/interfaces/use-cases/user/find-user-by-id-use-case";
+} from "src/domain/user/enterprise/interfaces/find-user-by-id-use-case";
 import { failure, success } from "src/core/result";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 
