@@ -7,7 +7,9 @@ export const envSchema = z.object({
   JWT_EXPIRES_IN: z.coerce.string().default("7d"), // 7 days
   GEMINI_API_KEY: z.coerce.string(),
   MONGO_URI: z.coerce.string(),
-  MONGO_TEST_URI: z.coerce.string(),
+  MONGO_TEST_URI: z.coerce
+    .string()
+    .default("mongodb://127.0.0.1:27017/test-db-dummy"),
   NODE_ENV: z
     .enum(["test", "production", "development"])
     .default("development"),

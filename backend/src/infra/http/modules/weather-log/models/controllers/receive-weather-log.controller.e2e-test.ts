@@ -6,6 +6,7 @@ import { AIInsightGenerator } from "src/domain/weatherLog/application/services/a
 import { WeatherLog } from "src/domain/weatherLog/enterprise/entities/weather-log.entity";
 import { AppModule } from "src/infra/app.module";
 import { WeatherLogDocument } from "src/infra/database/mongoose/schemas/weather-log.schema";
+import { EnvService } from "src/infra/env/env.service";
 import request from "supertest";
 import { MockAIInsightGenerator } from "test/mocks/mock-ai-insight-generator";
 import { weatherLogStub } from "test/stubs/weather-log.stub";
@@ -16,6 +17,7 @@ const WEATHER_MODEL_TOKEN = getModelToken(WeatherLog.name);
 describe("Receive Weather log (E2E)", () => {
   let app: INestApplication;
   let weatherModel: Model<WeatherLogDocument>;
+  let env: EnvService;
 
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
@@ -30,6 +32,7 @@ describe("Receive Weather log (E2E)", () => {
 
     weatherModel =
       moduleRef.get<Model<WeatherLogDocument>>(WEATHER_MODEL_TOKEN);
+    env = app.get(EnvService);
   });
 
   afterAll(async () => {
@@ -49,6 +52,7 @@ describe("Receive Weather log (E2E)", () => {
 
       const response = await request(app.getHttpServer())
         .post("/weather-log")
+        .set("x-worker-key", env.get("WORKER_API_KEY"))
         .send(weatherLog);
 
       expect(response.statusCode).toBe(201);
@@ -69,7 +73,10 @@ describe("Receive Weather log (E2E)", () => {
         createdAt: new Date(2025, 11, 10),
       });
 
-      await request(app.getHttpServer()).post("/weather-log").send(firstLog); // first creation
+      await request(app.getHttpServer())
+        .post("/weather-log")
+        .set("x-worker-key", env.get("WORKER_API_KEY"))
+        .send(firstLog); // first creation
 
       const mostRecentLog = weatherLogStub({
         createdAt: new Date(2025, 11, 20),
@@ -77,6 +84,7 @@ describe("Receive Weather log (E2E)", () => {
 
       await request(app.getHttpServer())
         .post("/weather-log")
+        .set("x-worker-key", env.get("WORKER_API_KEY"))
         .send(mostRecentLog); // second creation
 
       const [firstLogOnDatabase] = await weatherModel
