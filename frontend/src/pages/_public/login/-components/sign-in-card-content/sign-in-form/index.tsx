@@ -9,6 +9,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { TbLoader2 } from "react-icons/tb";
 import { SignInFormFields } from "./sign-in-form-fields";
+import { authenticateUser } from "@/api/user/authenticate-user";
+import { toast } from "sonner";
+import { useNavigate } from "@tanstack/react-router";
+import { isAxiosError } from "axios";
 
 export const SignInForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -19,10 +23,31 @@ export const SignInForm = () => {
       password: "",
     },
   });
+  const navigate = useNavigate();
 
   const onSubmit = async (data: TAuthenticateUser) => {
     setIsLoading(true);
-    console.log(data);
+    await authenticateUser(data)
+      .then(({ access_token }) => {
+        localStorage.setItem("gdash-token", access_token);
+        toast.success("Autenticação bem-sucedida!");
+        navigate({ to: "/", from: "/login" });
+      })
+      .catch((error) => {
+        console.error(error);
+        let errorMessage =
+          "Um erro inesperado ocorreu durante a autenticação. Por favor, tente novamente mais tarde.";
+        if (isAxiosError(error)) {
+          if (error.status === 400)
+            errorMessage =
+              "Erro: Bad Request - Por favor, confira o preenchimento de todos os campos novamente.";
+          if (error.status === 409)
+            errorMessage = "Erro: Unauthorized - Email ou senha inválidos.";
+        }
+
+        toast.error(errorMessage);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
