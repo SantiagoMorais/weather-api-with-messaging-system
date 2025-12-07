@@ -15,10 +15,12 @@ import {
   WeatherLog,
   WeatherLogSchema,
 } from "./mongoose/schemas/weather-log.schema";
+import { EnvModule } from "../env/env.module";
 
 @Module({
   imports: [
     CryptographyModule,
+    EnvModule,
     MongooseModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService<Env, true>) => {
