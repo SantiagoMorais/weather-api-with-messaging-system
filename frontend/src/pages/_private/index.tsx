@@ -1,11 +1,11 @@
 import { HeaderLogo } from "@/components/header-logo";
-import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { AIInsightHeaderBar } from "./_home/-components/ai-insight-header-bar";
-import { HeaderNavbar } from "./_home/-components/header-navbar";
-import { requireAuth } from "@/core/guards/auth-guard";
 import { ThemeTogglerButton } from "@/components/theme-toggle-button";
 import { UserAvatarButton } from "@/components/user-avatar-button";
-import loginBackground from "@/assets/imgs/login-background.webp";
+import { requireAuth } from "@/core/guards/auth-guard";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { AIInsightHeaderBar } from "./_home/-components/ai-insight-header-bar";
+import { Dashboard } from "./_home/-components/dashboard";
+import { HeaderNavbar } from "./_home/-components/header-navbar";
 
 export const Route = createFileRoute("/_private/")({
   component: RouteComponent,
@@ -22,13 +22,9 @@ function RouteComponent() {
         <UserAvatarButton />
       </header>
       <AIInsightHeaderBar />
-      <section className="relative flex-1">
-        <img
-          src={loginBackground}
-          className="border-primary absolute z-0 size-full h-9/10 rounded-lg border-2 object-cover opacity-30"
-        />{" "}
-        <Outlet />
-      </section>
+      <Dashboard />
+
+      <Outlet />
     </main>
   );
 }

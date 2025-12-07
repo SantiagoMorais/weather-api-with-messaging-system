@@ -8,13 +8,13 @@ import {
   WiCloudy,
 } from "react-icons/wi";
 
-export const windClassificationIconMapper: {
-  key: TWindClassification;
-  icon: IconType;
-}[] = [
-  { key: "Calm", icon: WiWindDeg },
-  { key: "Light Breeze", icon: WiDayWindy },
-  { key: "Moderate Wind", icon: WiCloudyGusts },
-  { key: "Strong Wind", icon: WiStrongWind },
-  { key: "Gale", icon: WiCloudy },
-];
+export const windClassificationIcons: Record<TWindClassification, IconType> = {
+  Calm: WiWindDeg,
+  "Light Breeze": WiDayWindy,
+  "Moderate Wind": WiCloudyGusts,
+  "Strong Wind": WiStrongWind,
+  Gale: WiCloudy,
+};
+
+export const getWindIcon = (key: TWindClassification): IconType =>
+  windClassificationIcons[key] || WiWindDeg;

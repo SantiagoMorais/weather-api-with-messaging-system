@@ -14,17 +14,19 @@ import {
   WiNa,
 } from "react-icons/wi";
 
-export const skyConditionIconMapper: { key: TSkyCondition; icon: IconType }[] =
-  [
-    { key: "Sunny", icon: WiDaySunny },
-    { key: "Mostly Sunny", icon: WiDaySunnyOvercast },
-    { key: "Partly Cloudy", icon: WiDayCloudy },
-    { key: "Cloudy", icon: WiCloud },
-    { key: "Overcast", icon: WiCloudy },
-    { key: "Rainy", icon: WiRain },
-    { key: "Heavy Rain", icon: WiRainWind },
-    { key: "Thunderstorm", icon: WiThunderstorm },
-    { key: "Night Clear", icon: WiNightClear },
-    { key: "Night Cloudy", icon: WiNightAltCloudy },
-    { key: "Unknown", icon: WiNa },
-  ];
+export const skyConditionIcons: Record<TSkyCondition, IconType> = {
+  Sunny: WiDaySunny,
+  "Mostly Sunny": WiDaySunnyOvercast,
+  "Partly Cloudy": WiDayCloudy,
+  Cloudy: WiCloud,
+  Overcast: WiCloudy,
+  Rainy: WiRain,
+  "Heavy Rain": WiRainWind,
+  Thunderstorm: WiThunderstorm,
+  "Night Clear": WiNightClear,
+  "Night Cloudy": WiNightAltCloudy,
+  Unknown: WiNa,
+};
+
+export const getSkyConditionIcon = (key: TSkyCondition): IconType =>
+  skyConditionIcons[key] || WiNa;

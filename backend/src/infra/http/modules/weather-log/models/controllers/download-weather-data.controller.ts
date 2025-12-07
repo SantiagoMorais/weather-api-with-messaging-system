@@ -4,7 +4,6 @@ import {
   Get,
   Logger,
   NotFoundException,
-  Param,
   Res,
 } from "@nestjs/common";
 import { ApiOkResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
@@ -25,13 +24,18 @@ export class DownloadWeatherDataController {
   @Get("export/csv")
   @ApiOkResponse({
     description: "OK - Weather data created",
+    schema: {
+      type: "string",
+      format: "binary",
+      example: "timestamp,temperature,humidity\n2025-12-07T03:00:00Z,23.38,62",
+    },
   })
   @ApiResponse({ status: 400, description: "Bad request - Zod error" })
   @ApiResponse({
     status: 404,
     description: "Not found - No registered weather logs",
   })
-  async exportCSV(@Param("id") @Res() res: Response) {
+  async exportCSV(@Res() res: Response) {
     const result = await this.findMostRecentWeatherLogUseCase.execute();
 
     if (result.isFailure()) {
@@ -63,6 +67,11 @@ export class DownloadWeatherDataController {
   @Get("export/xlsx")
   @ApiOkResponse({
     description: "OK - Weather data created",
+    schema: {
+      type: "string",
+      format: "binary",
+      example: "timestamp,temperature,humidity\n2025-12-07T03:00:00Z,23.38,62",
+    },
   })
   @ApiResponse({ status: 400, description: "Bad request - Zod error" })
   @ApiResponse({

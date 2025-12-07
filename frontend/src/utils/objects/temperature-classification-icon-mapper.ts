@@ -8,13 +8,16 @@ import {
   WiThermometer,
 } from "react-icons/wi";
 
-export const temperatureClassificationIconMapper: {
-  icon: IconType;
-  key: TTemperatureClassification;
-}[] = [
-  { key: "Cold", icon: WiSnowflakeCold },
-  { key: "Cool", icon: WiCloud },
-  { key: "Mild", icon: WiThermometer },
-  { key: "Warm", icon: WiDaySunny },
-  { key: "Hot", icon: WiHot },
-];
+export const temperatureClassificationIcons: Record<
+  TTemperatureClassification,
+  IconType
+> = {
+  Cold: WiSnowflakeCold,
+  Cool: WiCloud,
+  Mild: WiThermometer,
+  Warm: WiDaySunny,
+  Hot: WiHot,
+};
+
+export const getTemperatureIcon = (key: TTemperatureClassification): IconType =>
+  temperatureClassificationIcons[key] || WiThermometer;
