@@ -12,13 +12,13 @@ import { WeatherLogPresenter } from "src/infra/http/presenters/weather-log.prese
 import { WeatherLogResponseSwaggerDTO } from "../dto/weather-log-props-swagger.dto";
 
 @ApiTags("Weather")
-@Controller("/weather-logs/recent")
+@Controller("weather-logs")
 export class FindRecentLogController {
   constructor(
     private findMostRecentWeatherLogUseCase: FindMostRecentWeatherLogUseCase
   ) {}
 
-  @Get()
+  @Get("recent")
   @ApiOkResponse({
     description: "OK - Weather received",
     type: WeatherLogResponseSwaggerDTO,

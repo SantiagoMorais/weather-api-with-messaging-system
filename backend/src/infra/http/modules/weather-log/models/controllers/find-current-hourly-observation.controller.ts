@@ -11,13 +11,13 @@ import { FindCurrentHourlyObservationUseCase } from "src/domain/weatherLog/appli
 import { ObservationStatsWithIdDTO } from "../dto/observation-stats.dto";
 
 @ApiTags("Weather")
-@Controller("/weather-logs/hourly-observation")
+@Controller("weather-logs")
 export class FindCurrentHourlyObservationController {
   constructor(
     private findCurrentHourlyObservationUseCase: FindCurrentHourlyObservationUseCase
   ) {}
 
-  @Get()
+  @Get("hourly-observation")
   @ApiOkResponse({
     description: "OK - Data received",
     type: ObservationStatsWithIdDTO,

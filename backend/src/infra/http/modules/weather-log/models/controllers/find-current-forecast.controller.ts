@@ -11,11 +11,11 @@ import { FindCurrentForecastUseCase } from "src/domain/weatherLog/application/us
 import { CurrentForecastSwaggerDTO } from "../dto/current-forecast-swagger.dto";
 
 @ApiTags("Weather")
-@Controller("/weather-logs/current-forecast")
+@Controller("weather-logs")
 export class FindCurrentForecastController {
   constructor(private findCurrentForecastUseCase: FindCurrentForecastUseCase) {}
 
-  @Get()
+  @Get("current-forecast")
   @ApiOkResponse({
     description: "OK - Data received",
     type: CurrentForecastSwaggerDTO,
