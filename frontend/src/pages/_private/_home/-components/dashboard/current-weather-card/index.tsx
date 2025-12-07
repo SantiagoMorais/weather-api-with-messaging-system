@@ -4,6 +4,7 @@ import type { IHourlyObservationWithId } from "@/core/interfaces/hourly-observat
 import { getSkyConditionIcon } from "@/utils/objects/sky-Condition-Icon-Mapper";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { DownloadContentFileButton } from "./download-content-file-button";
 
 export const CurrentWeatherCard = ({
   hourlyData,
@@ -15,10 +16,11 @@ export const CurrentWeatherCard = ({
   const Icon = getSkyConditionIcon(insightsData.insights.skyCondition);
 
   return (
-    <Card className="bg-background/60 w-fit min-w-80 flex-1 items-center justify-center backdrop-blur-sm">
-      <CardContent className="flex w-fit flex-col flex-wrap items-center gap-4 md:flex-row">
+    <Card className="bg-background/60 relative w-fit min-w-80 flex-1 items-center justify-center backdrop-blur-sm">
+      <DownloadContentFileButton />
+      <CardContent className="flex w-fit flex-col flex-wrap items-center gap-4 lg:flex-row">
         <Icon className="text-primary size-20" />
-        <div className="mr-6 text-center md:text-start">
+        <div className="mr-6 text-center lg:text-start">
           <p className="text-sm">
             {format(new Date(), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })} -{" "}
             {new Date().getHours()}:{new Date().getMinutes()}
@@ -31,7 +33,7 @@ export const CurrentWeatherCard = ({
             {hourlyData.hourlyObservation.apparentTemperature.toFixed(1)}º C
           </p>
         </div>
-        <div className="space-y-3 text-center md:text-start">
+        <div className="space-y-3 text-center lg:text-start">
           <h4 className="font-bold tracking-tighter uppercase">
             Mais detalhes:
           </h4>
