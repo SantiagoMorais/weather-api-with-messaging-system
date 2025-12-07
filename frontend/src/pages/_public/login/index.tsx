@@ -1,9 +1,10 @@
+import { Card } from "@/components/ui/card";
 import { createFileRoute } from "@tanstack/react-router";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { useState } from "react";
+import { LoginBackground } from "./-components/login-background";
 import { SignInCardContent } from "./-components/sign-in-card-content";
 import { SignUpCardContent } from "./-components/sign-up-card-content";
-import { Card } from "@/components/ui/card";
-import { useState } from "react";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
 
 export const Route = createFileRoute("/_public/login/")({
   component: RouteComponent,
@@ -41,8 +42,9 @@ function RouteComponent() {
 
   return (
     <main className="flex h-dvh w-full items-center justify-center p-4">
+      <LoginBackground />
       <motion.div
-        className="w-full max-w-96"
+        className="z-10 w-full max-w-96"
         initial={{ opacity: 0, x: -10, y: 20, rotate: -10 }}
         animate={{ opacity: 1, x: 0, y: 0, rotate: 0 }}
         transition={{ duration: 0.5, delay: 1 }}
