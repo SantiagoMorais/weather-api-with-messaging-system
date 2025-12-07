@@ -1,5 +1,4 @@
 import { Test, TestingModule } from "@nestjs/testing";
-
 import { INestApplication } from "@nestjs/common";
 import { Model } from "mongoose";
 import { WeatherLogDocument } from "src/infra/database/mongoose/schemas/weather-log.schema";
