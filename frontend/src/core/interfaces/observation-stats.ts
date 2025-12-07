@@ -1,5 +1,5 @@
 export interface IObservationStats {
-  timestamp: Date;
+  timestamp: string;
   temperature: number;
   isDay: boolean;
   uvIndex: number;

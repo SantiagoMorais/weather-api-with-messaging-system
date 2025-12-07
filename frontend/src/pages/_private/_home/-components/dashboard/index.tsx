@@ -1,11 +1,13 @@
 import { getMostRecentCustomInsight } from "@/api/weather-log/get-most-recent-custom-insights";
 import { getMostRecentHourlyObservation } from "@/api/weather-log/get-most-recent-hourly-observation";
 import loginBackground from "@/assets/imgs/login-background.webp";
-import { Card, CardHeader } from "@/components/ui/card";
 import { calculateStaleTimeUntilNextHour } from "@/utils/functions/calculate-stale-time-until-next-hour";
-import { getSkyConditionIcon } from "@/utils/objects/sky-Condition-Icon-Mapper";
 import { useQuery } from "@tanstack/react-query";
 import { CurrentWeatherCard } from "./current-weather-card";
+import { ListX, Loader2 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { TextShimmerWave } from "@/components/ui/text-shimmer-wave";
+import { CurrentForecastCard } from "./current-forecast-card";
 
 export const Dashboard = () => {
   const timeUntilNextHour = calculateStaleTimeUntilNextHour;
@@ -35,10 +37,28 @@ export const Dashboard = () => {
     refetchOnReconnect: false,
   });
 
-  if (isInsightsPending || isHourlyPending) return <>loading</>;
-  if (hourlyError || insightsError) return <>error</>;
-
-  const Icon = getSkyConditionIcon(insightsData.insights.skyCondition);
+  const content = () => {
+    if (isInsightsPending || isHourlyPending)
+      return (
+        <Card className="w-fit">
+          <CardContent className="flex items-center gap-2">
+            <TextShimmerWave duration={1.2}>Carregando</TextShimmerWave>
+          </CardContent>
+        </Card>
+      );
+    if (hourlyError || insightsError)
+      return (
+        <Card className="w-fit">
+          <CardContent className="flex items-center gap-2">
+            <ListX className="text-destructive" />
+            <p>Erro ao encontrar dados!</p>
+          </CardContent>
+        </Card>
+      );
+    return (
+      <CurrentWeatherCard hourlyData={hourlyData} insightsData={insightsData} />
+    );
+  };
 
   return (
     <section className="size-full p-4 pb-8 md:p-8 md:pb-12">
@@ -47,11 +67,9 @@ export const Dashboard = () => {
           src={loginBackground}
           className="absolute -z-10 size-full rounded-lg object-cover opacity-30"
         />{" "}
-        <div className="p-4">
-          <CurrentWeatherCard
-            hourlyData={hourlyData}
-            insightsData={insightsData}
-          />
+        <div className="flex flex-wrap gap-4 p-4">
+          {content()}
+          <CurrentForecastCard />
         </div>
       </ul>
     </section>

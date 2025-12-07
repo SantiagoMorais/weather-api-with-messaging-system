@@ -15,12 +15,10 @@ export const CurrentWeatherCard = ({
   const Icon = getSkyConditionIcon(insightsData.insights.skyCondition);
 
   return (
-    <Card className="w-fit">
-      <CardContent className="flex w-fit flex-row flex-wrap items-center gap-4">
-        <div>
-          <Icon className="text-primary size-20" />
-        </div>
-        <div className="">
+    <Card className="bg-background/60 w-fit min-w-80 flex-1 items-center justify-center backdrop-blur-sm">
+      <CardContent className="flex w-fit flex-col flex-wrap items-center gap-4 md:flex-row">
+        <Icon className="text-primary size-20" />
+        <div className="mr-6 text-center md:text-start">
           <p className="text-sm">
             {format(new Date(), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })} -{" "}
             {new Date().getHours()}:{new Date().getMinutes()}
@@ -33,7 +31,7 @@ export const CurrentWeatherCard = ({
             {hourlyData.hourlyObservation.apparentTemperature.toFixed(1)}º C
           </p>
         </div>
-        <div className="h-full space-y-3">
+        <div className="space-y-3 text-center md:text-start">
           <h4 className="font-bold tracking-tighter uppercase">
             Mais detalhes:
           </h4>
