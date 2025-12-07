@@ -2,7 +2,7 @@ import type { IGetMostRecentInsightResponse } from "@/core/interfaces/get-most-r
 import { env } from "@/env";
 import axios from "axios";
 
-export const getMostRecentInsight =
+export const getMostRecentAIInsight =
   async (): Promise<IGetMostRecentInsightResponse> => {
     const token = localStorage.getItem("gdash-token");
     const baseUrl = env.VITE_NEST_API_URL;
