@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { AuthFormFields } from "./auth-form-fields";
 import { TbLoader2 } from "react-icons/tb";
 
-export const AuthForm = () => {
+export const SignInForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<TAuthenticateUser>({
     resolver: zodResolver(authenticateUserSchema),
