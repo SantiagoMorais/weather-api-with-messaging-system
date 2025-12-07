@@ -11,12 +11,19 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { MdDownload } from "react-icons/md";
 import { toast } from "sonner";
 
-export const DownloadContentFileButton = () => {
+export const DownloadContentFileButton = ({
+  className,
+  buttonClassName,
+}: {
+  className?: string;
+  buttonClassName?: string;
+}) => {
   const [isLoading, setIsLoading] = useState<boolean>();
 
   const download = async (format: "csv" | "xlsx") => {
@@ -47,13 +54,21 @@ export const DownloadContentFileButton = () => {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="absolute top-4 left-4 opacity-50 hover:opacity-100">
+      <AlertDialogTrigger
+        className={cn(
+          "absolute top-4 left-4 opacity-50 hover:opacity-100",
+          className
+        )}
+      >
         <TooltipMessageTrigger tooltipContent="Download dos dados">
           <Button
             size="icon"
-            className="border-foreground/60 border bg-transparent bg-none"
+            className={cn(
+              "border-foreground/60 border bg-transparent bg-none",
+              buttonClassName
+            )}
           >
-            <MdDownload className="size-6" />
+            <MdDownload className="text-foreground size-6" />
           </Button>
         </TooltipMessageTrigger>
       </AlertDialogTrigger>

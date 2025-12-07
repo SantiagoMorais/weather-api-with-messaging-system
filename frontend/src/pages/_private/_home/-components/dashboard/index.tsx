@@ -10,6 +10,7 @@ import { CurrentForecastCard } from "./current-forecast-card";
 import { CurrentWeatherCard } from "./current-weather-card";
 import { CurrentForecastChart } from "./current-forecast-as-chart";
 import { CustomWeatherInsightsCard } from "./custom-insights-card";
+import { GoogleMapsAddress } from "./google-maps-address";
 
 export const Dashboard = () => {
   const timeUntilNextHour = calculateStaleTimeUntilNextHour;
@@ -64,18 +65,21 @@ export const Dashboard = () => {
 
   return (
     <section className="h-fit w-full p-4 pb-8 md:p-8 md:pb-12">
-      <div className="border-primary/40 bg-background/20 relative size-full min-h-fit overflow-hidden rounded-lg border pb-10 backdrop-blur-sm">
+      <div className="border-primary/40 bg-background/20 relative size-full min-h-fit space-y-4 overflow-hidden rounded-lg border pb-10 backdrop-blur-sm">
         <img
           src={loginBackground}
           className="absolute -z-10 size-full object-cover opacity-30"
         />{" "}
-        <div className="flex flex-wrap gap-4 p-4">
+        <div className="mt-4 flex flex-wrap gap-4 px-4">
           {content()}
           <CurrentForecastCard />
         </div>
         <div className="space-y-4 px-4">
           <CurrentForecastChart />
+        </div>
+        <div className="flex flex-wrap gap-4 px-4">
           <CustomWeatherInsightsCard insightsData={insightsData} />
+          <GoogleMapsAddress />
         </div>
       </div>
     </section>

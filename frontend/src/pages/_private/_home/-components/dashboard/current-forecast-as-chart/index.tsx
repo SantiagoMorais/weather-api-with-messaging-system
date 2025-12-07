@@ -15,8 +15,10 @@ import {
 import { format } from "date-fns";
 import { TextShimmerWave } from "@/components/ui/text-shimmer-wave";
 import { X } from "lucide-react";
+import { useBreakpoints } from "@/hooks/use-breakpoints";
 
 export const CurrentForecastChart = () => {
+  const breakpoint = useBreakpoints();
   const timeUntilNextHour = calculateStaleTimeUntilNextHour;
 
   const { data, isPending, error } = useQuery({
@@ -31,7 +33,9 @@ export const CurrentForecastChart = () => {
   const chartData = useMemo(() => {
     if (!data) return [];
 
-    const selected = data.currentForecast.filter((_, idx) => idx % 2 === 0);
+    const selected = data.currentForecast.filter(
+      (_, i) => i % (breakpoint === "mobile" ? 3 : 2) === 0
+    );
 
     return selected.map((hour) => ({
       Hora: format(new Date(hour.timestamp), "HH:mm"),
@@ -61,7 +65,10 @@ export const CurrentForecastChart = () => {
     );
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer
+      width="100%"
+      height={breakpoint !== "mobile" ? 300 : 500}
+    >
       <LineChart
         data={chartData}
         margin={{ top: 20, right: 30, left: 0, bottom: 5 }}

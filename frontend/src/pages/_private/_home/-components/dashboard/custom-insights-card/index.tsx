@@ -33,7 +33,7 @@ export const CustomWeatherInsightsCard = ({
   const HumidityIcon = getHumidityIcon(humidityClassification);
 
   return (
-    <Card className="bg-background/60 relative w-fit min-w-80 flex-1 items-center justify-center shadow-sm backdrop-blur-sm">
+    <Card className="bg-background/60 relative min-w-80 flex-2 items-center justify-center shadow-sm backdrop-blur-sm">
       <CardContent className="flex w-fit flex-col gap-4 p-4">
         {/* Header */}
         <div className="flex items-center justify-between">

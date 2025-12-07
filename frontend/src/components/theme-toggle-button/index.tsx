@@ -16,7 +16,7 @@ export const ThemeTogglerButton = ({ className }: { className?: string }) => {
         variant="ghost"
         size="icon"
         onClick={handleThemeToggler}
-        className={cn("hover:bg-background", className)}
+        className={cn("", className)}
       >
         <motion.div
           key={isThemeDark ? "dark" : "light"}
