@@ -1,4 +1,4 @@
-import { passwordValidationSchema } from "@/core/schemas/password-schema";
+import { passwordValidationSchema } from "@/core/schemas/password-validation-schema";
 import z from "zod";
 
 export const envSchema = z.object({

@@ -1,34 +1,29 @@
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { env } from "@/env";
+import { AuthForm } from "./auth-form";
+import { MainAuthCardFooter } from "./main-auth-card-footer";
 
 export const MainAuthCard = () => {
   return (
-    <Card>
-      <CardContent className="w-full min-w-full">
-        <CardHeader className="px-0">
-          <CardTitle>Login</CardTitle>
+    <Card className="w-full max-w-96">
+      <CardContent className="w-full min-w-full space-y-2">
+        <CardHeader className="mb-4 px-0">
+          <CardTitle className="text-lg">Login</CardTitle>
           <CardDescription>
             Insira seu email e senha para acessar a plataforma!
           </CardDescription>
         </CardHeader>
-        <CardFooter className="bg-secondary w-full flex-col items-start p-2 px-4 shadow">
-          <p className="pb-1 font-medium">Acesse como convidado:</p>
-          <p className="text-primary text-sm">
-            Email:{" "}
-            <span className="font-semibold">{env.VITE_SEED_USER_EMAIL}</span>
-          </p>
-          <p className="text-primary text-sm">
-            Senha:{" "}
-            <span className="font-semibold">{env.VITE_SEED_USER_PASS}</span>
-          </p>
-        </CardFooter>
+        <AuthForm />
+        <Button variant="outline" className="w-full">
+          Realizar cadastro
+        </Button>
+        <MainAuthCardFooter />
       </CardContent>
     </Card>
   );
