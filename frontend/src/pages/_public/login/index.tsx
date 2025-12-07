@@ -5,9 +5,11 @@ import { useState } from "react";
 import { LoginBackground } from "./-components/login-background";
 import { SignInCardContent } from "./-components/sign-in-card-content";
 import { SignUpCardContent } from "./-components/sign-up-card-content";
+import { preventAuthAccess } from "@/core/guards/prevent-auth-access";
 
 export const Route = createFileRoute("/_public/login/")({
   component: RouteComponent,
+  loader: preventAuthAccess,
 });
 
 function RouteComponent() {
