@@ -24,7 +24,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     env_file:
-      - .env
+      - ./backend/.env
     depends_on:
       - mongo
     ports:
@@ -38,7 +38,7 @@ services:
     ports:
       - "5173:5173"
     env_file:
-      - .env
+      - ./frontend/.env
 
   python-collector:
     build:
@@ -46,7 +46,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     env_file:
-      - .env
+      - ./collector/.env
     depends_on:
       - rabbitmq
 
@@ -56,7 +56,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     env_file:
-      - .env
+      - ./worker/.env
     depends_on:
       - rabbitmq
       - nestapi

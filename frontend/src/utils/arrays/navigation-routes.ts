@@ -6,10 +6,6 @@ export const navigationRoutes: INavigationRoutes[] = [
     path: "/",
   },
   {
-    name: "previsão",
-    path: "/previsao",
-  },
-  {
     name: "pokemons",
     path: "/pokemons",
     routes: [
