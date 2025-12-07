@@ -1,7 +1,7 @@
 import {
   IFindAllPokemonsUseCaseRequest,
   TFindAllPokemonsUseCaseResponse,
-} from "src/core/interfaces/use-cases/pokemon/find-all-pokemons-use-case";
+} from "src/domain/pokemon/enterprise/interfaces/find-all-pokemons-use-case";
 import { PokemonGateway } from "../gateways/pokemons.gateway";
 import { success } from "src/core/result";
 import { Injectable } from "@nestjs/common";

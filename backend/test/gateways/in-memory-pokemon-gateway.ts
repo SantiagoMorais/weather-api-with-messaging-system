@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { IPokemonProps } from "src/core/interfaces/entities/pokemon-props";
-import { IFetchAllPokemonsDataResponse } from "src/core/interfaces/services/poke-api/fetch-all-pokemons-data-response";
-import { IPokemonFormattedBaseDetails } from "src/core/interfaces/services/poke-api/pokemon-formatted-base-details";
+import { IFetchAllPokemonsDataResponse } from "src/domain/pokemon/enterprise/interfaces/fetch-all-pokemons-data-response";
+import { IPokemonFormattedBaseDetails } from "src/domain/pokemon/enterprise/interfaces/pokemon-formatted-base-details";
 
 import { PokemonGateway } from "src/domain/pokemon/application/gateways/pokemons.gateway";
 

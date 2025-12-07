@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IPokemonFormattedBaseDetails } from "src/core/interfaces/services/poke-api/pokemon-formatted-base-details";
+import { IPokemonFormattedBaseDetails } from "src/domain/pokemon/enterprise/interfaces/pokemon-formatted-base-details";
 import {
   pokemonTypes,
   TPokemonType,

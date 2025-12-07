@@ -1,7 +1,7 @@
 import {
   IGetPokemonByNameOrIdUseCaseRequest,
   TGetPokemonByNameOrIdUseCaseResponse,
-} from "src/core/interfaces/use-cases/pokemon/get-pokemon-by-name-or-id-use-case";
+} from "src/domain/pokemon/enterprise/interfaces/get-pokemon-by-name-or-id-use-case";
 import { PokemonGateway } from "../gateways/pokemons.gateway";
 import { failure, success } from "src/core/result";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";

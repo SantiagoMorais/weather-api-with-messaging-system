@@ -1,4 +1,4 @@
-import { IPokemonFormattedBaseDetails } from "src/core/interfaces/services/poke-api/pokemon-formatted-base-details";
+import { IPokemonFormattedBaseDetails } from "src/domain/pokemon/enterprise/interfaces/pokemon-formatted-base-details";
 
 export interface IFindPokemonsByTypeControllerResponse {
   pokemons: IPokemonFormattedBaseDetails[];

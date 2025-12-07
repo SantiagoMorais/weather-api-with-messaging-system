@@ -1,6 +1,6 @@
 import { IPokemonProps } from "src/core/interfaces/entities/pokemon-props";
-import { IFetchAllPokemonsDataResponse } from "src/core/interfaces/services/poke-api/fetch-all-pokemons-data-response";
-import { IPokemonFormattedBaseDetails } from "src/core/interfaces/services/poke-api/pokemon-formatted-base-details";
+import { IFetchAllPokemonsDataResponse } from "src/domain/pokemon/enterprise/interfaces/fetch-all-pokemons-data-response";
+import { IPokemonFormattedBaseDetails } from "src/domain/pokemon/enterprise/interfaces/pokemon-formatted-base-details";
 
 export abstract class PokemonGateway {
   abstract getByNameOrId(
