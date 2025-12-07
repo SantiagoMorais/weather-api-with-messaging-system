@@ -1,15 +1,16 @@
-import { getMostRecentInsight } from "@/api/weather-log/get-most-recent-insight";
+import { getMostRecentAIInsight } from "@/api/weather-log/get-most-recent-ai-insight";
 import { InfiniteSlider } from "@/components/ui/infinite-slider";
 import { TextShimmerWave } from "@/components/ui/text-shimmer-wave";
+import { useBreakpoints } from "@/hooks/use-breakpoints";
 import { calculateStaleTimeUntilNextHour } from "@/utils/functions/calculate-stale-time-until-next-hour";
 import { useQuery } from "@tanstack/react-query";
 
 export const AIInsightHeaderBar = () => {
   const timeUntilNextHour = calculateStaleTimeUntilNextHour();
-
+  const breakpoint = useBreakpoints();
   const { isPending, error, data } = useQuery({
     queryKey: ["/weather-logs/insight"],
-    queryFn: async () => await getMostRecentInsight(),
+    queryFn: async () => await getMostRecentAIInsight(),
     staleTime: timeUntilNextHour,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
@@ -53,7 +54,7 @@ export const AIInsightHeaderBar = () => {
         className="w-full transition-colors duration-300"
         speed={100}
         speedOnHover={50}
-        gap={window.screen.width / 3}
+        gap={breakpoint === "mobile" ? 100 : window.screen.width / 3}
       >
         <p>{data.currentInsight}</p>
       </InfiniteSlider>

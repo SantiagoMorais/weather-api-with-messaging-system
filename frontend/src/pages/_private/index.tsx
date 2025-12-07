@@ -5,6 +5,7 @@ import { HeaderNavbar } from "./_home/-components/header-navbar";
 import { requireAuth } from "@/core/guards/auth-guard";
 import { ThemeTogglerButton } from "@/components/theme-toggle-button";
 import { UserAvatarButton } from "@/components/user-avatar-button";
+import loginBackground from "@/assets/imgs/login-background.webp";
 
 export const Route = createFileRoute("/_private/")({
   component: RouteComponent,
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/_private/")({
 
 function RouteComponent() {
   return (
-    <main className="h-dvh w-full max-w-(--breakpoint-2xl) overflow-x-hidden">
+    <main className="flex h-dvh w-full max-w-(--breakpoint-2xl) flex-col overflow-x-hidden">
       <header className="flex w-full items-center gap-4 px-3 py-4 backdrop-blur-sm md:p-6 md:px-10">
         <HeaderLogo />
         <HeaderNavbar />
@@ -21,7 +22,13 @@ function RouteComponent() {
         <UserAvatarButton />
       </header>
       <AIInsightHeaderBar />
-      <Outlet />
+      <section className="relative flex-1">
+        <img
+          src={loginBackground}
+          className="border-primary absolute z-0 size-full h-9/10 rounded-lg border-2 object-cover opacity-30"
+        />{" "}
+        <Outlet />
+      </section>
     </main>
   );
 }
