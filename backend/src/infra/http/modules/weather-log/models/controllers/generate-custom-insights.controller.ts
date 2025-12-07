@@ -5,11 +5,12 @@ import {
   Logger,
   NotFoundException,
 } from "@nestjs/common";
-import { ApiOkResponse, ApiResponse } from "@nestjs/swagger";
+import { ApiOkResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { GenerateCustomWeatherInsight } from "src/domain/weatherLog/application/use-cases/generate-custom-weather-insight";
 import { GenerateCustomWeatherInsightResponseDTO } from "../dto/generate-custom-weather-insight-response.dto";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 
+@ApiTags("Weather")
 @Controller("/weather-logs/custom-insights")
 export class GenerateCustomWeatherInsightsController {
   constructor(

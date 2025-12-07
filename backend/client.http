@@ -135,3 +135,10 @@ Authorization: Bearer {{authToken}}
 GET {{baseUrl}}/weather-logs/current-forecast
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+###
+
+# @name generate_custom_insights
+GET {{baseUrl}}/weather-logs/custom-insights
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
