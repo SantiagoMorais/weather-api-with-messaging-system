@@ -18,6 +18,8 @@ import { FindRecentLogController } from "./models/controllers/find-recent-log.co
 import { ReceiveWeatherLogController } from "./models/controllers/receive-weather-log.controller";
 import { GenerateCustomWeatherInsight } from "src/domain/weatherLog/application/use-cases/generate-custom-weather-insight";
 import { GenerateCustomWeatherInsightsController } from "./models/controllers/generate-custom-insights.controller";
+import { DownloadWeatherDataController } from "./models/controllers/download-weather-data.controller";
+import { WeatherExportService } from "../../services/weather-export-service";
 
 @Module({
   imports: [DatabaseModule, EnvModule],
@@ -30,6 +32,7 @@ import { GenerateCustomWeatherInsightsController } from "./models/controllers/ge
     FindCurrentInsightController,
     GenerateCustomWeatherInsightsController,
 
+    DownloadWeatherDataController,
     FindManyRecentLogController,
   ],
   providers: [
@@ -39,6 +42,7 @@ import { GenerateCustomWeatherInsightsController } from "./models/controllers/ge
     FindCurrentHourlyObservationUseCase,
     FindCurrentForecastUseCase,
     FindInsightUseCase,
+    WeatherExportService,
     GenerateCustomWeatherInsight,
     // The GEMINI interface and implementation to insight generation
     {
