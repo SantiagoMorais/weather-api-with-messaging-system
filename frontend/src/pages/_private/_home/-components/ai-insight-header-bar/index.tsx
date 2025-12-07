@@ -32,14 +32,37 @@ export const AIInsightHeaderBar = () => {
           Carregando insight
         </TextShimmerWave>
       );
-    if (error) return <p>Insight indisponível para o horário de {hour}h</p>;
+    if (
+      error ||
+      data.currentInsight === null ||
+      data.currentInsight === undefined
+    )
+      return (
+        <InfiniteSlider
+          className="w-screen"
+          speed={100}
+          gap={window.screen.width / 2}
+          speedOnHover={50}
+        >
+          <p>Insight indisponível para o horário de {hour}h</p>
+        </InfiniteSlider>
+      );
 
     return (
-      <InfiniteSlider>
-        <p>{data.currentInsight}</p>;
+      <InfiniteSlider
+        className="w-full"
+        speed={100}
+        speedOnHover={50}
+        gap={window.screen.width / 4}
+      >
+        <p>{data.currentInsight}</p>
       </InfiniteSlider>
     );
   };
 
-  return <section>{dataResponse()}</section>;
+  return (
+    <section className="via-secondary from-background to-background border-y bg-linear-to-r py-1 text-center shadow backdrop-blur-sm">
+      {dataResponse()}
+    </section>
+  );
 };

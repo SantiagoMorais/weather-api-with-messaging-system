@@ -30,7 +30,7 @@ export const SignInForm = () => {
     await authenticateUser(data)
       .then(({ access_token }) => {
         localStorage.setItem("gdash-token", access_token);
-        toast.success("Autenticação bem-sucedida!");
+        toast.success("Bem-vindo!");
         navigate({ to: "/", from: "/login" });
       })
       .catch((error) => {
