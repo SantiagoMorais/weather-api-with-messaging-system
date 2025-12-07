@@ -4,6 +4,7 @@ import { AIInsightHeaderBar } from "./_home/-components/ai-insight-header-bar";
 import { HeaderNavbar } from "./_home/-components/header-navbar";
 import { requireAuth } from "@/core/guards/auth-guard";
 import { ThemeTogglerButton } from "@/components/theme-toggle-button";
+import { UserAvatarButton } from "@/components/user-avatar-button";
 
 export const Route = createFileRoute("/_private/")({
   component: RouteComponent,
@@ -17,6 +18,7 @@ function RouteComponent() {
         <HeaderLogo />
         <HeaderNavbar />
         <ThemeTogglerButton className="ml-auto" />
+        <UserAvatarButton />
       </header>
       <AIInsightHeaderBar />
       <Outlet />

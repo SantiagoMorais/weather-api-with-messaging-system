@@ -22,7 +22,7 @@ export const AIInsightHeaderBar = () => {
     if (isPending)
       return (
         <TextShimmerWave
-          className="[--base-color:primary] [--base-gradient-color:primary/60]"
+          className="transition-colors duration-300 [--base-color:var(--color-blue-600)] [--base-gradient-color:var(--color-blue-300)]"
           duration={1}
           spread={1}
           zDistance={1}
@@ -39,7 +39,7 @@ export const AIInsightHeaderBar = () => {
     )
       return (
         <InfiniteSlider
-          className="w-screen"
+          className="w-screen transition-colors duration-300"
           speed={100}
           gap={window.screen.width / 2}
           speedOnHover={50}
@@ -50,7 +50,7 @@ export const AIInsightHeaderBar = () => {
 
     return (
       <InfiniteSlider
-        className="w-full"
+        className="w-full transition-colors duration-300"
         speed={100}
         speedOnHover={50}
         gap={window.screen.width / 3}
@@ -61,10 +61,10 @@ export const AIInsightHeaderBar = () => {
   };
 
   return (
-    <section className="via-secondary from-background to-background relative border-y bg-linear-to-r py-1 text-center shadow backdrop-blur-sm">
-      <div className="from-background via-background absolute top-0 z-10 h-full scale-150 bg-linear-to-r to-transparent md:w-30" />
+    <section className="via-secondary from-background to-background t relative border-y bg-linear-to-r py-1 text-center shadow backdrop-blur-sm">
+      <div className="from-background via-background absolute top-0 z-10 h-full scale-150 bg-linear-to-r to-transparent transition-colors duration-300 md:w-30" />
       {dataResponse()}
-      <div className="from-background via-background absolute top-0 right-0 z-10 h-full scale-150 bg-linear-to-l to-transparent md:w-30" />
+      <div className="from-background via-background absolute top-0 right-0 z-10 h-full scale-150 bg-linear-to-l to-transparent transition-colors duration-300 md:w-30" />
     </section>
   );
 };
