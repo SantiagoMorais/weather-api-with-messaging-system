@@ -3,7 +3,7 @@ import { SkyCondition } from "../enums/sky-conditions";
 import { TemperatureClassification } from "../enums/temperature-classification";
 import { WindClassification } from "../enums/wind-classification";
 
-export interface IWeatherInsight {
+export interface ICustomWeatherInsight {
   timestamp: Date;
   summary: string; // Ex: "Mostly Sunny, Warm and Humid"
   skyCondition: SkyCondition;

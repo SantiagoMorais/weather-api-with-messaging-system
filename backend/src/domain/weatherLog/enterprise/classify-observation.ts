@@ -1,11 +1,13 @@
 import { TObservationStats } from "src/infra/http/modules/weather-log/models/schemas/observation-stats.schema";
-import { IWeatherInsight } from "./interfaces/custom-weather-insights";
+import { ICustomWeatherInsight } from "./interfaces/custom-weather-insights";
 import { SkyCondition } from "./enums/sky-conditions";
 import { TemperatureClassification } from "./enums/temperature-classification";
 import { WindClassification } from "./enums/wind-classification";
 import { HumidityClassification } from "./enums/humidity-classification";
 
-export function classifyObservation(stats: TObservationStats): IWeatherInsight {
+export function classifyObservation(
+  stats: TObservationStats
+): ICustomWeatherInsight {
   let skyCondition: SkyCondition;
   const { cloudCover, isDay, precipitation, precipitationProbability } = stats;
 
