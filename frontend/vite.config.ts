@@ -23,4 +23,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: { // for docker requirements
+    host: true,
+    port: 5173,
+  },
 });

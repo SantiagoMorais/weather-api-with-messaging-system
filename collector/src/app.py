@@ -4,6 +4,9 @@ from src.rabbitmq import send_message
 import schedule
 import time
 
+import sys
+sys.path.append("/app")
+
 def main():
     current, forecast, meta = fetch_weather()
     payload = build_payload(current, forecast, meta)

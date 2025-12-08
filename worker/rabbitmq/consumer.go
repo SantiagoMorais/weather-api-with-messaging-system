@@ -25,6 +25,18 @@ func ConsumeWeatherQueue(cfg *config.Config, handleMessage func(types.FullWeathe
     }
     defer ch.Close()
 
+     _, err = ch.QueueDeclare(
+        cfg.QueueName,
+        true,  // durable
+        false, // auto-delete
+        false, // exclusive
+        false, // no-wait
+        nil,
+    )
+    if err != nil {
+        log.Fatalf("Failed to declare queue: %v", err)
+    }
+
     msgs, err := ch.Consume(
         cfg.QueueName,
         "",
