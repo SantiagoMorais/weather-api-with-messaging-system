@@ -11,6 +11,7 @@ class Settings(BaseSettings):
 
     RABBITMQ_HOST: str
     RABBITMQ_QUEUE: str
+    PYTHONPATH: str
 
     model_config = SettingsConfigDict(env_file=ENV_PATH, env_file_encoding="utf-8", extra="ignore")
 
