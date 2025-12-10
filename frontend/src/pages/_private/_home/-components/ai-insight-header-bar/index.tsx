@@ -62,10 +62,8 @@ export const AIInsightHeaderBar = () => {
   };
 
   return (
-    <section className="via-secondary from-background to-background t relative border-y bg-linear-to-r py-1 text-center shadow backdrop-blur-sm">
-      <div className="from-background via-background absolute top-0 z-10 h-full scale-150 bg-linear-to-r to-transparent transition-colors duration-300 md:w-30" />
+    <section className="via-secondary from-background to-background relative rounded-md border-y bg-linear-to-r py-1 text-center shadow backdrop-blur-sm md:mask-[linear-gradient(to_right,transparent_0,black_40px,black_calc(100%-40px),transparent_100%)]">
       {dataResponse()}
-      <div className="from-background via-background absolute top-0 right-0 z-10 h-full scale-150 bg-linear-to-l to-transparent transition-colors duration-300 md:w-30" />
     </section>
   );
 };

@@ -34,7 +34,7 @@ export const CurrentForecastChart = () => {
     if (!data) return [];
 
     const selected = data.currentForecast.filter(
-      (_, i) => i % (breakpoint === "mobile" ? 3 : 2) === 0
+      (_, i) => i % (breakpoint === "desktop" ? 2 : 4) === 0
     );
 
     return selected.map((hour) => ({
@@ -45,7 +45,7 @@ export const CurrentForecastChart = () => {
       "Índice de radiação UV": Number(hour.uvIndex.toFixed(5)),
       "Cobertura de Nuvens": hour.cloudCover,
     }));
-  }, [data]);
+  }, [data, breakpoint]);
 
   if (isPending)
     return (
@@ -66,6 +66,7 @@ export const CurrentForecastChart = () => {
 
   return (
     <ResponsiveContainer
+      key={breakpoint}
       width="100%"
       height={breakpoint !== "mobile" ? 300 : 500}
     >
@@ -78,8 +79,14 @@ export const CurrentForecastChart = () => {
         <XAxis dataKey="Hora" />
         <YAxis />
         <Tooltip />
-        <Legend align="right" />
-
+        <Legend
+          align="right"
+          wrapperStyle={{
+            paddingTop: breakpoint === "desktop" ? 20 : 40,
+            paddingBottom: 20,
+            lineHeight: "30px",
+          }}
+        />
         <Line
           type="natural"
           dataKey="Temperatura"

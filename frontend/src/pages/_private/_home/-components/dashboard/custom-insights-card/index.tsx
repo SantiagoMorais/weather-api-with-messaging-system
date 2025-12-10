@@ -8,6 +8,12 @@ import {
   getWindIcon,
   getHumidityIcon,
 } from "@/utils/objects/";
+import {
+  translateSkyCondition,
+  translateTemperature,
+  translateWind,
+  translateHumidity,
+} from "@/utils/functions/weather-insights-translator";
 
 export const CustomWeatherInsightsCard = ({
   insightsData,
@@ -53,14 +59,16 @@ export const CustomWeatherInsightsCard = ({
           <div className="space-y-1">
             <SkyIcon className="text-primary mx-auto size-10" />
             <p className="text-sm font-semibold">Céu</p>
-            <p className="text-muted-foreground text-xs">{skyCondition}</p>
+            <p className="text-muted-foreground text-xs">
+              {translateSkyCondition[skyCondition]}
+            </p>
           </div>
 
           <div className="space-y-1">
             <TempIcon className="mx-auto size-10 text-orange-400" />
             <p className="text-sm font-semibold">Temperatura</p>
             <p className="text-muted-foreground text-xs">
-              {temperatureClassification}
+              {translateTemperature[temperatureClassification]}
             </p>
           </div>
 
@@ -68,7 +76,7 @@ export const CustomWeatherInsightsCard = ({
             <WindIcon className="mx-auto size-10 text-blue-400" />
             <p className="text-sm font-semibold">Vento</p>
             <p className="text-muted-foreground text-xs">
-              {windClassification}
+              {translateWind[windClassification]}
             </p>
           </div>
 
@@ -76,7 +84,7 @@ export const CustomWeatherInsightsCard = ({
             <HumidityIcon className="mx-auto size-10 text-cyan-400" />
             <p className="text-sm font-semibold">Umidade</p>
             <p className="text-muted-foreground text-xs">
-              {humidityClassification}
+              {translateHumidity[humidityClassification]}
             </p>
           </div>
         </div>

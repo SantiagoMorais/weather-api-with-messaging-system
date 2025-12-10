@@ -64,11 +64,11 @@ export const Dashboard = () => {
   };
 
   return (
-    <section className="h-fit w-full p-4 pb-8 md:p-8 md:pb-12">
-      <div className="border-primary/40 bg-background/20 relative size-full min-h-fit space-y-4 overflow-hidden rounded-lg border pb-10 backdrop-blur-sm">
+    <section className="bg h-fit w-full p-4 pb-8 md:p-8 md:pb-12">
+      <div className="border-primary/40 bg-background relative size-full min-h-fit space-y-4 overflow-hidden rounded-lg border pb-10 backdrop-blur-sm">
         <img
           src={loginBackground}
-          className="absolute -z-10 size-full object-cover opacity-30"
+          className="absolute -z-10 size-full object-cover opacity-10"
         />{" "}
         <div className="mt-4 flex flex-wrap gap-4 px-4">
           {content()}
