@@ -1,20 +1,20 @@
+import loginBackground from "@/assets/imgs/login-background.webp";
 import { HeaderLogo } from "@/components/header-logo";
 import { ThemeTogglerButton } from "@/components/theme-toggle-button";
 import { UserAvatarButton } from "@/components/user-avatar-button";
 import { requireAuth } from "@/core/guards/auth-guard";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { AIInsightHeaderBar } from "./_home/-components/ai-insight-header-bar";
-import { Dashboard } from "./_home/-components/dashboard";
-import { HeaderNavbar } from "./_home/-components/header-navbar";
-import { DownloadContentFileButton } from "./_home/-components/dashboard/current-weather-card/download-content-file-button";
-import loginBackground from "@/assets/imgs/login-background.webp";
+import { HeaderNavbar } from "../_home/-components/header-navbar";
+import { DownloadContentFileButton } from "../_home/-components/dashboard/current-weather-card/download-content-file-button";
+import { AIInsightHeaderBar } from "../_home/-components/ai-insight-header-bar";
+import { PokemonsListWrapper } from "./-components/pokemons-list-wrapper";
 
-export const Route = createFileRoute("/_private/")({
-  component: RouteComponent,
+export const Route = createFileRoute("/pokemons/")({
+  component: PrivateLayout,
   loader: requireAuth,
 });
 
-function RouteComponent() {
+function PrivateLayout() {
   return (
     <>
       <img
@@ -33,7 +33,7 @@ function RouteComponent() {
           <UserAvatarButton />
         </header>
         <AIInsightHeaderBar />
-        <Dashboard />
+        <PokemonsListWrapper />
         <Outlet />
       </main>
     </>

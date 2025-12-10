@@ -12,7 +12,7 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import { UserSheetDataPending } from "./user-sheet-data-pending";
-import { HeaderNavbar } from "@/pages/_private/_home/-components/header-navbar";
+import { HeaderNavbar } from "@/pages/_home/-components/header-navbar";
 import { TooltipMessageTrigger } from "../tooltipMessageTrigger";
 
 export const UserAvatarButton = () => {

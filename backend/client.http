@@ -37,7 +37,7 @@ Authorization: Bearer {{authToken}}
 ###
 
 # @name fetch_pokemons
-GET {{baseUrl}}/pokemons
+GET {{baseUrl}}/pokemons?limit=2
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 

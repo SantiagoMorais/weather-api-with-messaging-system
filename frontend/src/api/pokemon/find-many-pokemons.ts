@@ -16,7 +16,9 @@ export const findManyPokemons = async ({
   if (offset) params.append("offset", offset.toString());
   if (limit) params.append("limit", limit.toString());
 
-  const url = `${baseUrl}/pokemons/${params.toString()}`;
+  const url = `${baseUrl}/pokemons${params && "?" + params.toString()}`;
+
+  console.log(url);
 
   const { data } = await axios.get<IFetchAllPokemonsDataResponse>(url, {
     headers: {

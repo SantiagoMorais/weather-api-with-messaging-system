@@ -9,86 +9,86 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './pages/__root'
-import { Route as PrivateIndexRouteImport } from './pages/_private/index'
-import { Route as PublicLoginIndexRouteImport } from './pages/_public/login/index'
-import { Route as PrivatePokemonsIndexRouteImport } from './pages/_private/pokemons/index'
+import { Route as PokemonsIndexRouteImport } from './pages/pokemons/index'
+import { Route as LoginIndexRouteImport } from './pages/login/index'
+import { Route as HomeIndexRouteImport } from './pages/_home/index'
 
-const PrivateIndexRoute = PrivateIndexRouteImport.update({
-  id: '/_private/',
-  path: '/',
+const PokemonsIndexRoute = PokemonsIndexRouteImport.update({
+  id: '/pokemons/',
+  path: '/pokemons/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PublicLoginIndexRoute = PublicLoginIndexRouteImport.update({
-  id: '/_public/login/',
+const LoginIndexRoute = LoginIndexRouteImport.update({
+  id: '/login/',
   path: '/login/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PrivatePokemonsIndexRoute = PrivatePokemonsIndexRouteImport.update({
-  id: '/_private/pokemons/',
-  path: '/pokemons/',
+const HomeIndexRoute = HomeIndexRouteImport.update({
+  id: '/_home/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof PrivateIndexRoute
-  '/pokemons': typeof PrivatePokemonsIndexRoute
-  '/login': typeof PublicLoginIndexRoute
+  '/': typeof HomeIndexRoute
+  '/login': typeof LoginIndexRoute
+  '/pokemons': typeof PokemonsIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof PrivateIndexRoute
-  '/pokemons': typeof PrivatePokemonsIndexRoute
-  '/login': typeof PublicLoginIndexRoute
+  '/': typeof HomeIndexRoute
+  '/login': typeof LoginIndexRoute
+  '/pokemons': typeof PokemonsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_private/': typeof PrivateIndexRoute
-  '/_private/pokemons/': typeof PrivatePokemonsIndexRoute
-  '/_public/login/': typeof PublicLoginIndexRoute
+  '/_home/': typeof HomeIndexRoute
+  '/login/': typeof LoginIndexRoute
+  '/pokemons/': typeof PokemonsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/pokemons' | '/login'
+  fullPaths: '/' | '/login' | '/pokemons'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/pokemons' | '/login'
-  id: '__root__' | '/_private/' | '/_private/pokemons/' | '/_public/login/'
+  to: '/' | '/login' | '/pokemons'
+  id: '__root__' | '/_home/' | '/login/' | '/pokemons/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  PrivateIndexRoute: typeof PrivateIndexRoute
-  PrivatePokemonsIndexRoute: typeof PrivatePokemonsIndexRoute
-  PublicLoginIndexRoute: typeof PublicLoginIndexRoute
+  HomeIndexRoute: typeof HomeIndexRoute
+  LoginIndexRoute: typeof LoginIndexRoute
+  PokemonsIndexRoute: typeof PokemonsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_private/': {
-      id: '/_private/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof PrivateIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_public/login/': {
-      id: '/_public/login/'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof PublicLoginIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_private/pokemons/': {
-      id: '/_private/pokemons/'
+    '/pokemons/': {
+      id: '/pokemons/'
       path: '/pokemons'
       fullPath: '/pokemons'
-      preLoaderRoute: typeof PrivatePokemonsIndexRouteImport
+      preLoaderRoute: typeof PokemonsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login/': {
+      id: '/login/'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_home/': {
+      id: '/_home/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof HomeIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  PrivateIndexRoute: PrivateIndexRoute,
-  PrivatePokemonsIndexRoute: PrivatePokemonsIndexRoute,
-  PublicLoginIndexRoute: PublicLoginIndexRoute,
+  HomeIndexRoute: HomeIndexRoute,
+  LoginIndexRoute: LoginIndexRoute,
+  PokemonsIndexRoute: PokemonsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
