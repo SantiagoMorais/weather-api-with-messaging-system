@@ -2,6 +2,11 @@
 .env
 .env.mongo
 .env.rabbitmq
+.env.redis
+
+# cache
+.cache.sqlite
+collector/.cache.sqlite
 
 # modules
 .venv/

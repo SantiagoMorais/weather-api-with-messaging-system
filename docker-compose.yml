@@ -61,5 +61,16 @@ services:
       - rabbitmq
       - nestapi
 
+  redis:
+    image: redis:7.2-alpine
+    restart: unless-stopped
+    env_file:
+      - .env.redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes: -redis-data:/data
+
 volumes:
   mongo-data:
+  redis-data:
