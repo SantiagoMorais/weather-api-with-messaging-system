@@ -1,14 +1,18 @@
 // @ts-check
 import eslint from "@eslint/js";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import eslintPluginPrettierRecommended, {
+  plugins,
+} from "eslint-plugin-prettier/recommended";
 import globals from "globals";
 import tseslint from "typescript-eslint";
+import vitestPlugin from "eslint-plugin-vitest";
 
 export default tseslint.config(
   {
     ignores: ["eslint.config.mjs"],
   },
   eslint.configs.recommended,
+  tseslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   eslintPluginPrettierRecommended,
   {
@@ -31,6 +35,13 @@ export default tseslint.config(
       "@typescript-eslint/no-unsafe-argument": "off",
       "prettier/prettier": ["warn", { endOfLine: "auto" }],
       "@typescript-eslint/no-unsafe-assignment": "off",
+    },
+  },
+  {
+    files: ["**/*.test.ts", "**/*.e2e-test.ts"],
+    plugins: { vitest: vitestPlugin },
+    rules: {
+      ...vitestPlugin.configs.recommended.rules,
     },
   }
 );

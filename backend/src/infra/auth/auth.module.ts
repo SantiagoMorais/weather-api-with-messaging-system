@@ -6,6 +6,7 @@ import { EnvService } from "../env/env.service";
 import { APP_GUARD } from "@nestjs/core";
 import { JwtAuthGuard } from "./jwt/jwt-auth.guard";
 import { JwtStrategy } from "./jwt/jwt-strategy";
+import { RedisModule } from "./redis/redis.module";
 
 type SignOptionsType = Required<JwtModuleOptions>["signOptions"]["expiresIn"];
 
@@ -29,6 +30,7 @@ type SignOptionsType = Required<JwtModuleOptions>["signOptions"]["expiresIn"];
         };
       },
     }),
+    RedisModule,
   ],
   providers: [
     {
