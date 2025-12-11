@@ -16,6 +16,7 @@ describe("LogoutUser use case", () => {
 
     const result = await sut.execute(token, ttl);
 
+    expect(result.isSuccess()).toBeTruthy();
     expect(fakeBlacklistService.blacklistedTokens).toHaveLength(1);
     expect(fakeBlacklistService.isTokenBlacklisted(token)).toBeTruthy();
   });
