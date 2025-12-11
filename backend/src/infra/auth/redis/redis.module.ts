@@ -4,8 +4,10 @@ import { Module } from "@nestjs/common";
 import { createClient, RedisClientType } from "redis";
 import { EnvService } from "src/infra/env/env.service";
 import { RedisService } from "./redis.service";
+import { EnvModule } from "src/infra/env/env.module";
 
 @Module({
+  imports: [EnvModule],
   providers: [
     {
       provide: "REDIS",

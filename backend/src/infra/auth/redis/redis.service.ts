@@ -1,14 +1,15 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { type RedisClientPoolType } from "redis";
+import { Blacklist } from "src/domain/user/authentication/blacklist";
 
 @Injectable()
-export class RedisService {
+export class RedisService implements Blacklist {
   constructor(
     @Inject("REDIS")
     private readonly redis: RedisClientPoolType
   ) {}
-
-  async blackListToken(token: string, expInSeconds: number) {
+  
+  async blacklistToken(token: string, expInSeconds: number): Promise<void> {
     await this.redis.set(`blacklist:${token}`, "1", { EX: expInSeconds });
   }
 

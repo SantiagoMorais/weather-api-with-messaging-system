@@ -7,6 +7,8 @@ import { APP_GUARD } from "@nestjs/core";
 import { JwtAuthGuard } from "./jwt/jwt-auth.guard";
 import { JwtStrategy } from "./jwt/jwt-strategy";
 import { RedisModule } from "./redis/redis.module";
+import { RedisService } from "./redis/redis.service";
+import { Blacklist } from "src/domain/user/authentication/blacklist";
 
 type SignOptionsType = Required<JwtModuleOptions>["signOptions"]["expiresIn"];
 
@@ -36,6 +38,10 @@ type SignOptionsType = Required<JwtModuleOptions>["signOptions"]["expiresIn"];
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
+    },
+    {
+      provide: Blacklist,
+      useClass: RedisService,
     },
     EnvService,
     JwtStrategy,

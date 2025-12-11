@@ -7,14 +7,29 @@ import { AuthenticateUserController } from "./models/controllers/authenticate-us
 import { AuthenticateUserUseCase } from "src/domain/user/application/use-cases/authenticate-user.usecase";
 import { UserProfileController } from "./models/controllers/user-profile.controller";
 import { FindUserByIdUseCase } from "src/domain/user/application/use-cases/find-user-by-id.usecase";
+import { LogoutUserController } from "./models/controllers/logout-user.controller";
+import { LogoutUserUseCase } from "src/domain/user/application/use-cases/logout-user.usecase";
+import { Blacklist } from "src/domain/user/authentication/blacklist";
+import { RedisService } from "src/infra/auth/redis/redis.service";
+import { RedisModule } from "src/infra/auth/redis/redis.module";
 
 @Module({
-  imports: [CryptographyModule, DatabaseModule],
+  imports: [CryptographyModule, DatabaseModule, RedisModule],
   controllers: [
     CreateUserController,
     AuthenticateUserController,
     UserProfileController,
+    LogoutUserController,
   ],
-  providers: [CreateUserUseCase, AuthenticateUserUseCase, FindUserByIdUseCase],
+  providers: [
+    CreateUserUseCase,
+    AuthenticateUserUseCase,
+    FindUserByIdUseCase,
+    LogoutUserUseCase,
+    {
+      provide: Blacklist,
+      useClass: RedisService,
+    },
+  ],
 })
 export class UserModule {}

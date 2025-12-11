@@ -23,12 +23,12 @@ import { AuthenticateUserResponseDTO } from "../dto/authenticate-user-response.d
 const bodyValidationPipe = new ZodValidationPipe(authenticateUserSchema);
 
 @ApiTags("Users")
-@Controller("/users/auth")
+@Controller("users")
 @Public()
 export class AuthenticateUserController {
   constructor(private authenticateUserUseCase: AuthenticateUserUseCase) {}
 
-  @Post()
+  @Post("auth")
   @HttpCode(200)
   @ApiBody({ type: AuthenticateUserSwaggerDTO })
   @ApiOkResponse({

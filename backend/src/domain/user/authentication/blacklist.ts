@@ -4,7 +4,7 @@ export abstract class Blacklist {
    * @param token JWT to be validated
    * @param ttl time in seconds to expires
    */
-  abstract blacklistToken(token: string, ttl: number): Promise<void>;
+  abstract blacklistToken(token: string, expInSeconds: number): Promise<void>;
 
   /**
    * Checks if the tokens is in blacklist
