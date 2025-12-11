@@ -9,7 +9,7 @@ import {
 } from "@nestjs/common";
 import { ApiBody, ApiOkResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { AuthenticateUserUseCase } from "src/domain/user/application/use-cases/authenticate-user.usecase";
-import { Public } from "src/infra/auth/public";
+import { Public } from "src/infra/auth/decorators/public.decorator";
 import { ZodValidationPipe } from "src/infra/http/pipes/zod-validation.pipe";
 import {
   authenticateUserSchema,

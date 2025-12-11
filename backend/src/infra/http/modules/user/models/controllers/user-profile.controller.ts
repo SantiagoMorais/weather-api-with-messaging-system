@@ -9,8 +9,8 @@ import {
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 import { type TUserPayload } from "src/core/types/utility-types/token-payload-schema";
 import { FindUserByIdUseCase } from "src/domain/user/application/use-cases/find-user-by-id.usecase";
-import { CurrentUser } from "src/infra/auth/current-user.decorator";
-import { JwtAuthGuard } from "src/infra/auth/jwt-auth.guard";
+import { CurrentUser } from "src/infra/auth/decorators/current-user.decorator";
+import { JwtAuthGuard } from "src/infra/auth/jwt/jwt-auth.guard";
 import { IUserProfileControllerResponse } from "../interfaces/user-profile-controller.response";
 import { ApiOkResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { UserProfileResponseDTO } from "../dto/user-profile-response.dto";

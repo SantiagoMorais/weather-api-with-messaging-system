@@ -5,7 +5,7 @@ import {
   tokenPayloadSchema,
   TUserPayload,
 } from "src/core/types/utility-types/token-payload-schema";
-import { EnvService } from "../env/env.service";
+import { EnvService } from "../../env/env.service";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {

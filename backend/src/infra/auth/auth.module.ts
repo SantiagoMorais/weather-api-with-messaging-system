@@ -4,8 +4,8 @@ import { PassportModule } from "@nestjs/passport";
 import { EnvModule } from "../env/env.module";
 import { EnvService } from "../env/env.service";
 import { APP_GUARD } from "@nestjs/core";
-import { JwtAuthGuard } from "./jwt-auth.guard";
-import { JwtStrategy } from "./jwt-strategy";
+import { JwtAuthGuard } from "./jwt/jwt-auth.guard";
+import { JwtStrategy } from "./jwt/jwt-strategy";
 
 type SignOptionsType = Required<JwtModuleOptions>["signOptions"]["expiresIn"];
 

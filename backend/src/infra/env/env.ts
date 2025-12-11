@@ -16,6 +16,7 @@ export const envSchema = z.object({
   WORKER_API_KEY: z.coerce.string(),
   SEED_USER_EMAIL: z.string().default("johndoe@gdash.com"),
   SEED_USER_PASS: z.string().default("Gdash@123"),
+  REDIS_URL: z.string(),
 });
 
 export type Env = z.infer<typeof envSchema>;

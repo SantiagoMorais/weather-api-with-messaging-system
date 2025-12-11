@@ -7,7 +7,7 @@ import {
   Post,
 } from "@nestjs/common";
 import { CreateUserUseCase } from "src/domain/user/application/use-cases/create-user.usecase";
-import { Public } from "src/infra/auth/public";
+import { Public } from "src/infra/auth/decorators/public.decorator";
 import { ZodValidationPipe } from "src/infra/http/pipes/zod-validation.pipe";
 import {
   createUserBodySchema,

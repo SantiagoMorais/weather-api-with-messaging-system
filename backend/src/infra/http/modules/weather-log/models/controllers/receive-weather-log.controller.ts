@@ -9,8 +9,8 @@ import {
 import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { DataAlreadyExistsError } from "src/core/errors/data-already-exists-error";
 import { ReceiveWeatherLogUseCase } from "src/domain/weatherLog/application/use-cases/receive-weather-log.usecase";
-import { Public } from "src/infra/auth/public";
-import { WorkerProtected } from "src/infra/auth/worker-protected.decorator";
+import { Public } from "src/infra/auth/decorators/public.decorator";
+import { WorkerProtected } from "src/infra/auth/decorators/worker-protected.decorator";
 import { ZodValidationPipe } from "src/infra/http/pipes/zod-validation.pipe";
 import { WeatherLogPropsSwaggerDTO } from "../dto/weather-log-props-swagger.dto";
 import {
