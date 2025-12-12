@@ -12,25 +12,27 @@ export const UserSheetDataPending = ({
     if (isPending) return <Loader2 className="mx-auto size-8 animate-spin" />;
     if (error)
       return (
-        <p className="space-x-2">
+        <span className="block space-x-2">
           <ListX className="text-destructive" /> Data not found!
-        </p>
+        </span>
       );
 
-    return (
-      <>
-        <p>
-          <strong>Usuário:</strong> {data?.name}
-        </p>
-        <p>
-          <strong>Cliente desde:</strong>{" "}
-          {format(new Date(data!.createdAt), "dd/mm/yyyy")}
-        </p>
-        <p>
-          <strong>Email:</strong> {data?.email}
-        </p>
-      </>
-    );
+    console.log(data.createdAt);
+    if (data)
+      return (
+        <>
+          <span className="block">
+            <strong>Usuário:</strong> {data?.name}
+          </span>
+          <span className="block">
+            <strong>Cliente desde:</strong>{" "}
+            {format(data.createdAt, "dd/MM/yyyy")}
+          </span>
+          <span className="block">
+            <strong>Email:</strong> {data?.email}
+          </span>
+        </>
+      );
   };
 
   return (

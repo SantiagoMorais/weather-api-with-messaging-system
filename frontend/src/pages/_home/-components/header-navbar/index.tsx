@@ -13,6 +13,7 @@ export const HeaderNavbar = ({
   <nav className={cn("hidden md:flex", className)}>
     {navigationRoutes.map((route) => (
       <Button
+        key={route.path}
         asChild
         variant="ghost"
         className={cn(

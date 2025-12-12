@@ -54,13 +54,14 @@ export const DownloadContentFileButton = ({
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger
-        className={cn(
-          "absolute top-4 left-4 opacity-50 hover:opacity-100",
-          className
-        )}
-      >
-        <TooltipMessageTrigger tooltipContent="Download dos dados">
+      <TooltipMessageTrigger tooltipContent="Download dos dados">
+        <AlertDialogTrigger
+          className={cn(
+            "absolute top-4 left-4 opacity-50 hover:opacity-100",
+            className
+          )}
+          asChild
+        >
           <Button
             size="icon"
             className={cn(
@@ -70,8 +71,8 @@ export const DownloadContentFileButton = ({
           >
             <MdDownload className="text-foreground size-6" />
           </Button>
-        </TooltipMessageTrigger>
-      </AlertDialogTrigger>
+        </AlertDialogTrigger>
+      </TooltipMessageTrigger>
       <AlertDialogContent>
         <AlertDialogHeader className="pb-4">
           <AlertDialogTitle>Baixar dados de clima</AlertDialogTitle>

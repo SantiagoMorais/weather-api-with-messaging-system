@@ -1,8 +1,9 @@
 import { getUserProfileData } from "@/api/user/get-user-profile-data";
+import { HeaderNavbar } from "@/pages/_home/-components/header-navbar";
 import { calculateStaleTimeUntilNextHour } from "@/utils/functions/calculate-stale-time-until-next-hour";
 import { useQuery } from "@tanstack/react-query";
+import { TooltipMessageTrigger } from "../tooltipMessageTrigger";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
 import {
   Sheet,
   SheetContent,
@@ -11,9 +12,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
+import { DisconnectButton } from "./disconnect-button";
 import { UserSheetDataPending } from "./user-sheet-data-pending";
-import { HeaderNavbar } from "@/pages/_home/-components/header-navbar";
-import { TooltipMessageTrigger } from "../tooltipMessageTrigger";
 
 export const UserAvatarButton = () => {
   const timeUntilNextHour = calculateStaleTimeUntilNextHour();
@@ -58,7 +58,7 @@ export const UserAvatarButton = () => {
             onProfile
             className="flex w-full flex-col items-center gap-2 border-t pt-4"
           />
-          <Button>Desconectar</Button>
+          <DisconnectButton />
         </SheetFooter>
       </SheetContent>
     </Sheet>
