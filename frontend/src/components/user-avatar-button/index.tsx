@@ -14,6 +14,7 @@ import {
 } from "../ui/sheet";
 import { DisconnectButton } from "./disconnect-button";
 import { UserSheetDataPending } from "./user-sheet-data-pending";
+import { DeleteUserButton } from "./delete-user-button";
 
 export const UserAvatarButton = () => {
   const timeUntilNextHour = calculateStaleTimeUntilNextHour();
@@ -58,6 +59,7 @@ export const UserAvatarButton = () => {
             onProfile
             className="flex w-full flex-col items-center gap-2 border-t pt-4"
           />
+          <DeleteUserButton />
           <DisconnectButton />
         </SheetFooter>
       </SheetContent>

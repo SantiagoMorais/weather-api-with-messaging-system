@@ -23,7 +23,7 @@ export class DeleteUserController {
     description: "Bad request - Zod Validation Error",
   })
   @ApiResponse({
-    status: 401,
+    status: 404,
     description: "Not found - User not found",
   })
   async handle(@CurrentUser() user: TUserPayload): Promise<void> {

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
+import { Form, FormMessage } from "@/components/ui/form";
 import {
   authenticateUserSchema,
   type TAuthenticateUser,
@@ -41,6 +41,10 @@ export const SignInForm = () => {
           if (error.status === 400)
             errorMessage =
               "Erro: Bad Request - Por favor, confira o preenchimento de todos os campos novamente.";
+          if (error.status === 401) {
+            form.setError("root", { message: "Email ou senha inválidos" });
+            return;
+          }
           if (error.status === 409)
             errorMessage = "Erro: Unauthorized - Email ou senha inválidos.";
         }
@@ -57,6 +61,12 @@ export const SignInForm = () => {
         <Button className="w-full" disabled={isLoading}>
           {isLoading ? <TbLoader2 className="size-5 animate-spin" /> : "Login"}
         </Button>
+        {form.formState.errors.root && (
+          <FormMessage className="text-center">
+            {" "}
+            {form.formState.errors.root.message}{" "}
+          </FormMessage>
+        )}
       </form>
     </Form>
   );

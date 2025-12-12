@@ -17,7 +17,6 @@ export const UserSheetDataPending = ({
         </span>
       );
 
-    console.log(data.createdAt);
     if (data)
       return (
         <>
