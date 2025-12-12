@@ -12,6 +12,8 @@ import { LogoutUserUseCase } from "src/domain/user/application/use-cases/logout-
 import { Blacklist } from "src/domain/user/authentication/blacklist";
 import { RedisService } from "src/infra/auth/redis/redis.service";
 import { RedisModule } from "src/infra/auth/redis/redis.module";
+import { DeleteUserUseCase } from "src/domain/user/application/use-cases/delete-user-usecase";
+import { DeleteUserController } from "./models/controllers/delete-user.controller";
 
 @Module({
   imports: [CryptographyModule, DatabaseModule, RedisModule],
@@ -20,12 +22,14 @@ import { RedisModule } from "src/infra/auth/redis/redis.module";
     AuthenticateUserController,
     UserProfileController,
     LogoutUserController,
+    DeleteUserController,
   ],
   providers: [
     CreateUserUseCase,
     AuthenticateUserUseCase,
     FindUserByIdUseCase,
     LogoutUserUseCase,
+    DeleteUserUseCase,
     {
       provide: Blacklist,
       useClass: RedisService,
