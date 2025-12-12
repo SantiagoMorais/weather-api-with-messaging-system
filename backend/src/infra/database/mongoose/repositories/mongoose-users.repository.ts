@@ -14,29 +14,28 @@ export class MongooseUsersRepository implements UsersRepository {
     private userModel: Model<UserDocument>
   ) {}
 
+  async delete(user: UserDomain): Promise<void | null> {
+    const userExists = await this.userModel.findOne({ id: user.id });
+    if (!userExists) return null;
+    await this.userModel.deleteOne({ id: user.id });
+  }
+
   async findById(id: UniqueEntityId): Promise<UserDomain | null> {
     const user = await this.userModel.findOne({ id: id.toString() });
-
-    if (!user) {
-      return null;
-    }
-
+    if (!user) return null;
     return MongooseUserMapper.toDomain(user);
   }
 
   async create(user: UserDomain): Promise<void> {
     const data = MongooseUserMapper.toMongoose(user);
-
     await this.userModel.create(data);
   }
 
   async findByEmail(email: string): Promise<UserDomain | null> {
     const user = await this.userModel.findOne({ email });
-
     if (!user) {
       return null;
     }
-
     return MongooseUserMapper.toDomain(user);
   }
 }

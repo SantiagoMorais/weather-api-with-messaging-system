@@ -21,7 +21,7 @@ describe("DeleteUserUseCase", () => {
 
     expect(inMemoryUsersRepository.users).toHaveLength(1);
 
-    const result = await sut.execute({ user: fakeUser });
+    const result = await sut.execute({ userId: fakeUser.id });
 
     expect(result.isSuccess()).toBe(true);
     expect(inMemoryUsersRepository.users).toHaveLength(0);

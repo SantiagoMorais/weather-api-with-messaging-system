@@ -13,9 +13,9 @@ export class DeleteUserUseCase {
   constructor(private usersRepository: UsersRepository) {}
 
   async execute({
-    user: { id },
+    userId,
   }: IDeleteUserUseCaseRequest): Promise<TDeleteUserUseCaseResponse> {
-    const user = await this.usersRepository.findById(id);
+    const user = await this.usersRepository.findById(userId);
 
     if (!user) return failure(new DataNotFoundError("User not exist"));
 
