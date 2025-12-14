@@ -24,8 +24,8 @@ export class User {
   @Prop({ type: Date, required: false })
   updatedAt?: Date | null;
 
-  @Prop({ type: [String], default: ["Role_User"], select: false })
-  roles: TUserRoles[] = ["Role_User"];
+  @Prop({ type: [String], required: true, select: false })
+  roles: TUserRoles[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

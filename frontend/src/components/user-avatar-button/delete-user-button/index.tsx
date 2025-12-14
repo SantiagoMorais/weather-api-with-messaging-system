@@ -24,12 +24,15 @@ export const DeleteUserButton = () => {
   useEffect(() => {
     if (countDown === 0) return;
 
-    setTimeout(() => {
+    const interval = setTimeout(() => {
       setCountDown((prev) => prev - 1);
     }, 1000);
+
+    return () => clearInterval(interval);
   }, [countDown]);
 
-  const onSubmit = async () =>
+  const onSubmit = async () => {
+    setIsLoading(true);
     await deleteUser()
       .then(() => {
         toast.warning("Usuário deletado. Vamos sentir sua falta!");
@@ -44,6 +47,11 @@ export const DeleteUserButton = () => {
           if (error.status === 400)
             errorMessage =
               "Erro: Bad Request - O servidor não recebeu todos os dados necessários para executar essa ação. Tente novamente mais tarde.";
+          if (error.status === 401) {
+            errorMessage = "Usuários administradores não podem ser excluídos";
+            return toast.info(errorMessage);
+          }
+
           if (error.status === 404)
             errorMessage =
               "Erro: Not found - Usuário não encontrado. Recarregue a página e tente novamente";
@@ -52,6 +60,7 @@ export const DeleteUserButton = () => {
         toast.error(errorMessage);
       })
       .finally(() => setIsLoading(false));
+  };
 
   return (
     <AlertDialog>
@@ -71,7 +80,7 @@ export const DeleteUserButton = () => {
           <Button variant="outline" asChild disabled={isLoading}>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
           </Button>
-          <Button onClick={onSubmit} disabled={isLoading || countDown !== 0}>
+          <Button onClick={onSubmit} disabled={isLoading || countDown > 0}>
             {isLoading ? (
               <TbLoader2 className="size-5 animate-spin" />
             ) : (

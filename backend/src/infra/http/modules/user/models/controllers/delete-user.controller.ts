@@ -47,7 +47,7 @@ export class DeleteUserController {
 
       switch (error.constructor) {
         case ActionNotPermittedError:
-          throw new UnauthorizedException(error.message)
+          throw new UnauthorizedException(error.message);
         case DataNotFoundError:
           throw new NotFoundException(error.message);
         default:

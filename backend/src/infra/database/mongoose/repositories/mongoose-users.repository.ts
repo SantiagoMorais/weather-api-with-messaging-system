@@ -21,7 +21,9 @@ export class MongooseUsersRepository implements UsersRepository {
   }
 
   async findById(id: UniqueEntityId): Promise<UserDomain | null> {
-    const user = await this.userModel.findOne({ id: id.toString() });
+    const user = await this.userModel
+      .findOne({ id: id.toString() })
+      .select("+roles");
     if (!user) return null;
     return MongooseUserMapper.toDomain(user);
   }

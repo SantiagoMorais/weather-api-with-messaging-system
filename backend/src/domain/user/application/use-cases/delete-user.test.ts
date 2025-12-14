@@ -5,6 +5,7 @@ import { PasswordMismatchError } from "src/core/errors/password-mismatch-error";
 import { UserAlreadyExistsError } from "src/core/errors/user-already-exists-error";
 import { DeleteUserUseCase } from "./delete-user-usecase";
 import { makeUser } from "test/factories/make-user";
+import { ActionNotPermittedError } from "src/core/errors/action-not-permitted-error";
 
 let inMemoryUsersRepository: InMemoryUsersRepository;
 let sut: DeleteUserUseCase;
@@ -25,5 +26,17 @@ describe("DeleteUserUseCase", () => {
 
     expect(result.isSuccess()).toBe(true);
     expect(inMemoryUsersRepository.users).toHaveLength(0);
+  });
+
+  it("should not be able to delete an admin user", async () => {
+    const fakeAdminUser = makeUser({ roles: ["Role_Admin"] });
+    await inMemoryUsersRepository.create(fakeAdminUser);
+
+    expect(inMemoryUsersRepository.users).toHaveLength(1);
+
+    const result = await sut.execute({ userId: fakeAdminUser.id });
+
+    expect(result.isFailure()).toBe(true);
+    expect(result.value).toBeInstanceOf(ActionNotPermittedError);
   });
 });

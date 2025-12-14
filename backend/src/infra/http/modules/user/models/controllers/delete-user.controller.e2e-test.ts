@@ -8,6 +8,7 @@ import { AppModule } from "src/infra/app.module";
 import { UserDocument } from "src/infra/database/mongoose/schemas/user.schema";
 import { authenticateAndGetToken } from "test/helpers/authenticate-and-get-token";
 import request from "supertest";
+import { UniqueEntityId } from "src/core/entities/unique-entity-id";
 
 const USER_MODEL_TOKEN = getModelToken(User.name);
 
@@ -17,7 +18,7 @@ describe("DeleteUserController (E2E)", () => {
   let accessToken: string;
   let jwt: JwtService;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -31,22 +32,42 @@ describe("DeleteUserController (E2E)", () => {
     accessToken = await authenticateAndGetToken({ userModel, jwt });
   });
 
-  afterAll(async () => {
+  afterEach(async () => {
     await userModel.deleteMany({});
     await app.close();
   });
 
-  test("[DELETE]/users/delete", async () => {
-    const usersList = await userModel.find();
-    expect(usersList).toHaveLength(1);
+  describe("[DELETE]/users/delete", () => {
+    it("should be able to delete an user", async () => {
+      const usersList = await userModel.find();
+      expect(usersList).toHaveLength(1);
 
-    const response = await request(app.getHttpServer())
-      .delete("/users/delete")
-      .set("Authorization", `Bearer ${accessToken}`);
+      const response = await request(app.getHttpServer())
+        .delete("/users/delete")
+        .set("Authorization", `Bearer ${accessToken}`);
 
-    expect(response.statusCode).toBe(200);
+      expect(response.statusCode).toBe(200);
 
-    const usersListUpdated = await userModel.find();
-    expect(usersListUpdated).toHaveLength(0);
+      const usersListUpdated = await userModel.find();
+      expect(usersListUpdated).toHaveLength(0);
+    });
+
+    it("should not be able to delete a admin user", async () => {
+      const adminUser = await userModel.create({
+        roles: ["Role_Admin"],
+        password: "John@1234",
+        email: "johnDoe2@mail.com",
+        name: "John Doe",
+        id: new UniqueEntityId().toString(),
+      });
+
+      const newAccessToken = jwt.sign({ sub: adminUser.id });
+
+      const response = await request(app.getHttpServer())
+        .delete("/users/delete")
+        .set("Authorization", `Bearer ${newAccessToken}`);
+
+      expect(response.statusCode).toEqual(401);
+    });
   });
 });
