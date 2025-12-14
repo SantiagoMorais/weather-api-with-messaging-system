@@ -4,8 +4,8 @@ import { ThemeTogglerButton } from "@/components/theme-toggle-button";
 import { UserAvatarButton } from "@/components/user-avatar-button";
 import { requireAuth } from "@/core/guards/auth-guard";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { Dashboard } from "./-components/dashboard";
 import { AIInsightHeaderBar } from "./-components/ai-insight-header-bar";
+import { Dashboard } from "./-components/dashboard";
 import { DownloadContentFileButton } from "./-components/dashboard/current-weather-card/download-content-file-button";
 
 export const Route = createFileRoute("/_home/")({
