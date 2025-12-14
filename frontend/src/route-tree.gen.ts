@@ -9,15 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './pages/__root'
-import { Route as PokemonsIndexRouteImport } from './pages/pokemons/index'
 import { Route as LoginIndexRouteImport } from './pages/login/index'
 import { Route as HomeIndexRouteImport } from './pages/_home/index'
 
-const PokemonsIndexRoute = PokemonsIndexRouteImport.update({
-  id: '/pokemons/',
-  path: '/pokemons/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LoginIndexRoute = LoginIndexRouteImport.update({
   id: '/login/',
   path: '/login/',
@@ -32,42 +26,31 @@ const HomeIndexRoute = HomeIndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof HomeIndexRoute
   '/login': typeof LoginIndexRoute
-  '/pokemons': typeof PokemonsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof HomeIndexRoute
   '/login': typeof LoginIndexRoute
-  '/pokemons': typeof PokemonsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_home/': typeof HomeIndexRoute
   '/login/': typeof LoginIndexRoute
-  '/pokemons/': typeof PokemonsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/pokemons'
+  fullPaths: '/' | '/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/pokemons'
-  id: '__root__' | '/_home/' | '/login/' | '/pokemons/'
+  to: '/' | '/login'
+  id: '__root__' | '/_home/' | '/login/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   HomeIndexRoute: typeof HomeIndexRoute
   LoginIndexRoute: typeof LoginIndexRoute
-  PokemonsIndexRoute: typeof PokemonsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/pokemons/': {
-      id: '/pokemons/'
-      path: '/pokemons'
-      fullPath: '/pokemons'
-      preLoaderRoute: typeof PokemonsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/login/': {
       id: '/login/'
       path: '/login'
@@ -88,7 +71,6 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   HomeIndexRoute: HomeIndexRoute,
   LoginIndexRoute: LoginIndexRoute,
-  PokemonsIndexRoute: PokemonsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

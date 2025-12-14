@@ -1,5 +1,4 @@
 import { getUserProfileData } from "@/api/user/get-user-profile-data";
-import { HeaderNavbar } from "@/pages/_home/-components/header-navbar";
 import { calculateStaleTimeUntilNextHour } from "@/utils/functions/calculate-stale-time-until-next-hour";
 import { useQuery } from "@tanstack/react-query";
 import { TooltipMessageTrigger } from "../tooltipMessageTrigger";
@@ -55,10 +54,6 @@ export const UserAvatarButton = () => {
           />
         </SheetHeader>
         <SheetFooter className="space-y-2">
-          <HeaderNavbar
-            onProfile
-            className="flex w-full flex-col items-center gap-2 border-t pt-4"
-          />
           <DeleteUserButton />
           <DisconnectButton />
         </SheetFooter>
