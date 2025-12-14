@@ -3,10 +3,13 @@ import {
   Controller,
   Delete,
   Logger,
+  NotAcceptableException,
   NotFoundException,
+  UnauthorizedException,
 } from "@nestjs/common";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
 import { UniqueEntityId } from "src/core/entities/unique-entity-id";
+import { ActionNotPermittedError } from "src/core/errors/action-not-permitted-error";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
 import { type TUserPayload } from "src/core/types/utility-types/token-payload-schema";
 import { DeleteUserUseCase } from "src/domain/user/application/use-cases/delete-user-usecase";
@@ -21,6 +24,10 @@ export class DeleteUserController {
   @ApiResponse({
     status: 400,
     description: "Bad request - Zod Validation Error",
+  })
+  @ApiResponse({
+    status: 401,
+    description: "Not allowed - Admin user cannot be deleted",
   })
   @ApiResponse({
     status: 404,
@@ -39,6 +46,8 @@ export class DeleteUserController {
       Logger.error(error.message);
 
       switch (error.constructor) {
+        case ActionNotPermittedError:
+          throw new UnauthorizedException(error.message)
         case DataNotFoundError:
           throw new NotFoundException(error.message);
         default:

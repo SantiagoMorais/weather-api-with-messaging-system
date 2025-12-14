@@ -7,6 +7,7 @@ import {
 } from "../../enterprise/interfaces/delete-user-use-case";
 import { failure, success } from "src/core/result";
 import { DataNotFoundError } from "src/core/errors/data-not-found-error";
+import { ActionNotPermittedError } from "src/core/errors/action-not-permitted-error";
 
 @Injectable()
 export class DeleteUserUseCase {
@@ -18,6 +19,11 @@ export class DeleteUserUseCase {
     const user = await this.usersRepository.findById(userId);
 
     if (!user) return failure(new DataNotFoundError("User not exist"));
+
+    if (user.roles.includes("Role_Admin"))
+      return failure(
+        new ActionNotPermittedError("You can't delete an admin user")
+      );
 
     await this.usersRepository.delete(user);
 
