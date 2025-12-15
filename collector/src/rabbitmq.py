@@ -3,11 +3,11 @@ import json
 from src.settings import settings
 
 def send_message(payload: dict):
-    connection = pika.BlockingConnection(
-        pika.ConnectionParameters(host=settings.RABBITMQ_HOST)
-    )
+    params = pika.URLParameters(settings.RABBITMQ_URL)
 
+    connection = pika.BlockingConnection(params)
     channel = connection.channel()
+    
     channel.queue_declare(queue=settings.RABBITMQ_QUEUE, durable=True)
 
     message = json.dumps(payload)

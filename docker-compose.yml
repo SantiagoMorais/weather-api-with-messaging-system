@@ -17,6 +17,11 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   nestapi:
     build:
@@ -48,7 +53,8 @@ services:
     env_file:
       - ./collector/.env
     depends_on:
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
 
   go-worker:
     build:
@@ -69,7 +75,7 @@ services:
     ports:
       - "6379:6379"
     command: ["redis-server", "--appendonly", "yes"]
-    volumes: 
+    volumes:
       - redis-data:/data
 
 volumes:

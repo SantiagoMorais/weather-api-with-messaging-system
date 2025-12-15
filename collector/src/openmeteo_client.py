@@ -11,10 +11,10 @@ def fetch_weather():
     # Time handling
     local_tz = pytz.timezone(settings.TIMEZONE_API)
     now = datetime.now(local_tz)
-    now_rounded = now.replace(minute=0, second=0, microsecond=0, tzinfo=None)
+    now_rounded = now.replace(minute=0, second=0, microsecond=0)
 
     # API setup
-    cache_session = requests_cache.CachedSession(".cache", expire_after=3600) # 3600 seconds = An hour
+    cache_session = requests_cache.CachedSession(expire_after=0)
     retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
     openmeteo = openmeteo_requests.Client(session=retry_session)
 
@@ -61,13 +61,23 @@ def fetch_weather():
         "soil_moisture": hourly.Variables(12).ValuesAsNumpy(),
     })
 
+    dataFrame["date"] = dataFrame["date"].dt.tz_localize(settings.TIMEZONE_API)
+
+    print("NOW:", now_rounded)
+    print("DF HEAD:", dataFrame["date"].head(3))
+    print("DF TZ:", dataFrame["date"].dt.tz)
+
     mask = dataFrame["date"] == now_rounded
-    if not mask.any():
-        raise ValueError("Current hour not found on the API response")
-    
-    current_data = dataFrame.loc[mask].iloc[0]
-    current_index = dataFrame.index[mask][0]
+
+    if mask.any():
+        current_index = dataFrame.index[mask][0]
+    else:
+        # fallback: take most recent hour
+        current_index = (dataFrame["date"] - now_rounded).abs().idxmin()
+
+    current_data = dataFrame.loc[current_index]
     forecast_24h = dataFrame.iloc[current_index + 1 : current_index + 25]
+
 
     meta = {
         "latitude": latitude,
@@ -76,3 +86,5 @@ def fetch_weather():
     }
     
     return current_data, forecast_24h, meta
+
+fetch_weather()
