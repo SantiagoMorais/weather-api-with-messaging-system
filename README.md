@@ -2,48 +2,58 @@
 
 ## Stacks utilizadas
 
-**🤖 IA / Integrações**
-
 ![Gemini](https://img.shields.io/badge/Gemini-8E75FF?style=for-the-badge&logo=googlegemini&logoColor=white)
-
-**🧠 Backend**
-
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
 ![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
 ![bcrypt](https://img.shields.io/badge/bcrypt-338CC7?style=for-the-badge&logo=ubuntu&logoColor=white)
-
-**🗄️ Banco de dados / Cache / Mensageria**
-
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
 ![RabbitMQ](https://img.shields.io/badge/RabbitMQ-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white)
-
-**🎨 Frontend**
-
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white)
 ![TanStack Query](https://img.shields.io/badge/TanStack%20Query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white)
 ![TanStack Router](https://img.shields.io/badge/TanStack%20Router-FF4154?style=for-the-badge&logo=reactrouter&logoColor=white)
-
-**🧪 Linguagens / Ferramentas**
-
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![GoLand](https://img.shields.io/badge/GoLand-0A74DA?style=for-the-badge&logo=goland&logoColor=white)
-
-**📦 DevOps / Infra**
-
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-
-**📚 Documentação**
-
 ![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=white)
 
 ---
 
+![Dashboard](/frontend/src/assets/screenshots/dashboard-page.png)
 ![Área de login do projeto](/frontend/src/assets/screenshots/login-page.png)
+
+## 📑 Sumário
+
+- [Insight de previsão de tempo com IA](#insight-de-previsão-de-tempo-com-ia)
+  - [Stacks utilizadas](#stacks-utilizadas)
+  - [Sobre o projeto](#sobre-o-projeto)
+- [Como executar o projeto completo via Docker](#como-executar-o-projeto-completo-via-docker)
+- [Como executar o serviço RabbitMQ](#como-executar-o-serviço-rabbitmq)
+- [Como executar o serviço Redis](#como-executar-o-serviço-redis)
+- [Como executar o projeto Python localmente](#como-executar-o-projeto-python-localmente)
+  - [Conceitos importantes antes da execução](#conceitos-importantes-antes-da-execução)
+    - [Ambiente virtual](#ambiente-virtual)
+  - [Execução do projeto](#execução-do-projeto)
+  - [Gerenciamento de Dependências](#gerenciamento-de-dependências)
+    - [Instalar as Dependências](#1-instalar-as-dependências)
+    - [Adicionar e Fixar Novas Dependências](#2-adicionar-e-fixar-novas-dependências)
+  - [Desativar o Ambiente](#desativar-o-ambiente)
+  - [Automação (Opcional)](#automação-opcional)
+    - [Criar e Executar o Script](#1-criar-e-executar-o-script)
+  - [Configuração do VS Code / Pylance (Correção de Importação)](#configuração-do-vs-code--pylance-correção-de-importação)
+    - [Corrigir o Interpretador no VS Code](#1-corrigir-o-interpretador-no-vs-code)
+    - [Confirmação](#2-confirmação)
+  - [Execução do projeto](#execução-do-projeto-1)
+- [Como executar o projeto GO localmente](#como-executar-o-projeto-go-localmente)
+- [Como exeuctar o banco de dados MongoDB](#como-exeuctar-o-banco-de-dados-mongodb)
+- [Como executar o servidor NestJS](#como-executar-o-servidor-nestjs)
+- [Como executar o serviço React + Vite localmente](#como-executar-o-serviço-react--vite-localmente)
+- [Resumo](#resumo)
+- [Autor](#autor)
 
 ## Sobre o projeto:
 
@@ -65,6 +75,74 @@
   - Sistema de paginação da API de pokemons
 
 ---
+
+# Como executar o projeto completo via Docker
+
+<div align="center" style="padding-bottom: 40px">
+  <img/ alt="Docker logo" width="300" src="https://logopng.com.br/logos/docker-27.png">
+</div>
+
+Primeiramente todos os serviços possuem variáveis ambiente, portanto:
+
+- Crie e configure as variáveis ambiente, seguindo os respectivos arquivos `.env.example` em:
+  - Python collector: `/collector/.env`
+  - Go worker: `/worker/.env`
+  - Nest API: `/backend/.env`
+  - React: `/frontend/.env`
+  - RabbitMQ: `/.env.rabbitmq`
+  - Mongo: `/.env.mongo`
+  - Redis: `/.env.redis`
+
+Após configurar as variáveis ambiente corretamente e com o docker instalado corretamente, execute:
+
+Windows
+
+```bash
+docker compose up -d
+```
+
+Linux (use sudo, se necessário, em todos os comandos docker):
+
+```bash
+sudo docker compose up -d
+```
+
+Confira se todos os serviços estão sendo executados corretamente e não estão reiniciando diante de erros executando o comando:
+
+```bash
+docker ps
+```
+
+ou, para visualizar todos os containers que foram criados, tanto os em execução e os parados com:
+
+```bash
+docker ps -a
+```
+
+Confira se todos os serviços estão executando corretamente e corrija os erros, caso necessário.
+Caso algum dos serviços esteja com status de `Exited` ou `Restarting` use o comando abaixo para visualizar os logs do serviço e assim corrigir possíveis erros:
+
+```bash
+docker logs nome-do-servico
+```
+
+Normalmente os serviços no container começam com `gdash` e acabam com o número `1`. Exemplo
+
+- Nome do serviço docker: `python-collector`
+- Nome do serviço em execução: `gdash-python-collector-1`
+
+Portanto, para visualizar os logs deste serviço, execute assim:
+
+```bash
+docker logs gdash-python-collector-1
+```
+
+Caso esteja tudo certo e caso não tenha sido mudado nenhuma configuração do padrão, você conseguirá acessar os seguintes serviços:
+
+- Dashboard Frontend em: `http://localhost:5173`
+- Documentação Swagger das rotas HTTP: `http://localhost:3000/docs`
+
+Abaixo você irá aprender a executar os serviços separadamente.
 
 # Como executar o serviço RabbitMQ
 
@@ -111,6 +189,34 @@ sudo docker ps -a
 ```
 
 Agora pronto para ser utilizado pelos nossos serviços Collector(Python) e pelo Worker(GO).
+
+---
+
+# Como executar o serviço Redis
+
+<div align="center">
+  <img/ alt="Redis logo" width="400" src="https://download.logo.wine/logo/Redis/Redis-Logo.wine.png">
+</div>
+
+O serviço Redis aqui possui um objetivo bem direto e objetivo. O serviço NestJS utiliza autenticação via TOKENS utilizando `JWT` e, como sabemos, os tokens são irrevogávei. Dessa forma, para gerenciar o logout de um usuário na aplicação foi criado uma `blacklist`(lista negra) criada com o Redis, que vai agir como um "banco de dados" veloz, onde o seu único objetivo é guardar o token de autenticação dos usuários deslogados.
+
+Por que isso? Já que o token do JWT é irrevogável ele só vai deixar de existir quando o período de expiração finalizar. Assim, o token ativo é salvo no redis e antes de o usuário ser validado pra acessar uma rota segura primeiramente é avaliado se o seu token não está na lista negra. Caso esteja, a aplicação entende que aquele token pertencia a um usuário que deslogou da aplicação, assim deve realizar nova autenticação para receber um token válido. Caso seu token não esteja na lista negra o usuário possui acesso irrestrito às rotas privadas.
+
+Para configurá-lo é só criar o arquivo `/.env.redis` na raiz do projeto, seguindo os exemplos no arquivo `/.env.redis.example` para saber o que é necessário para que o serviço seja executado e como ser utilizado corretamente pelos serviços que dependem dele.
+
+Ao subir o container ele já estará pronto pra uso. Execute:
+
+```bash
+docker compose up -d
+```
+
+Para subir todos os containers, inclusive o redis, ou:
+
+```bash
+docker compose up -d redis
+```
+
+Para subir somente o serviço redis.
 
 ---
 
@@ -453,3 +559,21 @@ pnpm dev
 yarn dev
 npm run dev
 ```
+
+## Resumo
+
+- Essa aplicação tem os seguintes passos:
+  - Coletar dados de clima da API `open_metheo` via `Python`
+  - Adicionar os dados ao sistema de mensageria do `RabbitMQ`
+  - O Worker `Goland` consome a fila e envia para o backend `NestJS` através de rotas HTTP
+  - `NestJS` organiza as rotas HTTP e persiste os dados no banco de dados noSQL `MongoDB`
+    - `NestJS`também utiliza o serviço `Redis` para criaçã oda blacklist
+  - O Frontend desenvolvido em `Vite` e `React` consome e renderiza um dashboard com os dados, além da possibilidade de criar e excluir novos usuários e baixar os dados para os formatos `CSV` e `XLSX`.
+- Tudo é executável via `Docker`
+
+## Autor
+
+- GitHub - [Felipe Santiago Morais](https://github.com/SantiagoMorais)
+- Linkedin - [Felipe Santiago](https://www.linkedin.com/in/felipe-santiago-873025288/)
+- Email - <a href="mailto:contatofelipesantiago@gmail.com" target="blank">contatofelipesantiago@gmail.com</a>
+- <a href="https://api.whatsapp.com/send?phone=5531996951033&text=Hi%2C%20Felipe%21%20I%20got%20your%20contact%20from%20your%20repository.">Whatsapp</a>
